@@ -1,0 +1,74 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorex.Application", "Bussiness\Vorex.Application\Vorex.Application.csproj", "{A7D9581C-CB57-28F5-3519-74959619ED97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorex.Domain", "Bussiness\Vorex.Domain\Vorex.Domain.csproj", "{6930F30F-CB6A-F864-7F69-8ECA63A49B48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorex.Infrastructure", "Bussiness\Vorex.Infrastructure\Vorex.Infrastructure.csproj", "{7F3D7984-FAC0-F5D8-6767-364C135BED90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorex.WebApi", "Bussiness\Vorex.WebApi\Vorex.WebApi.csproj", "{3FCC3706-17FA-3BEF-3D10-33AEFD30F7F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Vorex.Client", "Vorex.Client\", "{4F9EFB9F-A290-B22E-669B-A67E2622000B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58139"
+		Debug.AspNetCompiler.PhysicalPath = "Vorex.Client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58139\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58139"
+		Release.AspNetCompiler.PhysicalPath = "Vorex.Client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58139\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58139"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7D9581C-CB57-28F5-3519-74959619ED97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7D9581C-CB57-28F5-3519-74959619ED97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7D9581C-CB57-28F5-3519-74959619ED97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7D9581C-CB57-28F5-3519-74959619ED97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6930F30F-CB6A-F864-7F69-8ECA63A49B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6930F30F-CB6A-F864-7F69-8ECA63A49B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6930F30F-CB6A-F864-7F69-8ECA63A49B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6930F30F-CB6A-F864-7F69-8ECA63A49B48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F3D7984-FAC0-F5D8-6767-364C135BED90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3D7984-FAC0-F5D8-6767-364C135BED90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F3D7984-FAC0-F5D8-6767-364C135BED90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F3D7984-FAC0-F5D8-6767-364C135BED90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FCC3706-17FA-3BEF-3D10-33AEFD30F7F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FCC3706-17FA-3BEF-3D10-33AEFD30F7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FCC3706-17FA-3BEF-3D10-33AEFD30F7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FCC3706-17FA-3BEF-3D10-33AEFD30F7F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9EFB9F-A290-B22E-669B-A67E2622000B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9EFB9F-A290-B22E-669B-A67E2622000B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9EFB9F-A290-B22E-669B-A67E2622000B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9EFB9F-A290-B22E-669B-A67E2622000B}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A7D9581C-CB57-28F5-3519-74959619ED97} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6930F30F-CB6A-F864-7F69-8ECA63A49B48} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7F3D7984-FAC0-F5D8-6767-364C135BED90} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{3FCC3706-17FA-3BEF-3D10-33AEFD30F7F1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFD0B629-F7B3-4B98-8A03-498F460FC094}
+	EndGlobalSection
+EndGlobal

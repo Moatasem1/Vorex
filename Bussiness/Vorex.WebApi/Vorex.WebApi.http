@@ -1,0 +1,6 @@
+@Vorex.WebApi_HostAddress = http://localhost:5157
+
+GET {{Vorex.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

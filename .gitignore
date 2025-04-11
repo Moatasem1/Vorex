@@ -1,0 +1,23 @@
+# Ignore node modules for Angular
+/Vorex.Client/.vscode/node_modules/
+
+# Ignore Angular build output
+/Vorex.Client/dist/
+
+# Ignore IDE configuration folders (optional)
+/Vorex.Client/.vscode/
+
+# Ignore .NET build and publish directories
+\Bussiness\Vorex.WebApi/bin
+\Bussiness\Vorex.WebApi/obj
+\Bussiness\Vorex.WebApi/publish
+
+# Ignore Visual Studio for Mac files
+.vs/
+
+# Ignore npm logs
+npm-debug.log
+yarn-error.log
+
+#Ignore seed data
+SeedData/
