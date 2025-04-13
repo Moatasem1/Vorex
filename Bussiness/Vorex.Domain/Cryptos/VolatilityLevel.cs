@@ -13,6 +13,6 @@ public class VolatilityLevel : Enumeration
     }
 
     public readonly static VolatilityLevel Low = new (0, "low");
-    public readonly static VolatilityLevel Medium = new (0, "medium");
-    public readonly static VolatilityLevel High = new (0, "heigh");
+    public readonly static VolatilityLevel Medium = new (1, "medium");
+    public readonly static VolatilityLevel High = new (2, "high");
 }

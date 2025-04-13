@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Vorex.Domain.Common;
+﻿using Vorex.Domain.Common;
 using Vorex.Domain.Common.Interfaces;
-using Vorex.Domain.Cryptos;
-using Vorex.Domain.User;
+using Vorex.Domain.lib;
 
 namespace Vorex.Domain.CryptoAnalyses;
 
@@ -11,32 +8,65 @@ public class CryptoAnalysisHistory : BaseEntity, IAggregateRoot
 {
     private CryptoAnalysisHistory() { }
 
-    [Required]
-    [ForeignKey(nameof(User.User))]
     public Guid UserId { get; private set; }
 
-    [Required]
-    [ForeignKey(nameof(Crypto))]
-    public Guid CryptoId { get; private set; }
+    public Guid CryptoId { get; private set;}
 
-    [Required]
-    [Range(0, double.MaxValue)]  
     public decimal Amount { get; private set; }
 
-    [Required]
-    [Range(1, int.MaxValue)] 
     public int HoldingDays { get; private set; }
 
-    [Required]
-    public DateTime SubmitDate { get; private set; }
+    public decimal Risk { get; private set; }
 
-    [Required]
-    [Range(1, float.MaxValue)]
-    public float Risk { get; private set; }
+    public static class Factory
+    {
+        public static Result<CryptoAnalysisHistory, Error> Create(Guid userId, Guid cryptoId, decimal amount, int holdingDays, DateTime submitDate, decimal risk)
+        {
+            var userIdValidation = ValidateId(userId,nameof(Id));
+            if (userIdValidation.IsFailure) return userIdValidation.Error;
 
-    private readonly List<CryptoFavorite> _favorites = [];
-    public virtual IReadOnlyCollection<CryptoFavorite> Favorites => _favorites.AsReadOnly();
+            var cryptoIdValidation = ValidateId(userId, nameof(userId));
+            if (cryptoIdValidation.IsFailure) return cryptoIdValidation.Error;
 
-    private readonly List<CryptoComparison> _comparisons = [];
-    public  virtual IReadOnlyCollection<CryptoComparison> Comparisons => _comparisons.AsReadOnly();
+            var amountValidation = ValidateAmount(amount);
+            if (amountValidation.IsFailure) return amountValidation.Error;
+
+            var holdingDaysValidation = ValidateHoldingDays(holdingDays);
+            if (holdingDaysValidation.IsFailure) return holdingDaysValidation.Error;
+
+            var riskValidation = ValidateRisk(risk);
+            if (riskValidation.IsFailure) return riskValidation.Error;
+                
+            var cryptoAnalysisHistory = new CryptoAnalysisHistory
+            {
+                Id = Guid.NewGuid(),
+                CreatedAt = DateTime.UtcNow,
+                UserId = userId,
+                CryptoId = cryptoId,
+                Amount = amount,
+                HoldingDays = holdingDays,
+                Risk = risk
+            };
+
+            return cryptoAnalysisHistory;
+        }
+    }
+
+    // Validation methods
+    private static Result<bool, Error> ValidateId(Guid id,string propertyName = nameof(Id))
+    {
+        return id == Guid.Empty ? Error.ValueRequired(nameof(CryptoAnalysisHistory), propertyName) : true;
+    }
+    private static Result<bool, Error> ValidateAmount(decimal amount)
+    {
+        return amount <= 0 ? Error.ValueRequired(nameof(CryptoAnalysisHistory), nameof(Amount)) : true;
+    }
+    private static Result<bool, Error> ValidateHoldingDays(int holdingDays)
+    {
+        return holdingDays <= 0 ? Error.ValueRequired(nameof(CryptoAnalysisHistory), nameof(HoldingDays)) : true;
+    }
+    private static Result<bool, Error> ValidateRisk(decimal risk)
+    {
+        return risk <= 0 ? Error.ValueRequired(nameof(CryptoAnalysisHistory), nameof(Risk)) : true;
+    }
 }
