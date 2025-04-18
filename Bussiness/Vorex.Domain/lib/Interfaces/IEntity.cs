@@ -1,5 +1,5 @@
 ﻿namespace Vorex.Domain.Common.Interfaces;
 
-interface IEntity
+public interface IEntity
 {
 }

@@ -1,7 +1,8 @@
 ﻿using Vorex.Domain.Common;
+using Vorex.Domain.Common.Interfaces;
 
 namespace Vorex.Domain.Cryptos;
-public class VolatilityLevel : Enumeration
+public class VolatilityLevel : Enumeration 
 {
     public VolatilityLevel()
     {

@@ -2,17 +2,17 @@
 
 public class Error
 {
-    private string _code;
-    private string _message { get; }
-    private string _source { get; }
-    private ErrorType _errorType { get; }
+    public string Code { get; private set; }
+    public string Message { get; private set; }
+    public string Source { get; private set; }
+    public ErrorType ErrorType { get; private set; }
 
     private Error(ErrorType error ,string code,string source, string message)
     {
-        _code = code;
-        _message = message;
-        _errorType = error;
-        _source = source;
+        Code = code;
+        Message = message;
+        ErrorType = error;
+        Source = source;
     }
 
     public static Error ValueRequired(string source,string property) =>

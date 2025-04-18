@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "ContainingType": "Vorex.WebApi.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "User",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Vorex.Application.Users.Contracts.Requests.CreateUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Guid",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Vorex.Domain.lib.Error",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  }
+]

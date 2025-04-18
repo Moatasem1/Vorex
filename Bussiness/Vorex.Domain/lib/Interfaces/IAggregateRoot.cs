@@ -1,6 +1,6 @@
 ﻿namespace Vorex.Domain.Common.Interfaces;
 
-interface IAggregateRoot : IEntity
+public interface IAggregateRoot : IEntity
 {
 
 }

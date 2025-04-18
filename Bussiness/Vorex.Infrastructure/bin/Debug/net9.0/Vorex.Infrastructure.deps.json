@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.4",
+          "Swashbuckle.AspNetCore": "8.1.1",
           "Vorex.Application": "1.0.0",
           "Vorex.Domain": "1.0.0"
         },
@@ -59,6 +60,26 @@
           "lib/net6.0/Humanizer.dll": {
             "assemblyVersion": "2.14.0.0",
             "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "MediatR/12.5.0": {
+        "dependencies": {
+          "MediatR.Contracts": "2.0.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.4"
+        },
+        "runtime": {
+          "lib/net6.0/MediatR.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.5.0.0"
+          }
+        }
+      },
+      "MediatR.Contracts/2.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "assemblyVersion": "2.0.1.0",
+            "fileVersion": "2.0.1.0"
           }
         }
       },
@@ -502,6 +523,7 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.4"
         }
       },
+      "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
       "Microsoft.Extensions.Caching.Abstractions/9.0.4": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.4"
@@ -706,6 +728,14 @@
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
+      "Microsoft.OpenApi/1.6.23": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
+            "assemblyVersion": "1.6.23.0",
+            "fileVersion": "1.6.23.0"
+          }
+        }
+      },
       "Microsoft.SqlServer.Server/1.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
@@ -738,6 +768,44 @@
           "lib/net6.0/Mono.TextTemplating.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.0.1"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore/8.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
+          "Swashbuckle.AspNetCore.Swagger": "8.1.1",
+          "Swashbuckle.AspNetCore.SwaggerGen": "8.1.1",
+          "Swashbuckle.AspNetCore.SwaggerUI": "8.1.1"
+        }
+      },
+      "Swashbuckle.AspNetCore.Swagger/8.1.1": {
+        "dependencies": {
+          "Microsoft.OpenApi": "1.6.23"
+        },
+        "runtime": {
+          "lib/net9.0/Swashbuckle.AspNetCore.Swagger.dll": {
+            "assemblyVersion": "8.1.1.0",
+            "fileVersion": "8.1.1.1274"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.SwaggerGen/8.1.1": {
+        "dependencies": {
+          "Swashbuckle.AspNetCore.Swagger": "8.1.1"
+        },
+        "runtime": {
+          "lib/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
+            "assemblyVersion": "8.1.1.0",
+            "fileVersion": "8.1.1.1274"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.SwaggerUI/8.1.1": {
+        "runtime": {
+          "lib/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
+            "assemblyVersion": "8.1.1.0",
+            "fileVersion": "8.1.1.1274"
           }
         }
       },
@@ -1013,6 +1081,7 @@
       },
       "Vorex.Application/1.0.0": {
         "dependencies": {
+          "MediatR": "12.5.0",
           "Vorex.Domain": "1.0.0"
         },
         "runtime": {
@@ -1058,6 +1127,20 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "MediatR/12.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vqm2H8/nqL5NAJHPhsG1JOPwfkmbVrPyh4svdoRzu+uZh6Ex7PRoHBGsLYC0/RWCEJFqD1ohHNpteQvql9OktA==",
+      "path": "mediatr/12.5.0",
+      "hashPath": "mediatr.12.5.0.nupkg.sha512"
+    },
+    "MediatR.Contracts/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
+      "path": "mediatr.contracts/2.0.1",
+      "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",
@@ -1191,6 +1274,13 @@
       "sha512": "sha512-QW87VJ1TRTN/tOATTfaXlP8BZZjpi9XkOwJHvDUQosS7cmD03bkYkbp3eoLwIlLOHRJaWi1NhOjqQ9zoBPZa9w==",
       "path": "microsoft.entityframeworkcore.tools/9.0.4",
       "hashPath": "microsoft.entityframeworkcore.tools.9.0.4.nupkg.sha512"
+    },
+    "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ckb5EDBUNJdFWyajfXzUIMRkhf52fHZOQuuZg/oiu8y7zDCVwD0iHhew6MnThjHmevanpxL3f5ci2TtHQEN6bw==",
+      "path": "microsoft.extensions.apidescription.server/6.0.5",
+      "hashPath": "microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/9.0.4": {
       "type": "package",
@@ -1332,6 +1422,13 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
     },
+    "Microsoft.OpenApi/1.6.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tZ1I0KXnn98CWuV8cpI247A17jaY+ILS9vvF7yhI0uPPEqF4P1d7BWL5Uwtel10w9NucllHB3nTkfYTAcHAh8g==",
+      "path": "microsoft.openapi/1.6.23",
+      "hashPath": "microsoft.openapi.1.6.23.nupkg.sha512"
+    },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1352,6 +1449,34 @@
       "sha512": "sha512-YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore/8.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HJHexmU0PiYevgTLvKjYkxEtclF2w4O7iTd3Ef3p6KeT0kcYLpkFVgCw6glpGS57h8769anv8G+NFi9Kge+/yw==",
+      "path": "swashbuckle.aspnetcore/8.1.1",
+      "hashPath": "swashbuckle.aspnetcore.8.1.1.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.Swagger/8.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h+8D5jQtnl6X4f2hJQwf0Khj0SnCQANzirCELjXJ6quJ4C1aNNCvJrAsQ+4fOKAMqJkvW48cKj79ftG+YoGcRg==",
+      "path": "swashbuckle.aspnetcore.swagger/8.1.1",
+      "hashPath": "swashbuckle.aspnetcore.swagger.8.1.1.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.SwaggerGen/8.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2EuPzXSNleOOzYvziERWRLnk1Oz9i0Z1PimaUFy1SasBqeV/rG+eMfwFAMtTaf4W6gvVOzRcUCNRHvpBIIzr+A==",
+      "path": "swashbuckle.aspnetcore.swaggergen/8.1.1",
+      "hashPath": "swashbuckle.aspnetcore.swaggergen.8.1.1.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.SwaggerUI/8.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GDLX/MpK4oa2nYC1N/zN2UidQTtVKLPF6gkdEmGb0RITEwpJG9Gu8olKqPYnKqVeFn44JZoCS0M2LGRKXP8B/A==",
+      "path": "swashbuckle.aspnetcore.swaggerui/8.1.1",
+      "hashPath": "swashbuckle.aspnetcore.swaggerui.8.1.1.nupkg.sha512"
     },
     "System.ClientModel/1.0.0": {
       "type": "package",
