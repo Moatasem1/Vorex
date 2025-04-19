@@ -3,7 +3,7 @@ using Vorex.Domain.Interfaces;
 using Vorex.Domain.lib;
 namespace Vorex.Application.Users.Commands;
 
-public class CreatUser
+public class CreateUser
 {
     public sealed class Command : IRequest<Result<Guid, Error>>
     {
@@ -51,7 +51,12 @@ public class CreatUser
            var isUserNameExists = _userRepo.GetAll().Any(x => x.FirstName == command.FirstName && x.LastName == command.LastName);
 
             if (isUserNameExists)
-              return Error.ValueAlreadyExists(nameof(CreatUser),$"{nameof(Domain.User.User.FirstName)} and {nameof(Domain.User.User.LastName)}",command.FirstName+" "+command.LastName);
+              return Error.ValueAlreadyExists(nameof(CreateUser),$"{nameof(Domain.User.User.FirstName)} and {nameof(Domain.User.User.LastName)}",command.FirstName+" "+command.LastName);
+
+            var isUserEmailExists = _userRepo.GetAll().Any(x => x.Email == command.Email);
+
+            if(isUserEmailExists)
+                return Error.ValueAlreadyExists(nameof(CreateUser), nameof(Domain.User.User.Email), command.Email);
 
             return true;
         }

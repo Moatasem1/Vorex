@@ -54,6 +54,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.11.0, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[12.5.0, )"
@@ -295,6 +299,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.4, )"

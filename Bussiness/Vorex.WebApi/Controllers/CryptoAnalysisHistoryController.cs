@@ -1,0 +1,47 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Vorex.Application;
+using Vorex.Application.CryptoAnalysis.Commands;
+using Vorex.Application.CryptoAnalysis.Contract;
+using Vorex.Application.CryptoAnalysis.Queries;
+using Vorex.Application.Cryptos.Contracts;
+using Vorex.Application.Cryptos.Queries;
+using Vorex.Application.Users.Contracts.Requests;
+using Vorex.Infrastructure.Persistence.Repositories.interfaces;
+using Vorex.WebApi.Controllers.abstraction;
+
+namespace Vorex.WebApi.Controllers;
+
+[Route("[controller]")]
+[ApiController]
+public class CryptoAnalysisHistoryController(IUnitOfWork _unitOfWork, IMediator _mediator, CurrentUserService _currentUserService) : ApiControllerBase
+{
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoAnalysisHistoryDto>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoAnalysisHistoryDto>>), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetCryptosAnlysisHistory([FromQuery] AdvanceLoadOptions loadOptions)
+    {
+        var query = GetAllCryptoAnylsisHistoryRecords.Query.Create(_currentUserService.UserId, loadOptions.PageIndex, loadOptions.PageSize, loadOptions.SearchValue, loadOptions.StartDate, loadOptions.EndDate);
+
+        var result = await _mediator.Send(query);
+
+        return HandleResult(result, fun => fun.ToCryptoAnalysisHistoryDto());
+    }
+
+    [HttpDelete("{cryptoAnalysisHistoryRecordId}")]
+    [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status404NotFound)]
+    /*still we need to remove favourites and comparsion list*/
+    public async Task<IActionResult> DeleteHistoryRecord(Guid cryptoAnalysisHistoryRecordId)
+    {
+        var command = DeleteCryptoAnalysisHistoryRecord.Command.Create(_currentUserService.UserId,cryptoAnalysisHistoryRecordId);
+
+        var result = await _mediator.Send(command);
+
+        if (result.IsSuccess)
+            await _unitOfWork.SaveChangesAsync();
+
+        return HandleResult(result);
+    }
+}

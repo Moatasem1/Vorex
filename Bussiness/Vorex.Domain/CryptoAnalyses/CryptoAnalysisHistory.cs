@@ -1,6 +1,8 @@
-﻿using Vorex.Domain.Common;
+﻿using System;
+using Vorex.Domain.Common;
 using Vorex.Domain.Common.Interfaces;
 using Vorex.Domain.lib;
+using Vorex.Domain.User;
 
 namespace Vorex.Domain.CryptoAnalyses;
 
@@ -17,6 +19,7 @@ public class CryptoAnalysisHistory : BaseEntity, IAggregateRoot
     public int HoldingDays { get; private set; }
 
     public decimal Risk { get; private set; }
+
 
     public static class Factory
     {
@@ -45,7 +48,7 @@ public class CryptoAnalysisHistory : BaseEntity, IAggregateRoot
                 CryptoId = cryptoId,
                 Amount = amount,
                 HoldingDays = holdingDays,
-                Risk = risk
+                Risk = Math.Round(risk, 2),
             };
 
             return cryptoAnalysisHistory;

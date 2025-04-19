@@ -16,14 +16,14 @@ public class Error
     }
 
     public static Error ValueRequired(string source,string property) =>
-        new (ErrorType.BUSINESS_RULE, "VALUE_REQUIRED",source, $"{property} is required.");
+        new (ErrorType.Validation, "VALUE_REQUIRED",source, $"{property} is required.");
 
     public static Error ValueInvalid(string source, string property) =>
-        new (ErrorType.BUSINESS_RULE,"VALUE_INVALID",source, $"{property} is invalid.");
+        new (ErrorType.Validation,"VALUE_INVALID",source, $"{property} is invalid.");
 
     public static Error ValueAlreadyExists(string source, string property,string propertyValue) =>
-           new(ErrorType.BUSINESS_RULE, "VALUE_ALREADY_EXISTS", source, $"{property}: '{propertyValue}' already exists.");
+           new(ErrorType.Conflict, "VALUE_ALREADY_EXISTS", source, $"{property}: '{propertyValue}' already exists.");
 
     public static Error NotFound(string source, string property, string propertyValue) =>
-            new(ErrorType.BUSINESS_RULE, "NOT_FOUND", source, $"{property}: '{propertyValue}' not found.");
+            new(ErrorType.NotFound, "NOT_FOUND", source, $"{property}: '{propertyValue}' not found.");
 }

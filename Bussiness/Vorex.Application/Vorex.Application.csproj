@@ -7,15 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Users\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Vorex.Domain\Vorex.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CryptoAnalysis\Contract\Request\" />
   </ItemGroup>
 
 </Project>

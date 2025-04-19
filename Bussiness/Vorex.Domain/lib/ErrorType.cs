@@ -2,6 +2,10 @@
 
 public enum ErrorType
 {
-    BUSINESS_RULE = 1,
-    INTERNAL_SERVER_ERROR
+    InternalError = 1,
+    Validation,
+    NotFound,
+    Conflict,
+    Unauthorized,
+    Forbidden,
 }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tHJDzhwS500=",
+  "dgSpecHash": "QBkGkNHUMuU=",
   "success": true,
   "projectFilePath": "D:\\GitHub\\Vorex\\Bussiness\\Vorex.Application\\Vorex.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\AL-OLABY\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
     "C:\\Users\\AL-OLABY\\.nuget\\packages\\mediatr\\12.5.0\\mediatr.12.5.0.nupkg.sha512",
     "C:\\Users\\AL-OLABY\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\AL-OLABY\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"

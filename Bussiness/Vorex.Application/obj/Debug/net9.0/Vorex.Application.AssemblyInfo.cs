@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vorex.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0258f43f4f8d9e75652e66decd9352a3c76a89a0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a7e09a465693b02839e130c2033b0ca891e70b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vorex.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vorex.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
