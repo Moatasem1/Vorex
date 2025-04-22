@@ -2,14 +2,14 @@
 
 namespace Vorex.Application;
 
-public record LoadOptions
+public record BasicLoadOptions
 {
     public int PageSize { get; set; }
     public int PageIndex { get; set; }
     public string? SearchValue { get; set; }
 }
     
-public class LoadOptionsValidator : AbstractValidator<LoadOptions>
+public class LoadOptionsValidator : AbstractValidator<BasicLoadOptions>
 {
     public LoadOptionsValidator()
     {
@@ -21,10 +21,27 @@ public class LoadOptionsValidator : AbstractValidator<LoadOptions>
     }
 }
 
-public record AdvanceLoadOptions : LoadOptions
+public record PeriodLoadOptions
 {
-    public DateTime? StartDate { get; init; }
-    public DateTime? EndDate { get; init; }
+    public DateOnly? StartDate { get; init; }
+    public DateOnly? EndDate { get; init; }
+}
+
+
+public class PeriodLoadOptionsValidator : AbstractValidator<PeriodLoadOptions>
+{
+    public PeriodLoadOptionsValidator()
+    {
+        RuleFor(x => x.StartDate)
+            .LessThanOrEqualTo(x => x.EndDate)
+            .When(x => x.EndDate.HasValue);
+    }
+}
+
+public record AdvanceLoadOptions : BasicLoadOptions
+{
+    public DateOnly? StartDate { get; init; }
+    public DateOnly? EndDate { get; init; }
 }
 
 public class AdvanceLoadOptionsValidator : AbstractValidator<AdvanceLoadOptions>

@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="CryptoAnalyses\Specifications\" />
-    <Folder Include="Cryptos\Specifications\" />
-    <Folder Include="User\Specifications\" />
   </ItemGroup>
 
 </Project>

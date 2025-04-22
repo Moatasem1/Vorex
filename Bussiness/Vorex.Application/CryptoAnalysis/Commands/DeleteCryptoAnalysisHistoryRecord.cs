@@ -4,6 +4,7 @@ using Vorex.Domain.CryptoAnalyses;
 using Vorex.Domain.Interfaces;
 using Vorex.Domain.lib;
 using Vorex.Domain.User;
+using Vorex.Domain.User.Specifications;
 
 namespace Vorex.Application.CryptoAnalysis.Commands;
 
@@ -26,7 +27,7 @@ public class DeleteCryptoAnalysisHistoryRecord
         }
     }
 
-    public sealed class Handler(IRepository<Domain.CryptoAnalyses.CryptoAnalysisHistory> _cryptoAnalysisHistoryRepo) : IRequestHandler<Command, Result<bool, Error>>
+    public sealed class Handler(IRepository<Domain.User.User> _userRepo, IRepository<Domain.CryptoAnalyses.CryptoAnalysisHistory> _cryptoAnalysisHistoryRepo) : IRequestHandler<Command, Result<bool, Error>>
     {
         public Task<Result<bool, Error>> Handle(Command request, CancellationToken cancellationToken)
         {
@@ -35,6 +36,11 @@ public class DeleteCryptoAnalysisHistoryRecord
                 return Task.FromResult<Result<bool, Error>>(canHandle.Error);
 
             var cryptoAnalysisHistoryRecord = _cryptoAnalysisHistoryRepo.GetAll().FirstOrDefault(x => x.Id == request.CryptoAnalysisHistoryRecordId && x.UserId == request.UserId);
+
+            var user = _userRepo.Find(new UserWithCryptoFavoriteAndCompareList(request.UserId)).FirstOrDefault();
+
+            user!.RemoveFromFavorites(request.CryptoAnalysisHistoryRecordId);
+            user.RemoveFromCompareList(request.CryptoAnalysisHistoryRecordId);
 
             _cryptoAnalysisHistoryRepo.Remove(cryptoAnalysisHistoryRecord!);
 

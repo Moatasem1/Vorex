@@ -4,9 +4,6 @@ using Vorex.Application;
 using Vorex.Application.CryptoAnalysis.Commands;
 using Vorex.Application.CryptoAnalysis.Contract;
 using Vorex.Application.CryptoAnalysis.Queries;
-using Vorex.Application.Cryptos.Contracts;
-using Vorex.Application.Cryptos.Queries;
-using Vorex.Application.Users.Contracts.Requests;
 using Vorex.Infrastructure.Persistence.Repositories.interfaces;
 using Vorex.WebApi.Controllers.abstraction;
 
@@ -36,6 +33,22 @@ public class CryptoAnalysisHistoryController(IUnitOfWork _unitOfWork, IMediator 
     public async Task<IActionResult> DeleteHistoryRecord(Guid cryptoAnalysisHistoryRecordId)
     {
         var command = DeleteCryptoAnalysisHistoryRecord.Command.Create(_currentUserService.UserId,cryptoAnalysisHistoryRecordId);
+
+        var result = await _mediator.Send(command);
+
+        if (result.IsSuccess)
+            await _unitOfWork.SaveChangesAsync();
+
+        return HandleResult(result);
+    }
+
+    [HttpDelete()]
+    [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
+    /*still we need to remove favourites and comparsion list*/
+    public async Task<IActionResult> ClearHistory()
+    {
+        var command = ClearCryptoAnalysisHistory.Command.Create(_currentUserService.UserId);
 
         var result = await _mediator.Send(command);
 

@@ -21,10 +21,10 @@ public class GetAllCryptoAnylsisHistoryRecords
         public int PageNumber { get; private set; }
         public int PageSize { get; private set; }
         public string? SearchQuery { get; private set; }
-        public DateTime? StartDate { get; init; }
-        public DateTime? EndDate { get; init; }
+        public DateOnly? StartDate { get; init; }
+        public DateOnly? EndDate { get; init; }
 
-        private Query(Guid userId, int pageNumber, int pageSize, string? searchQuery, DateTime? startDate, DateTime? endDate)
+        private Query(Guid userId, int pageNumber, int pageSize, string? searchQuery, DateOnly? startDate, DateOnly? endDate)
         {
             UserId = userId;
             PageNumber = pageNumber;
@@ -34,7 +34,7 @@ public class GetAllCryptoAnylsisHistoryRecords
             EndDate = endDate;
         }
 
-        public static Query Create(Guid userId,int pageNumber, int pageSize, string? searchQuery = null, DateTime? startDate=null, DateTime? endDate = null) => new(userId,pageNumber, pageSize, searchQuery,startDate,endDate);
+        public static Query Create(Guid userId,int pageNumber, int pageSize, string? searchQuery = null, DateOnly? startDate=null, DateOnly? endDate = null) => new(userId,pageNumber, pageSize, searchQuery,startDate,endDate);
     }
 
     public sealed class Data
@@ -69,8 +69,8 @@ public class GetAllCryptoAnylsisHistoryRecords
                                                on cryptoAnalysisHistory.CryptoId equals crypto.Id
                                                where cryptoAnalysisHistory.UserId == request.UserId
                                                   && (string.IsNullOrEmpty(request.SearchQuery) || crypto.Name.Contains(request.SearchQuery))
-                                                  && (request.StartDate == null || cryptoAnalysisHistory.CreatedAt >= request.StartDate)
-                                                  && (request.EndDate == null || cryptoAnalysisHistory.CreatedAt <= request.EndDate)
+                                                  && (request.StartDate == null || DateOnly.FromDateTime(cryptoAnalysisHistory.CreatedAt) >= request.StartDate)
+                                                  && (request.EndDate == null || DateOnly.FromDateTime(cryptoAnalysisHistory.CreatedAt) <= request.EndDate)
                                                select new Data
                                                {
                                                    Id = cryptoAnalysisHistory.Id,

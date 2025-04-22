@@ -46,6 +46,51 @@
   },
   {
     "ContainingType": "Vorex.WebApi.Controllers.CryptoController",
+    "Method": "GetHistoricalData",
+    "RelativePath": "Crypto/{cryptoId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cryptoId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.Nullable\u00601[[System.DateOnly, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "EndDate",
+        "Type": "System.Nullable\u00601[[System.DateOnly, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Collections.Generic.List\u00601[[Vorex.Application.Cryptos.Contracts.CryptoHistoricalPriceDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Collections.Generic.List\u00601[[Vorex.Application.Cryptos.Contracts.CryptoHistoricalPriceDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "Vorex.WebApi.Controllers.CryptoController",
     "Method": "AnalyzeRisk",
     "RelativePath": "Crypto/{cryptoId}/analyze-risk",
     "HttpMethod": "POST",
@@ -86,7 +131,7 @@
   },
   {
     "ContainingType": "Vorex.WebApi.Controllers.CryptoAnalysisHistoryController",
-    "Method": "GetCryptosAnlysisHitory",
+    "Method": "GetCryptosAnlysisHistory",
     "RelativePath": "CryptoAnalysisHistory",
     "HttpMethod": "GET",
     "IsController": true,
@@ -94,12 +139,12 @@
     "Parameters": [
       {
         "Name": "StartDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Nullable\u00601[[System.DateOnly, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
         "Name": "EndDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Nullable\u00601[[System.DateOnly, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -130,6 +175,35 @@
       },
       {
         "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Collections.Generic.List\u00601[[Vorex.Application.CryptoAnalysis.Contract.CryptoAnalysisHistoryDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "Vorex.WebApi.Controllers.CryptoAnalysisHistoryController",
+    "Method": "ClearHistory",
+    "RelativePath": "CryptoAnalysisHistory",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

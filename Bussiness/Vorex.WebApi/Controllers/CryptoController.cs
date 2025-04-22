@@ -6,6 +6,7 @@ using Vorex.Application.Cryptos.Contracts;
 using Vorex.Application.Cryptos.Contracts.Request;
 using Vorex.Application.Cryptos.Queries;
 using Vorex.Application.Users.Contracts.Requests;
+using Vorex.Domain.Cryptos;
 using Vorex.Infrastructure.Persistence.Repositories.interfaces;
 using Vorex.WebApi.Controllers.abstraction;
 
@@ -18,7 +19,7 @@ namespace Vorex.WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoBasicDetailsDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoBasicDetailsDto>>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetCryptos([FromQuery] LoadOptions loadOptions)
+        public async Task<IActionResult> GetCryptos([FromQuery] BasicLoadOptions loadOptions)
         {
             var query = GetAllCryptos.Query.Create(loadOptions.PageIndex, loadOptions.PageSize,loadOptions.SearchValue);
 
@@ -40,6 +41,18 @@ namespace Vorex.WebApi.Controllers
                 await _unitOfWork.SaveChangesAsync();
 
             return HandleResult(result);
+        }
+
+        [HttpGet("{cryptoId}")]
+        [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoHistoricalPriceDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoHistoricalPriceDto>>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetHistoricalData(Guid cryptoId, [FromQuery] PeriodLoadOptions periodLoadOptions)
+        {
+            var query = GetCryptoHistoricalData.Query.Create(cryptoId, periodLoadOptions.StartDate,periodLoadOptions.EndDate);
+
+            var result = await _mediator.Send(query);
+
+            return HandleResult(result, fun => fun.ToCryptoHistoricalPriceDto());
         }
     }
 }

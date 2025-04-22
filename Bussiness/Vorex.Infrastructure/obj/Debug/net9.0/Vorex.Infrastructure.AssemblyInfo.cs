@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vorex.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a7e09a465693b02839e130c2033b0ca891e70b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db065bba95346a232cb7ff6e79b21c3f066e0bcc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vorex.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vorex.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

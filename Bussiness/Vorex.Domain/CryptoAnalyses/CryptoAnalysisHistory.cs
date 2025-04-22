@@ -20,6 +20,11 @@ public class CryptoAnalysisHistory : BaseEntity, IAggregateRoot
 
     public decimal Risk { get; private set; }
 
+    private readonly List<CryptoFavorite> _favorites = new();
+    public virtual IReadOnlyCollection<CryptoFavorite> Favorites => _favorites.AsReadOnly();
+
+    private readonly List<CryptoComparison> _comparisons = new();
+    public IReadOnlyCollection<CryptoComparison> Comparisons => _comparisons.AsReadOnly();
 
     public static class Factory
     {

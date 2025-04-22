@@ -23,12 +23,25 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
 
     public IQueryable<TEntity> Find(ISpecification<TEntity> specification)
     {
-        IQueryable<TEntity> query = _dbSet.AsNoTracking();
+        var query = ApplySpecification(specification);
 
         if (specification?.Criteria != null)
         {
             query = query.Where(specification.Criteria);
         }
+
+        return query;
+    }
+
+    private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        if (spec.Criteria != null)
+            query = query.Where(spec.Criteria);
+
+        foreach (var include in spec.Includes)
+            query = query.Include(include);
 
         return query;
     }

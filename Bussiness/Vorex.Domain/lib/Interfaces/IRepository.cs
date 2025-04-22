@@ -7,6 +7,7 @@ public interface IRepository<TEntity> where TEntity : class,IAggregateRoot
 {
     IEnumerable<TEntity> Find(ISpecification<TEntity> specification, bool includeLocalChanges = false);
 
+    IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool track = false);
     void Add(TEntity entity);
     void AddRange(IEnumerable<TEntity> entities);
 

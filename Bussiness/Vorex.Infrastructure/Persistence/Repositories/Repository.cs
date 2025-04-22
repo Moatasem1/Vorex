@@ -19,13 +19,24 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
 
     public IEnumerable<TEntity> Find(ISpecification<TEntity> specification, bool track = false)
     {
-        IQueryable<TEntity> query = _dbSet;
+        var query = ApplySpecification(specification);
 
         if (!track)
             query = query.AsNoTracking();
 
         query = query.Where(specification.Criteria);
 
+        return query.ToList();
+    }
+
+    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool track = false)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        if (!track)
+            query = query.AsNoTracking();
+
+        query = query.Where(predicate);
         return query.ToList();
     }
 
@@ -56,7 +67,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
 
     public bool Contains(ISpecification<TEntity> specification)
     {
-        return _dbSet.Any(specification.Criteria);
+        return ApplySpecification(specification).Any();
     }
 
     public bool Contains(Expression<Func<TEntity, bool>> predicate)
@@ -66,7 +77,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
 
     public int Count(ISpecification<TEntity> specification)
     {
-        return _dbSet.Count(specification.Criteria);
+        return ApplySpecification(specification).Count();
     }
 
     public int Count(Expression<Func<TEntity, bool>> predicate)
@@ -77,5 +88,18 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
     public IEnumerable<TEntity> GetAll()
     {
         return _dbSet.AsEnumerable();
+    }
+
+    private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        if (spec.Criteria != null)
+            query = query.Where(spec.Criteria);
+
+        foreach (var include in spec.Includes)
+            query = query.Include(include);
+
+        return query;
     }
 }

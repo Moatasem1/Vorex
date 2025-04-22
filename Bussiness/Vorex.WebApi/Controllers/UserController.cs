@@ -37,7 +37,7 @@ namespace Vorex.WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetUsers([FromQuery] LoadOptions loadOptions)
+        public async Task<IActionResult> GetUsers([FromQuery] BasicLoadOptions loadOptions)
         {
             var query = GetAllUsers.Query.Create(loadOptions.PageIndex, loadOptions.PageSize);
 
