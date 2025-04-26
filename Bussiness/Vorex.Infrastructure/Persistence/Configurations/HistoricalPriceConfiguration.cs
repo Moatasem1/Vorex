@@ -4,7 +4,7 @@ using Vorex.Domain.Cryptos;
 
 namespace Vorex.Infrastructure.Persistence.Configurations;
 
-class HistoricalPriceConfiguration : IEntityTypeConfiguration<HistoricalPrice>
+public class HistoricalPriceConfiguration : IEntityTypeConfiguration<HistoricalPrice>
 {
     public void Configure(EntityTypeBuilder<HistoricalPrice> builder)
     {

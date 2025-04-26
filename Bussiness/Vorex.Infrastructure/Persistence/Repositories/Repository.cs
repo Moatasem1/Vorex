@@ -17,27 +17,21 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         _dbSet = context.Set<TEntity>();
     }
 
-    public IEnumerable<TEntity> Find(ISpecification<TEntity> specification, bool track = false)
+    public IEnumerable<TEntity> Find(ISpecification<TEntity> specification)
     {
         var query = ApplySpecification(specification);
-
-        if (!track)
-            query = query.AsNoTracking();
 
         query = query.Where(specification.Criteria);
 
         return query.ToList();
     }
 
-    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, bool track = false)
+    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
         IQueryable<TEntity> query = _dbSet;
 
-        if (!track)
-            query = query.AsNoTracking();
-
         query = query.Where(predicate);
-        return query.ToList();
+        return query;
     }
 
     public void Add(TEntity entity)
@@ -100,6 +94,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         foreach (var include in spec.Includes)
             query = query.Include(include);
 
-        return query;
+        return query.AsSplitQuery();
     }
 }

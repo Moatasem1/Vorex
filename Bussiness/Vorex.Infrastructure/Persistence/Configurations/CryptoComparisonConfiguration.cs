@@ -4,7 +4,7 @@ using Vorex.Domain.User;
 
 namespace Vorex.Infrastructure.Persistence.Configurations;
 
-class CryptoComparisonConfiguration : IEntityTypeConfiguration<CryptoComparison>
+public class CryptoComparisonConfiguration : IEntityTypeConfiguration<CryptoComparison>
 {
     public void Configure(EntityTypeBuilder<CryptoComparison> builder)
     {

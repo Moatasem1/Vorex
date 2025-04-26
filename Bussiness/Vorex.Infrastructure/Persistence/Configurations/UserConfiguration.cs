@@ -4,7 +4,7 @@ using Vorex.Domain.User;
 
 namespace Vorex.Infrastructure.Persistence.Configurations;
 
-class UserConfiguration : IEntityTypeConfiguration<User>
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -44,5 +44,10 @@ class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne()
             .HasForeignKey(c => c.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(u => u.RefreshTokens)
+           .WithOne()
+           .HasForeignKey(c => c.UserId)
+           .OnDelete(DeleteBehavior.Cascade);
     }
 }

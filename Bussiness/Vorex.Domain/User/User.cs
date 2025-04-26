@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Vorex.Domain.Common;
 using Vorex.Domain.Common.Interfaces;
 using Vorex.Domain.lib;
@@ -20,6 +21,7 @@ public class User : BaseEntity, IAggregateRoot
         Email = email;
         Password = password;
         ProfileImage = profileImage;
+        IsEmailConfirmed = false;
     }
 
     public string FirstName { get; private set; }
@@ -27,12 +29,16 @@ public class User : BaseEntity, IAggregateRoot
     public string Email { get; private set; }
     public string Password { get; private set; }
     public string? ProfileImage { get; private set; }
+    public bool IsEmailConfirmed { get; private set; }
 
     private readonly List<CryptoFavorite> _favorites = new();
     public virtual IReadOnlyCollection<CryptoFavorite> Favorites => _favorites.AsReadOnly();
 
     private readonly List<CryptoComparison> _comparisons = new();
-    public IReadOnlyCollection<CryptoComparison> Comparisons => _comparisons.AsReadOnly();
+    public virtual IReadOnlyCollection<CryptoComparison> Comparisons => _comparisons.AsReadOnly();
+
+    private readonly List<RefreshToken> _refreshTokens = new();
+    public virtual IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
 
     public static class Factory
     {
@@ -55,6 +61,7 @@ public class User : BaseEntity, IAggregateRoot
         }
     }
 
+    public string FullName => $"{FirstName} {LastName}";
     public Result<bool, Error> ChangePassword(string oldPassword, string newPassword)
     {
         var newPasswordValidation = ValidatePassword(newPassword);
@@ -67,6 +74,12 @@ public class User : BaseEntity, IAggregateRoot
 
         Password = newPassword;
 
+        return true;
+    }
+
+    public Result<bool, Error> ConfirmEmail()
+    {
+       IsEmailConfirmed = true;
         return true;
     }
 
@@ -115,9 +128,28 @@ public class User : BaseEntity, IAggregateRoot
        return _comparisons.Remove(comparasionToRemove); 
     }
 
+    public Result<bool, Error> AddRefreshToken(RefreshToken refreshToken)
+    {
+        if (IsRefreshTokenFound(refreshToken.Token))
+            return Error.ValueAlreadyExists(nameof(RefreshToken), nameof(RefreshToken.Token), refreshToken.Token);
+
+        _refreshTokens.Add(refreshToken);
+        return true;
+    }
+    public Result<bool, Error> RemoveRefreshToken(string refreshToken)
+    {
+        var refreshTokenToRemove = _refreshTokens.FirstOrDefault(x => x.Token == refreshToken);
+        if (refreshTokenToRemove is null)
+            return Error.NotFound(nameof(RefreshToken), nameof(RefreshToken.Token), refreshToken);
+
+        _refreshTokens.Remove(refreshTokenToRemove);
+        return true;
+    }
+
     //helpers
     private bool IsCryptoFavoriteExists(Guid cryptoAnalysisHistoryId) => _favorites.Any(x => x.CryptoAnalysisHistoryId == cryptoAnalysisHistoryId);
     private bool IsCryptoInCompareList(Guid cryptoAnalysisHistoryId) => _comparisons.Any(x => x.CryptoAnalysisHistoryId == cryptoAnalysisHistoryId);
+    private bool IsRefreshTokenFound(string refreshToken) => _refreshTokens.Any(x => x.Token == refreshToken);
 
     //validation methods
     private static Result<bool, Error> ValidateName(string name, string propertyName = nameof(FirstName))

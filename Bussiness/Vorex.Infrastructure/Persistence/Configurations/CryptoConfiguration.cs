@@ -4,7 +4,7 @@ using Vorex.Domain.Cryptos;
 
 namespace Vorex.Infrastructure.Persistence.Configurations;
 
-class CryptoConfiguration : IEntityTypeConfiguration<Crypto>
+public class CryptoConfiguration : IEntityTypeConfiguration<Crypto>
 {
     public void Configure(EntityTypeBuilder<Crypto> builder)
     {

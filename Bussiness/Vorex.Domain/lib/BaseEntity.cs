@@ -11,7 +11,7 @@ public abstract class BaseEntity
 {
     [Key]
     [Required]
-    public Guid Id { get; protected set; } = Guid.NewGuid();
+    public Guid Id { get; protected set; }
     [Required]
-    public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; protected set; }
 }

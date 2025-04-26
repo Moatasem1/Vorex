@@ -1,12 +1,20 @@
 {
   "Version": 1,
-  "Hash": "+qLj7k0aJ6GsrZj878QIFEqOLmZrf+SNICZ8TnkGR1w=",
+  "Hash": "N3R6TEw446VMTXWas0CA76ktpDseK2eCiLMduTTLbn0=",
   "Source": "Vorex.WebApi",
   "BasePath": "_content/Vorex.WebApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Vorex.WebApi\\wwwroot",
+      "Source": "Vorex.WebApi",
+      "ContentRoot": "D:\\GitHub\\Vorex\\Bussiness\\Vorex.WebApi\\wwwroot\\",
+      "BasePath": "_content/Vorex.WebApi",
+      "Pattern": "**"
+    }
+  ],
   "Assets": [],
   "Endpoints": []
 }

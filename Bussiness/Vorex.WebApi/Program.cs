@@ -2,9 +2,15 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Vorex.Application;
 using Vorex.Application.Cryptos.Contracts.Request;
+using Vorex.Application.options;
+using Vorex.Application.services;
+using Vorex.Application.services.interfaces;
 using Vorex.Domain.Interfaces;
+using Vorex.Domain.lib.Interfaces;
+using Vorex.Infrastructure.Email;
 using Vorex.Infrastructure.Persistence;
 using Vorex.Infrastructure.Persistence.Repositories;
 using Vorex.Infrastructure.Persistence.Repositories.interfaces;
@@ -23,11 +29,26 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<JwtOptions>(options =>
+{
+    builder.Configuration.GetSection("JwtOptions").Bind(options);
+    options.SigningKey = Environment.GetEnvironmentVariable("JWT_KEY")!;
+});
+builder.Services.Configure<EmailConfig>(options =>
+{
+    builder.Configuration.GetSection("EmailConfig").Bind(options);
+    options.EmailPassword = Environment.GetEnvironmentVariable("EmailPassword")!;
+});
+
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IReadOnlyRepository<>), typeof(ReadOnlyRepository<>));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<CurrentUserService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<EmailTemplateBuilder>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<LoadOptionsValidator>();
@@ -73,6 +94,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

@@ -18,22 +18,6 @@ namespace Vorex.WebApi.Controllers
     public class UserController(IUnitOfWork _unitOfWork,IMediator _mediator) : ApiControllerBase
     {
         
-        [HttpPost]
-        [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateUser(CreateUserRequest request)
-        {
-           var command = Application.Users.Commands.CreateUser.Command.Create(request.FirstName, request.LastName, request.Email, request.Password, request.ProfileImage);
-
-            var result = await _mediator.Send(command);
-
-            if (result.IsSuccess)
-            await _unitOfWork.SaveChangesAsync();
-
-            return HandleResult(result);
-        }
-
         [HttpGet]
         [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseEnvelope<Guid>), StatusCodes.Status400BadRequest)]

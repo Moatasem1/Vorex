@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Vorex.Infrastructure\Vorex.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

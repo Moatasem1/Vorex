@@ -10,7 +10,7 @@ using Vorex.Domain.User;
 
 namespace Vorex.Infrastructure.Persistence.Configurations
 {
-    class CryptoFavouriteConfiguration : IEntityTypeConfiguration<CryptoFavorite>
+    public class CryptoFavouriteConfiguration : IEntityTypeConfiguration<CryptoFavorite>
     {
         public void Configure(EntityTypeBuilder<CryptoFavorite> builder)
         {

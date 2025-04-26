@@ -6,7 +6,7 @@ using Vorex.Domain.User;
 
 namespace Vorex.Infrastructure.Persistence.Configurations;
 
-class CryptoAnalysisHistoryConfiguration : IEntityTypeConfiguration<CryptoAnalysisHistory>
+public class CryptoAnalysisHistoryConfiguration : IEntityTypeConfiguration<CryptoAnalysisHistory>
 {
     public void Configure(EntityTypeBuilder<CryptoAnalysisHistory> builder)
     {

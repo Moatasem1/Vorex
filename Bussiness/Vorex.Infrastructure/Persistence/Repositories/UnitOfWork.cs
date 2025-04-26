@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,19 @@ public class UnitOfWork(AppDbContext context) : IUnitOfWork
         context.Dispose();
     }
 
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        => context.SaveChangesAsync(cancellationToken);
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        using var transaction = await context.Database.BeginTransactionAsync();
+        
+        try
+        {
+            await context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }        
+    }
 }

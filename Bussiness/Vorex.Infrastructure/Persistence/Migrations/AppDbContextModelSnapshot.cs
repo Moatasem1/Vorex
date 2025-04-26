@@ -176,9 +176,14 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<Guid?>("CryptoAnalysisHistoryId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("UserId", "CryptoAnalysisHistoryId");
 
                     b.HasIndex("CryptoAnalysisHistoryId");
+
+                    b.HasIndex("CryptoAnalysisHistoryId1");
 
                     b.ToTable("CryptoComparison");
                 });
@@ -196,11 +201,44 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<Guid?>("CryptoAnalysisHistoryId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("UserId", "CryptoAnalysisHistoryId");
 
                     b.HasIndex("CryptoAnalysisHistoryId");
 
+                    b.HasIndex("CryptoAnalysisHistoryId1");
+
                     b.ToTable("CryptoFavorite");
+                });
+
+            modelBuilder.Entity("Vorex.Domain.User.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("ExpiresOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshToken");
                 });
 
             modelBuilder.Entity("Vorex.Domain.User.User", b =>
@@ -222,6 +260,9 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -288,6 +329,10 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", null)
+                        .WithMany("Comparisons")
+                        .HasForeignKey("CryptoAnalysisHistoryId1");
+
                     b.HasOne("Vorex.Domain.User.User", null)
                         .WithMany("Comparisons")
                         .HasForeignKey("UserId")
@@ -303,11 +348,31 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("CryptoAnalysisHistoryId1");
+
                     b.HasOne("Vorex.Domain.User.User", null)
                         .WithMany("Favorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Vorex.Domain.User.RefreshToken", b =>
+                {
+                    b.HasOne("Vorex.Domain.User.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", b =>
+                {
+                    b.Navigation("Comparisons");
+
+                    b.Navigation("Favorites");
                 });
 
             modelBuilder.Entity("Vorex.Domain.Cryptos.Crypto", b =>
@@ -320,6 +385,8 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                     b.Navigation("Comparisons");
 
                     b.Navigation("Favorites");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

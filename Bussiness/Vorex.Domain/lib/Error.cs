@@ -26,4 +26,7 @@ public class Error
 
     public static Error NotFound(string source, string property, string propertyValue) =>
             new(ErrorType.NotFound, "NOT_FOUND", source, $"{property}: '{propertyValue}' not found.");
+
+    public static Error EmailVerified(string source, string property, string propertyValue) =>
+            new(ErrorType.Conflict, "ALREADRY_VERIFIED", source, $"{property}: '{propertyValue}' is already verified please log in");
 }
