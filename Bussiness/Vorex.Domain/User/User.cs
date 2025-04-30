@@ -83,6 +83,16 @@ public class User : BaseEntity, IAggregateRoot
         return true;
     }
 
+    public Result<bool,Error> ChangePassword(string newPassword)
+    {
+        var passwordValidation = ValidatePassword(newPassword);
+        if (passwordValidation.IsFailure) return passwordValidation.Error;
+
+        Password = newPassword;
+
+        return true;
+    }
+
     public Result<bool, Error> ChangeProfileImage(string? newProfileImage)
     {
         ProfileImage = newProfileImage;

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vorex.Application;
 using Vorex.Application.Users.Commands;
@@ -13,9 +14,10 @@ using Vorex.WebApi.Controllers.abstraction;
 /*not tested*/
 namespace Vorex.WebApi.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
-    public class UserController(IUnitOfWork _unitOfWork,IMediator _mediator) : ApiControllerBase
+    public class UserController(IMediator _mediator) : ApiControllerBase
     {
         
         [HttpGet]

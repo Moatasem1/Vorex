@@ -183,3 +183,4 @@ D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.pdb
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.genruntimeconfig.cache
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\ref\Vorex.WebApi.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

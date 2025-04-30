@@ -29,6 +29,7 @@ public class SignUpRequestValidator : AbstractValidator<SignUpRequest>
 
         RuleFor(x => x.Password)
         .NotEmpty()
+        .MaximumLength(4)
         .MaximumLength(20);
     }
 }

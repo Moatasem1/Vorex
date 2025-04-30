@@ -34,6 +34,19 @@ public class SmtpEmailService(IOptions<EmailConfig> _emailConfig, EmailTemplateB
         }
     }
 
+    public async Task SendResetPasswordEmaill(string userEmail, string userName, string resetLink)
+    {
+        var body = _emailTemplateBuilder.BuildEmailBody(EmailTemplatePaths.ResetPasswordTemplate,
+             new Dictionary<string, string>
+             {
+                { "UserName", userName },
+                { "ResetLink", resetLink }
+             }
+           );
+
+        await SendEmailAsync(userEmail, "Reset Your Password", body);
+    }
+
     public async Task SendVerificationEmail(string userEmail, string userName, string verificationLink)
     {
         var body = _emailTemplateBuilder.BuildEmailBody(EmailTemplatePaths.EmailVerificationTemplate,
