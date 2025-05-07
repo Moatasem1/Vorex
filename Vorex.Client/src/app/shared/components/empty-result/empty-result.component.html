@@ -1,0 +1,11 @@
+<div class="border border-purple-600 rounded-lg p-4 flex flex-col items-center justify-center">
+  <div class="mb-2 w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+    <lucide-icon [img]="Info" [size]="32" class="text-purple-600"></lucide-icon>
+  </div>
+  <h2 class="text-lg font-semibold mb-2">No results found</h2>
+  <p class="text-gray-500">We couldn't find any {{entityName()}} matching "{{searchText()}}". Please try
+    another
+    search
+    term.
+  </p>
+</div>

@@ -1,0 +1,31 @@
+<section class="container mx-auto px-4 py-8">
+  <!-- Search -->
+  <form class="relative z-0">
+    <lucide-icon [img]="Search"
+      class="my-icon text-gray-400 absolute start-0 ms-1 top-1/2 -translate-y-1/2"></lucide-icon>
+    <input [(ngModel)]="searchText" name="searchQuery" (blur)="toggleSearchFocus()" (focus)="toggleSearchFocus()"
+      (keyup)="fetchCryptos()" type="text" placeholder="search for any crypto"
+      class="transition border rounded p-3 pl-10 w-full focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-600 border-purple-600 rounded-lg focus:outline-none focus:ring-0" />
+    @if(isSearchFocus && searchText) {
+    <lucide-icon [img]="X" [strokeWidth]="3" [size]="20" (click)="clearSearch()"
+      class="my-icon text-gray-400 cursor-pointer absolute end-0 me-1 top-1/2 -translate-y-1/2"></lucide-icon>
+    }
+  </form>
+  <!-- Search Result -->
+  <div class="py-8 grid gap-4" [ngClass]="{'grid-cols-8': filteredCryptos.length>0}">
+    @for (crypto of filteredCryptos; track crypto.id) {
+    <div
+      class="p-8 bg-white rounded-lg shadow-sm border border-purple-400 text-center hover:text-purple-600 hover:scale-120 transition cursor-pointer">
+      <h3 class="mb-2">{{ crypto.name }}</h3>
+      <p class="text-gray-500 bg-gray-100 rounded-lg p-2 inline text-xs">{{ crypto.symbol }}</p>
+    </div>
+    }
+    @empty {
+    <div class="grid-cols-8 col-span-8 text-center">
+      <app-empty-result class="block" [searchText]="searchText" [entityName]="'crypto'"></app-empty-result>
+    </div>
+    }
+  </div>
+
+  <!-- Pagination -->
+</section>

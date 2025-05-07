@@ -202,6 +202,17 @@ builder.Services.AddAuthentication(options =>
 });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins(jwtOptions.Audience!) 
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -213,7 +224,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-
+app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
