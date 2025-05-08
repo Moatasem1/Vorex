@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Vorex.Application.others;
 using Vorex.Domain.lib;
 using Vorex.Infrastructure.Persistence.Repositories.interfaces;
 
@@ -33,6 +34,17 @@ public abstract class ApiControllerBase() : ControllerBase
         {
             var dataAsDto = result.Value.Select(v => dtoConverterDelegate(v)).ToList();
             return Ok(ResponseEnvelope<List<TDto>>.Success(dataAsDto));
+        }
+
+        return GetErorr(result);
+    }
+
+    protected IActionResult HandleResult<T, TDto>(Result<PaginatedResponse<T>, Error> result, Func<T, TDto> dtoConverterDelegate)
+    {
+        if (result.IsSuccess)
+        {
+            var dataAsDto = result.Value.Data.Select(v => dtoConverterDelegate(v)).ToList();
+            return Ok(ResponseEnvelope<PaginatedResponse<TDto>>.Success(new PaginatedResponse<TDto>(dataAsDto, result.Value.Pagination)));
         }
 
         return GetErorr(result);

@@ -368,7 +368,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Collections.Generic.List\u00601[[Vorex.Application.Cryptos.Contracts.CryptoBasicDetailsDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[Vorex.Application.others.PaginatedResponse\u00601[[Vorex.Application.Cryptos.Contracts.CryptoBasicDetailsDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -377,7 +377,7 @@
         "StatusCode": 200
       },
       {
-        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[System.Collections.Generic.List\u00601[[Vorex.Application.Cryptos.Contracts.CryptoBasicDetailsDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "Vorex.WebApi.ResponseEnvelope\u00601[[Vorex.Application.others.PaginatedResponse\u00601[[Vorex.Application.Cryptos.Contracts.CryptoBasicDetailsDto, Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], Vorex.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

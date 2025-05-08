@@ -5,6 +5,7 @@ using Vorex.Application.Cryptos.Commands;
 using Vorex.Application.Cryptos.Contracts;
 using Vorex.Application.Cryptos.Contracts.Request;
 using Vorex.Application.Cryptos.Queries;
+using Vorex.Application.others;
 using Vorex.Application.Users.Contracts.Requests;
 using Vorex.Domain.Cryptos;
 using Vorex.Infrastructure.Persistence.Repositories.interfaces;
@@ -17,8 +18,8 @@ namespace Vorex.WebApi.Controllers
     public class CryptoController(IUnitOfWork _unitOfWork, IMediator _mediator, CurrentUserService _currentUserService) : ApiControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoBasicDetailsDto>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoBasicDetailsDto>>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseEnvelope<PaginatedResponse<CryptoBasicDetailsDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseEnvelope<PaginatedResponse<CryptoBasicDetailsDto>>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCryptos([FromQuery] BasicLoadOptions loadOptions)
         {
             var query = GetAllCryptos.Query.Create(loadOptions.PageIndex, loadOptions.PageSize,loadOptions.SearchValue);

@@ -4,28 +4,54 @@
     <lucide-icon [img]="Search"
       class="my-icon text-gray-400 absolute start-0 ms-1 top-1/2 -translate-y-1/2"></lucide-icon>
     <input [(ngModel)]="searchText" name="searchQuery" (blur)="toggleSearchFocus()" (focus)="toggleSearchFocus()"
-      (keyup)="fetchCryptos()" type="text" placeholder="search for any crypto"
+      (keyup)="updatePaginationInputSearchValue(); updatePaginationInputPage(1); fetchCryptos()" type="text"
+      placeholder="search for any crypto"
       class="transition border rounded p-3 pl-10 w-full focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-600 border-purple-600 rounded-lg focus:outline-none focus:ring-0" />
     @if(isSearchFocus && searchText) {
-    <lucide-icon [img]="X" [strokeWidth]="3" [size]="20" (click)="clearSearch()"
+    <lucide-icon [img]="X" [strokeWidth]="3" [size]="20"
+      (click)="clearSearch(); updatePaginationInputPage(1); updatePaginationInputSearchValue(); fetchCryptos()"
       class="my-icon text-gray-400 cursor-pointer absolute end-0 me-1 top-1/2 -translate-y-1/2"></lucide-icon>
     }
   </form>
   <!-- Search Result -->
-  <div class="py-8 grid gap-4" [ngClass]="{'grid-cols-8': filteredCryptos.length>0}">
-    @for (crypto of filteredCryptos; track crypto.id) {
-    <div
-      class="p-8 bg-white rounded-lg shadow-sm border border-purple-400 text-center hover:text-purple-600 hover:scale-120 transition cursor-pointer">
-      <h3 class="mb-2">{{ crypto.name }}</h3>
-      <p class="text-gray-500 bg-gray-100 rounded-lg p-2 inline text-xs">{{ crypto.symbol }}</p>
+  <main class="py-8">
+    <span class="text-right block mb-3 text-gray-400 text-sm"> Showing {{filteredCryptos.length}} /
+      <span class="font-semibold">{{paginatedCryptos?.pagination?.totalItems}} results</span>
+    </span>
+    <div class="relative grid gap-4" [ngClass]="{'grid-cols-7': filteredCryptos.length>0}">
+      @for (crypto of filteredCryptos; track crypto.id) {
+      <app-crypto-card (anayzeRiskClicked)="setSelectedCrypto($event); showAnlysisRiskModal()"
+        [crypto]="crypto"></app-crypto-card>
+      }
+      @empty {
+      <div class="grid-cols-8 col-span-8 text-center">
+        <app-empty-result class="block" [searchText]="searchText" [entityName]="'crypto'"></app-empty-result>
+      </div>
+      }
     </div>
-    }
-    @empty {
-    <div class="grid-cols-8 col-span-8 text-center">
-      <app-empty-result class="block" [searchText]="searchText" [entityName]="'crypto'"></app-empty-result>
-    </div>
-    }
-  </div>
+  </main>
 
   <!-- Pagination -->
+  @if(paginatedCryptos?.pagination && filteredCryptos.length > 0) {
+  <app-paginator (pageChange)="updatePaginationInputPage($event); this.fetchCryptos()"
+    [currentPage]="paginatedCryptos?.pagination?.pageIndex ?? 0"
+    [totalPages]="paginatedCryptos?.pagination?.totalPages ?? 0" [visibleBubbles]="3"
+    class="mx-auto block w-fit mt-8"></app-paginator>
+  }
 </section>
+
+@if(selectedCrypto){
+<app-analyze-risk-modal
+  (riskAnaylized)="setRiskAnaylizedResult($event); hideAnlysisRiskModal(); showRiskAnalysisResultModal()"
+  [crypto]="selectedCrypto"></app-analyze-risk-modal>
+}
+
+@if(selectedCrypto && riskAnaylizedResult){
+<app-popup [title]="'Risk Value'">
+  <h5 class=" font-semibold text-3xl text-center">{{riskAnaylizedResult.risk}}</h5>
+  <footer class="flex items-center gap-2 mt-8">
+    <button type="button" class="btn btn--md btn-primary-outline w-full">add to favorite</button>
+    <button type="button" class="btn btn--md btn-primary w-full ">add to compare</button>
+  </footer>
+</app-popup>
+}

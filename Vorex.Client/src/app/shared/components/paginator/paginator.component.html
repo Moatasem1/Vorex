@@ -1,0 +1,30 @@
+<div class="flex items-center">
+  <button class="w-9 h-9 rounded-full flex items-center justify-center transition me-3  prev-button"
+    [disabled]="currentPage === 1"
+    [ngClass]="{'bg-gray-50 hover:bg-gray-50 cursor-not-allowed': currentPage === 1,'cursor-pointer bg-purple-100 hover:bg-purple-200': currentPage !== 1}"
+    (click)="handlePageChange(currentPage - 1)" aria-label="Previous page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <div class="flex items-center gap-2">
+    <button *ngFor="let page of visiblePages"
+      class="w-9 h-9 rounded-full flex items-center cursor-pointer justify-center transition "
+      [ngClass]="{'bg-purple-500 text-white hover:bg-purple-600': currentPage === page,'bg-gray-100 hover:bg-gray-200': currentPage !== page}"
+      (click)="handlePageChange(page)">
+      {{ page }}
+    </button>
+  </div>
+
+  <button class="w-9 h-9 rounded-full flex items-center justify-center transition ms-3 next-button"
+    [disabled]="currentPage === totalPages"
+    [ngClass]="{'bg-gray-50 hover:bg-gray-50 cursor-not-allowed': currentPage === totalPages,'cursor-pointer bg-purple-100 hover:bg-purple-200': currentPage !== totalPages}"
+    (click)="handlePageChange(currentPage + 1)" aria-label="Next page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</div>

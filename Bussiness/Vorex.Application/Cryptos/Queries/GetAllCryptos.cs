@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Vorex.Application.Cryptos.Contracts;
+using Vorex.Application.others;
 using Vorex.Domain.Interfaces;
 using Vorex.Domain.lib;
 
@@ -7,7 +8,7 @@ namespace Vorex.Application.Cryptos.Queries;
 
 public class GetAllCryptos
 {
-    public sealed class Query : IRequest<Result<List<Data>, Error>>
+    public sealed class Query : IRequest<Result<PaginatedResponse<Data>, Error>>
     {
         public int PageNumber { get; private set; }
         public int PageSize { get; private set; }
@@ -38,13 +39,16 @@ public class GetAllCryptos
         }
     }
 
-    public sealed class Handler(IReadOnlyRepository<Domain.Cryptos.Crypto> _cryptoRepo) : IRequestHandler<Query, Result<List<Data>, Error>>
+    public sealed class Handler(IReadOnlyRepository<Domain.Cryptos.Crypto> _cryptoRepo) : IRequestHandler<Query, Result<PaginatedResponse<Data>, Error>>
     {
-        public Task<Result<List<Data>, Error>> Handle(Query request, CancellationToken cancellationToken)
+        public Task<Result<PaginatedResponse<Data>, Error>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var cryptos = _cryptoRepo.GetAll()
-                .Where(x => string.IsNullOrEmpty(request.SearchQuery) || x.Name.Contains(request.SearchQuery) || x.Symbol.Contains(request.SearchQuery))
-                .Skip((request.PageNumber - 1) * request.PageSize)
+            var cryptosQuery = _cryptoRepo.GetAll()
+                .Where(x => string.IsNullOrEmpty(request.SearchQuery) || x.Name.Contains(request.SearchQuery) || x.Symbol.Contains(request.SearchQuery));
+                
+            var totalCount = cryptosQuery.Count();
+
+            var cryptos = cryptosQuery.Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(x => new Data
                 {
@@ -54,7 +58,9 @@ public class GetAllCryptos
                 })
                 .ToList();
 
-            return Task.FromResult<Result<List<Data>, Error>>(cryptos);
+            var result = new PaginatedResponse<Data>(cryptos,totalCount,request.PageNumber,request.PageSize);
+
+            return Task.FromResult<Result<PaginatedResponse<Data>, Error>>(result);
         }
     }
 }
