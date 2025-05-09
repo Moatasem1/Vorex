@@ -2,10 +2,12 @@ import {
   IAnalyzeRiskInputDto,
   IAnalyzeRiskResultDto,
   ICryptoListItemDto,
+  IHistoricalPriceDto as ICryptoHistoricalPriceDto,
 } from '../../../infrastructure/dtos/crypto.dto';
 import {
   IAnalyzeRiskInput,
   IAnalyzeRiskResult,
+  ICryptoHistoricalPrice,
   ICryptoListItem,
 } from '../models/crypto.model';
 
@@ -16,6 +18,7 @@ export function mapCryptoListItemDtoToModel(
     id: crypto.id,
     name: crypto.name,
     symbol: crypto.symbol,
+    isFavourite: false,
   };
 }
 
@@ -33,6 +36,16 @@ export function mapCryptoAnalizeRiskResultDtoToModel(
 ): IAnalyzeRiskResult {
   return {
     cryptoAnalysisHistoryId: crypto.cryptoAnalysisHistoryId,
-    risk: crypto.riskValue,
+    risk: crypto.riskValue * 100,
+  };
+}
+
+export function mapCryptoHistoricalPriceDtoToModel(
+  crypto: ICryptoHistoricalPriceDto
+): ICryptoHistoricalPrice {
+  return {
+    id: crypto.id,
+    date: new Date(crypto.date),
+    price: crypto.closingPrice,
   };
 }

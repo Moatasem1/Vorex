@@ -2,12 +2,14 @@ import {
   Component,
   inject,
   input,
+  Output,
   output,
   signal,
   ViewChild,
 } from '@angular/core';
 import { PopupComponent } from '../../../shared/components/popup/popup.component';
 import {
+  IAnalyzeRiskInput,
   IAnalyzeRiskResult,
   ICryptoListItem,
 } from '../../../application/cryptos/models/crypto.model';
@@ -20,6 +22,7 @@ import {
 } from '@angular/forms';
 import { AnaylizeRiskUseCase } from '../../../application/cryptos/use-cases/anaylize-risk.usecase';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { IOutput } from '../../../application/abstraction/output';
 
 type AnalyzeRiskInputFormControls = {
   amount: FormControl<number>;
@@ -36,7 +39,7 @@ type AnalyzeRiskInputFormControls = {
 export class AnalyzeRiskModalComponent {
   @ViewChild(PopupComponent) model!: PopupComponent;
   crypto = input.required<ICryptoListItem>();
-  riskAnaylized = output<IAnalyzeRiskResult>();
+  riskAnaylized = output<IOutput<IAnalyzeRiskInput, IAnalyzeRiskResult>>();
   riskForm!: FormGroup<AnalyzeRiskInputFormControls>;
   holdingTimeOptions = ['day', 'week', 'month', 'year'];
   isAnalyzingRiskLoading = signal(false);
@@ -67,22 +70,21 @@ export class AnalyzeRiskModalComponent {
 
   analyzeRisk() {
     this.isAnalyzingRiskLoading.set(true);
-    this._analyzeRiskUseCase
-      .execute({
-        cryptoId: this.crypto().id,
-        investmentAmount: this.riskForm.controls.amount.value,
-        holdingDays: this.calcualteHoldingDays(),
-      })
-      .subscribe({
-        next: (result) => {
-          this.isAnalyzingRiskLoading.set(false);
-          this.riskAnaylized.emit(result);
-        },
-        error: () => {
-          this.isAnalyzingRiskLoading.set(false);
-          this.model.hide();
-        },
-      });
+    const analyzeRiskInput: IAnalyzeRiskInput = {
+      cryptoId: this.crypto().id,
+      investmentAmount: this.riskForm.controls.amount.value,
+      holdingDays: this.calcualteHoldingDays(),
+    };
+    this._analyzeRiskUseCase.execute(analyzeRiskInput).subscribe({
+      next: (result) => {
+        this.isAnalyzingRiskLoading.set(false);
+        this.riskAnaylized.emit({ input: analyzeRiskInput, result: result });
+      },
+      error: () => {
+        this.isAnalyzingRiskLoading.set(false);
+        this.model.hide();
+      },
+    });
   }
 
   calcualteHoldingDays(): number {

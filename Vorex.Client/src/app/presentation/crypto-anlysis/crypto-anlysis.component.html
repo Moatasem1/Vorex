@@ -21,6 +21,7 @@
     <div class="relative grid gap-4" [ngClass]="{'grid-cols-7': filteredCryptos.length>0}">
       @for (crypto of filteredCryptos; track crypto.id) {
       <app-crypto-card (anayzeRiskClicked)="setSelectedCrypto($event); showAnlysisRiskModal()"
+        (historicalDataClicked)="setHistoricalDataModalInput($event); showHistoricalDataModal();"
         [crypto]="crypto"></app-crypto-card>
       }
       @empty {
@@ -40,18 +41,19 @@
   }
 </section>
 
+<!-- anyalyze risk modal -->
 @if(selectedCrypto){
 <app-analyze-risk-modal
   (riskAnaylized)="setRiskAnaylizedResult($event); hideAnlysisRiskModal(); showRiskAnalysisResultModal()"
   [crypto]="selectedCrypto"></app-analyze-risk-modal>
 }
 
-@if(selectedCrypto && riskAnaylizedResult){
-<app-popup [title]="'Risk Value'">
-  <h5 class=" font-semibold text-3xl text-center">{{riskAnaylizedResult.risk}}</h5>
-  <footer class="flex items-center gap-2 mt-8">
-    <button type="button" class="btn btn--md btn-primary-outline w-full">add to favorite</button>
-    <button type="button" class="btn btn--md btn-primary w-full ">add to compare</button>
-  </footer>
-</app-popup>
+<!-- risk analysis result modal -->
+@if(selectedCrypto && riskAnaylized){
+<app-analyze-risk-result-modal [riskAnaylized]="riskAnaylized"></app-analyze-risk-result-modal>
+}
+
+@if(historicalDataModalInput){
+<app-crypto-historical-prices-model (modelClosed)="setSelectedCrypto(null); setHistoricalDataModalInput(null);"
+  [crypto]="historicalDataModalInput"></app-crypto-historical-prices-model>
 }

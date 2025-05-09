@@ -1,5 +1,5 @@
 <div (mouseenter)="toggleHovered()" (mouseleave)="toggleHovered()"
-  class="group p-4 bg-white rounded-lg shadow-sm border border-purple-400 text-center hover:text-purple-600 hover:scale-105 hover:shadow-lg transition cursor-pointer"
+  class="group relative p-4 bg-white rounded-lg shadow-sm border border-purple-400 text-center hover:text-purple-600 hover:scale-105 hover:shadow-lg transition cursor-pointer"
   [ngClass]="{'shadow-xl border-2': isHovered}">
   <h3 class="mb-2 font-semibold">{{ crypto().name }}</h3>
   <p class="text-gray-500 bg-gray-100 rounded-lg p-2 inline text-xs">{{ crypto().symbol }}
@@ -11,4 +11,13 @@
     <button (click)="emitHistoricalData()" type="button" class="btn btn--sm btn-primary-outline w-full">historical
       data</button>
   </footer>
+  @if (isHovered && !crypto().isFavourite) {
+  <lucide-angular (click)="toggleFavourite()" [img]="Heart" [strokeWidth]="2" [size]="20"
+    class="my-icon text-gray-400 absolute end-0 me-1 top-1"></lucide-angular>
+  }
+  @else if(isHovered && crypto().isFavourite) {
+  <lucide-angular (click)="toggleFavourite();" [img]="Heart" [strokeWidth]="2" [size]="20"
+    class="my-icon text-gray-400 absolute end-0 me-1 top-1 fill-red-500 stroke-red-400"></lucide-angular>
+  }
+
 </div>

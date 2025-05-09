@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vorex.WebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+660554a19968acaed67eb9549d0320b16e4e0266")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9f0b6f71d0525e41cebe7e5a1ee05c37204bd65")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vorex.WebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vorex.WebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

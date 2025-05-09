@@ -5,6 +5,7 @@ import {
   IAnalyzeRiskInputDto,
   IAnalyzeRiskResultDto,
   ICryptoListItemDto,
+  IHistoricalPriceDto,
 } from '../dtos/crypto.dto';
 import { ApiService } from '../api.service';
 import { IPaginatedResponse } from '../../shared/types/shared.types';
@@ -31,6 +32,21 @@ export class CryptoApiRepository implements CryptoRepository {
     return this._apiService.post<IAnalyzeRiskInputDto, IAnalyzeRiskResultDto>(
       `Crypto/${cryptoId}/analyze-risk`,
       input
+    );
+  }
+
+  getHistoricalPrices(
+    cryptoId: string,
+    startDate?: Date,
+    endDate?: Date
+  ): Observable<IHistoricalPriceDto[]> {
+    let params = startDate
+      ? `?StartDate=${startDate.toISOString()}`
+      : endDate
+      ? `?endDate=${endDate.toISOString()}`
+      : '';
+    return this._apiService.get<IHistoricalPriceDto[]>(
+      `Crypto/${cryptoId}${params}`
     );
   }
 }

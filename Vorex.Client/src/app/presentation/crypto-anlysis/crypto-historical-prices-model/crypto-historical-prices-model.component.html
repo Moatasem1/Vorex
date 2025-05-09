@@ -1,0 +1,6 @@
+<app-popup [isPopupLoading]="isCryptoHistoricalPricesLoading()" (popupClosed)="emitModelClosed()" [width]="1200"
+  [title]="'Historical Data'">
+  @if(!isCryptoHistoricalPricesLoading() ){
+  <canvas #chart></canvas>
+  }
+</app-popup>

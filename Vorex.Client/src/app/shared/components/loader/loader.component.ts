@@ -8,5 +8,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './loader.component.scss',
 })
 export class LoaderComponent {
-  size = input<'sm' | 'md' | 'lg'>('md');
+  size = input<'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'>('md');
 }

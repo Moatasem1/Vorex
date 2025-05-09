@@ -13,3 +13,9 @@ export interface IAnalyzeRiskResultDto {
   cryptoAnalysisHistoryId: string;
   riskValue: number;
 }
+
+export interface IHistoricalPriceDto {
+  id: string;
+  date: string;
+  closingPrice: number;
+}

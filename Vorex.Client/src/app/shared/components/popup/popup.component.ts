@@ -1,18 +1,10 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  input,
-  Input,
-  OnChanges,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { Modal, ModalInterface, ModalOptions } from 'flowbite';
+import { Component, ElementRef, input, output, ViewChild } from '@angular/core';
+import { Modal, ModalOptions } from 'flowbite';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-popup',
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.scss',
 })
@@ -20,6 +12,9 @@ export class PopupComponent {
   @ViewChild('modal') ModalEl!: ElementRef;
   title = input<string>('modal title');
   preventClose = input<boolean>(false);
+  width = input<number>(600);
+  popupClosed = output<void>();
+  isPopupLoading = input<boolean>(false);
 
   modal: any;
 
@@ -42,5 +37,6 @@ export class PopupComponent {
 
   hide() {
     this.modal.hide();
+    this.popupClosed.emit();
   }
 }
