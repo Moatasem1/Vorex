@@ -7,7 +7,7 @@ using Vorex.Domain.lib;
 using Vorex.Domain.lib.Interfaces;
 
 namespace Vorex.Domain.User;
-//don't forget to make userId and CryptoAnalysisHistoryId prmary key
+//don't forget to make userId and CryptoId prmary key
 public class CryptoComparison : IEntity
 {
     private CryptoComparison() { }

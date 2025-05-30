@@ -1,11 +1,16 @@
-<app-popup [title]="'Risk Value'">
+<app-popup [preventClose]="isAddToCompareRequestLoading()" [title]="'Risk Value'">
   <h3 class="text-2xl text-center font-semibold">{{riskAnaylized().cryptoName}}</h3>
   <div class="flex items-center justify-center gap-2 my-4">
     <span class="text-xs text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{riskAnaylized().investmentAmount}}$</span>
-    <span class="text-xs text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{riskAnaylized().holdingDays |
+    <span class="text-xs text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{60 |
       humanizeDays}}</span>
   </div>
   <h5 class="font-semibold text-3xl text-center" [ngClass]="riskClassColor(riskAnaylized().risk)">
     {{riskAnaylized().risk}}%</h5>
-  <button type="button" class="btn btn--md btn-primary w-full mt-8">add to comparison</button>
+  <button type="button" class="btn btn--md btn-primary w-full mt-8" (click)="addToCompare()">
+    @if(isAddToCompareRequestLoading()) {
+    <app-loader [size]="'sm'" class="me-1"></app-loader>
+    }
+    Add to compare
+  </button>
 </app-popup>

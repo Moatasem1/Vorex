@@ -1,19 +1,45 @@
 import { Routes } from '@angular/router';
-import { ProductListComponent } from './presentation/product-list/product-list.component';
 import { CryptoAnlysisComponent } from './presentation/crypto-anlysis/crypto-anlysis.component';
+import { CryptoAnlysisHistoryComponent } from './presentation/crypto-anlysis-history/crypto-anlysis-history.component';
+import { CryptoComparisonComponent } from './presentation/crypto-comparison/crypto-comparison.component';
+import { CryptoFavouriteComponent } from './presentation/crypto-favourite/crypto-favourite.component';
+import { AuthComponent } from './presentation/auth/auth.component';
+import { authRoutes } from './presentation/auth/auth.routes';
+import { LoginComponent } from './presentation/auth/login/login.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'products',
-    component: ProductListComponent,
+    path: '',
+    redirectTo: '/auth',
+    pathMatch: 'full',
   },
   {
-    path: 'crypto-anlysis',
+    path: 'auth',
+    component: AuthComponent,
+    children: authRoutes,
+  },
+  {
+    path: 'compare',
+    component: CryptoComparisonComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'analyze',
     component: CryptoAnlysisComponent,
   },
   {
-    path: '',
-    redirectTo: '/crypto-anlysis',
-    pathMatch: 'full',
+    path: 'history',
+    component: CryptoAnlysisHistoryComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'favorites',
+    component: CryptoFavouriteComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: '**',
+    component: LoginComponent,
   },
 ];

@@ -1,5 +1,13 @@
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.csproj.AssemblyReference.cache
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.AssemblyInfoInputs.cache
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.AssemblyInfo.cs
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.csproj.CoreCompileInputs.cache
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.MvcApplicationPartsAssemblyInfo.cache
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.sourcelink.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\appsettings.Development.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\appsettings.json
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\appsettings.Production.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.WebApi.staticwebassets.runtime.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.WebApi.staticwebassets.endpoints.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.WebApi.exe
@@ -17,6 +25,7 @@ D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Humanizer.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\MailKit.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\MediatR.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\MediatR.Contracts.dll
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Microsoft.Build.Locator.dll
@@ -158,14 +167,6 @@ D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.Infrastructure.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.Application.pdb
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.Infrastructure.pdb
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Vorex.Domain.pdb
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.csproj.AssemblyReference.cache
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.GeneratedMSBuildEditorConfig.editorconfig
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.AssemblyInfoInputs.cache
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.AssemblyInfo.cs
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.csproj.CoreCompileInputs.cache
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.MvcApplicationPartsAssemblyInfo.cs
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.MvcApplicationPartsAssemblyInfo.cache
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.sourcelink.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\scopedcss\bundle\Vorex.WebApi.styles.css
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\staticwebassets.build.json
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\staticwebassets.development.json
@@ -183,4 +184,3 @@ D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.pdb
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.genruntimeconfig.cache
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\ref\Vorex.WebApi.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
-D:\GitHub\Vorex\Bussiness\Vorex.WebApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

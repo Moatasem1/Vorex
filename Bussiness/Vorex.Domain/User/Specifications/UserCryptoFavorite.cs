@@ -8,6 +8,22 @@ public class UserWithCryptoFavoriteAndCompareList : Specification<User>
     {
         Criteria = u => u.Id == userId;
         //AddInclude(u => u.Comparisons);
-        //AddInclude(u => u.Favorites);
+    }
+}
+public class UserWithCryptoCompare : Specification<User>
+{
+    public UserWithCryptoCompare(Guid userId)
+    {
+        Criteria = u => u.Id == userId;
+        AddInclude(u => u.Comparisons);
+    }
+}
+
+public class UserWithCryptoFavourite : Specification<User>
+{
+    public UserWithCryptoFavourite(Guid userId)
+    {
+        Criteria = u => u.Id == userId;
+        AddInclude(u => u.Favorites);
     }
 }

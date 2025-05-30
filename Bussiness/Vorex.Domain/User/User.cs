@@ -101,8 +101,8 @@ public class User : BaseEntity, IAggregateRoot
 
     public Result<bool, Error> AddToFavorites(CryptoFavorite favorite)
     {
-        if (IsCryptoFavoriteExists(favorite.CryptoAnalysisHistoryId))
-            return Error.ValueAlreadyExists(nameof(CryptoFavorite), nameof(CryptoFavorite.CryptoAnalysisHistoryId), favorite.CryptoAnalysisHistoryId.ToString());
+        if (IsCryptoFavoriteExists(favorite.CryptoId))
+            return Error.ValueAlreadyExists(nameof(CryptoFavorite), nameof(CryptoFavorite.CryptoId), favorite.CryptoId.ToString());
 
         _favorites.Add(favorite);
         return true;
@@ -110,10 +110,10 @@ public class User : BaseEntity, IAggregateRoot
 
     public Result<bool, Error> RemoveFromFavorites(Guid cryptoHistoryIdToRemove)
     {
-        var favoriteToRemove = _favorites.FirstOrDefault(x => x.CryptoAnalysisHistoryId == cryptoHistoryIdToRemove);
+        var favoriteToRemove = _favorites.FirstOrDefault(x => x.CryptoId == cryptoHistoryIdToRemove);
 
         if (favoriteToRemove is null)
-            return Error.NotFound(nameof(CryptoFavorite),nameof(CryptoFavorite.CryptoAnalysisHistoryId), cryptoHistoryIdToRemove.ToString());
+            return Error.NotFound(nameof(CryptoFavorite),nameof(CryptoFavorite.CryptoId), cryptoHistoryIdToRemove.ToString());
 
         _favorites.Remove(favoriteToRemove);
         return true;
@@ -128,14 +128,16 @@ public class User : BaseEntity, IAggregateRoot
         return true;
     }
 
-    public Result<bool, Error> RemoveFromCompareList(Guid cryptoHistoryIdToRemove)
+    public Result<bool, Error> RemoveFromCompareList(List<Guid> cryptoHistoryIdsToRemove)
     {
-        var comparasionToRemove = _comparisons.FirstOrDefault(x => x.CryptoAnalysisHistoryId == cryptoHistoryIdToRemove);
+        if (cryptoHistoryIdsToRemove.Count() == 0) return true;
 
-        if (comparasionToRemove is null)
-            return Error.NotFound(nameof(CryptoComparison), nameof(CryptoComparison.CryptoAnalysisHistoryId), cryptoHistoryIdToRemove.ToString());
+        var removeCount = _comparisons.RemoveAll(x => cryptoHistoryIdsToRemove.Contains(x.CryptoAnalysisHistoryId));
 
-       return _comparisons.Remove(comparasionToRemove); 
+        if (removeCount==0)
+            return Error.NotFound(nameof(CryptoComparison), nameof(CryptoComparison.CryptoAnalysisHistoryId),string.Join(",",cryptoHistoryIdsToRemove));
+
+       return true; 
     }
 
     public Result<bool, Error> AddRefreshToken(RefreshToken refreshToken)
@@ -157,7 +159,7 @@ public class User : BaseEntity, IAggregateRoot
     }
 
     //helpers
-    private bool IsCryptoFavoriteExists(Guid cryptoAnalysisHistoryId) => _favorites.Any(x => x.CryptoAnalysisHistoryId == cryptoAnalysisHistoryId);
+    private bool IsCryptoFavoriteExists(Guid cryptoAnalysisHistoryId) => _favorites.Any(x => x.CryptoId == cryptoAnalysisHistoryId);
     private bool IsCryptoInCompareList(Guid cryptoAnalysisHistoryId) => _comparisons.Any(x => x.CryptoAnalysisHistoryId == cryptoAnalysisHistoryId);
     private bool IsRefreshTokenFound(string refreshToken) => _refreshTokens.Any(x => x.Token == refreshToken);
 

@@ -1,0 +1,13 @@
+<!-- Search -->
+<form class="relative z-0">
+  <lucide-icon [img]="Search"
+    class="my-icon text-gray-400 absolute start-0 ms-1 top-1/2 -translate-y-1/2"></lucide-icon>
+  <input [(ngModel)]="searchText" name="searchQuery" (blur)="toggleSearchFocus()" (focus)="toggleSearchFocus()"
+    (keyup)="emitSearchText()" type="text" placeholder="search for any crypto"
+    [ngClass]="{'p-3': size()=='lg','p-2': size()=='md', 'p-1': size()=='sm'}"
+    class="transition border rounded p-3 pl-10 w-full focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-600 border-purple-600 rounded-lg focus:outline-none focus:ring-0" />
+  @if(isSearchFocus() && searchText) {
+  <lucide-icon [img]="X" [strokeWidth]="3" [size]="20" (click)="clearSearch(); emitSearchCleared(); emitSearchText();"
+    class="my-icon text-gray-400 cursor-pointer absolute end-0 me-1 top-1/2 -translate-y-1/2"></lucide-icon>
+  }
+</form>

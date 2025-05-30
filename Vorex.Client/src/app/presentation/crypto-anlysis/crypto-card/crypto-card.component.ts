@@ -29,9 +29,4 @@ export class CryptoCardComponent {
 
   emitFavouriteClicked = () =>
     this.fovouriteClicked.emit(this.crypto().isFavourite);
-
-  //call api it success call emitFavouriteClicked if error toggleFavourite
-  removeFromFavourites() {}
-
-  addToFavourites() {}
 }

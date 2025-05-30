@@ -1,0 +1,14 @@
+<section class="container page-padding">
+  <h1 class="text-3xl font-medium mb-10">Crypto Comparison</h1>
+  <ul class="grid grid-cols-3 gap-5">
+    @for (c of cryptoCompares; track c.cryptoAnlysisHistoryId) {
+    <li> <app-crypto-comparison-card (removedFromComparison)="removeFromCompare($event)"
+        [input]="c"></app-crypto-comparison-card></li>
+    }
+    @empty {
+    <li class="col-span-3">
+      <app-empty-result fullMessage="You have not added any crypto anlysis to compare" class="block"></app-empty-result>
+    </li>
+    }
+  </ul>
+</section>

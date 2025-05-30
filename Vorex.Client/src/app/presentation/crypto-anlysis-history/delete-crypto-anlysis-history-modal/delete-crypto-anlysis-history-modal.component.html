@@ -1,0 +1,15 @@
+<app-popup [preventClose]="isDeleteRequestLoading()" title="Delete Crypto Analysis">
+  <p class="text-gray-600">Are you sure you want to delete {{recordsToDelete().length}} records?</p>
+
+  <div class="flex items-center justify-end gap-2 mt-8">
+    <button type="button" class="btn btn--md btn-white-outline " (click)="model.hide()">Cancel</button>
+    <button type="button" class="btn btn--md btn-danger flex items-center gap-2"
+      (click)="deleteCryptoAnalysisHistoryRecords()">
+      @if(isDeleteRequestLoading()){
+      <app-loader [size]="'sm'"></app-loader>
+      }
+      Delete
+    </button>
+  </div>
+
+</app-popup>

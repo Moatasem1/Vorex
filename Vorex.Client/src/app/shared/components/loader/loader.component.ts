@@ -9,4 +9,5 @@ import { Component, input } from '@angular/core';
 })
 export class LoaderComponent {
   size = input<'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'>('md');
+  colorClass = input<string>('text-white');
 }

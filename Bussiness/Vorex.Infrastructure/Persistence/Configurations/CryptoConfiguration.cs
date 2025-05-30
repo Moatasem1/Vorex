@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Vorex.Domain.Cryptos;
+using Vorex.Domain.User;
 
 namespace Vorex.Infrastructure.Persistence.Configurations;
 
@@ -32,5 +33,11 @@ public class CryptoConfiguration : IEntityTypeConfiguration<Crypto>
             .WithOne()
             .HasForeignKey(h => h.CryptoId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany<CryptoFavorite>()
+            .WithOne()
+            .HasForeignKey(x => x.CryptoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 }

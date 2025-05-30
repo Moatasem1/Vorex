@@ -1,0 +1,14 @@
+<section class="container page-padding">
+  <h1 class="text-3xl font-medium mb-10">Crypto Favourite</h1>
+  <ul class="grid grid-cols-4 gap-5">
+    @for (crypto of favouriteCrypto; track crypto.id) {
+    <li><app-crypto-favourite-card (cryptoDeleted)="removeCryptoFromFavourite($event)"
+        [crypto]="crypto"></app-crypto-favourite-card></li>
+    }
+    @empty {
+    <li class="col-span-4">
+      <app-empty-result fullMessage="You have not added any crypto to favourite" class="block"></app-empty-result>
+    </li>
+    }
+  </ul>
+</section>

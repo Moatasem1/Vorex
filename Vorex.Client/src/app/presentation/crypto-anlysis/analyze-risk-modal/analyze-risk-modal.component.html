@@ -10,11 +10,10 @@
         placeholder="00.00$" required />
     </div>
     <!-- holding time controller -->
-    <div class="mb-5">
+    <!-- <div class="mb-5">
       <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Enter the Holding Time In:
       </label>
-      <!-- holding time controller -->
       <div class="flex flex-wrap mb-2">
         @for(option of holdingTimeOptions; track option) {
         <div class="flex items-center me-4">
@@ -28,7 +27,7 @@
       <input [ngModel]="riskForm.value.holdingTime || ''" formControlName="holdingTime" type="number" id="amount"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
         placeholder="22" required />
-    </div>
+    </div> -->
     <!-- submit button -->
     <button (click)="analyzeRisk()" role="button" [disabled]="!riskForm.valid" role="button" type="submit"
       class="btn btn--md btn-primary ml-auto block w-fit rounded-sm">

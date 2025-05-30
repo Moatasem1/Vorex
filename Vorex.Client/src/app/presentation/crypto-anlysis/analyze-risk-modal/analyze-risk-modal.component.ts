@@ -26,8 +26,8 @@ import { IOutput } from '../../../application/abstraction/output';
 
 type AnalyzeRiskInputFormControls = {
   amount: FormControl<number>;
-  holdingTimeOption: FormControl<string>;
-  holdingTime: FormControl<number>;
+  // holdingTimeOption: FormControl<string>;
+  // holdingTime: FormControl<number>;
 };
 
 @Component({
@@ -58,13 +58,13 @@ export class AnalyzeRiskModalComponent {
         Validators.required,
         Validators.min(1),
       ]),
-      holdingTimeOption: this._formBuilder.nonNullable.control('week', [
-        Validators.required,
-      ]),
-      holdingTime: this._formBuilder.nonNullable.control(0, [
-        Validators.required,
-        Validators.min(1),
-      ]),
+      // holdingTimeOption: this._formBuilder.nonNullable.control('week', [
+      //   Validators.required,
+      // ]),
+      // holdingTime: this._formBuilder.nonNullable.control(0, [
+      //   Validators.required,
+      //   Validators.min(1),
+      // ]),
     });
   }
 
@@ -73,7 +73,7 @@ export class AnalyzeRiskModalComponent {
     const analyzeRiskInput: IAnalyzeRiskInput = {
       cryptoId: this.crypto().id,
       investmentAmount: this.riskForm.controls.amount.value,
-      holdingDays: this.calcualteHoldingDays(),
+      // holdingDays: this.calcualteHoldingDays(),
     };
     this._analyzeRiskUseCase.execute(analyzeRiskInput).subscribe({
       next: (result) => {
@@ -87,20 +87,20 @@ export class AnalyzeRiskModalComponent {
     });
   }
 
-  calcualteHoldingDays(): number {
-    switch (this.riskForm.controls.holdingTimeOption.value) {
-      case this.holdingTimeOptions[0]:
-        return this.riskForm.controls.holdingTime.value;
-      case this.holdingTimeOptions[1]:
-        return this.riskForm.controls.holdingTime.value * 7;
-      case this.holdingTimeOptions[2]:
-        return this.riskForm.controls.holdingTime.value * 30;
-      case this.holdingTimeOptions[3]:
-        return this.riskForm.controls.holdingTime.value * 365;
-      default:
-        return 0;
-    }
-  }
+  // calcualteHoldingDays(): number {
+  //   switch (this.riskForm.controls.holdingTimeOption.value) {
+  //     case this.holdingTimeOptions[0]:
+  //       return this.riskForm.controls.holdingTime.value;
+  //     case this.holdingTimeOptions[1]:
+  //       return this.riskForm.controls.holdingTime.value * 7;
+  //     case this.holdingTimeOptions[2]:
+  //       return this.riskForm.controls.holdingTime.value * 30;
+  //     case this.holdingTimeOptions[3]:
+  //       return this.riskForm.controls.holdingTime.value * 365;
+  //     default:
+  //       return 0;
+  //   }
+  // }
 
   resetForm() {
     this.riskForm.reset();

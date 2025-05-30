@@ -1,0 +1,20 @@
+<section class="min-h-dvh flex items-center bg-purple-50">
+  <div class="container page-paddings text-center">
+    @if(isConfirmEmailRequestLoading()){
+    <app-loader size="xl" colorClass="text-purple-500" class="mb-6 block"></app-loader>
+    }
+    @if(!isConfirmEmailRequestSuccess() && !isConfirmEmailRequestError()){
+    <h1 class="text-3xl font-medium text-purple-800 mb-2">Verfying Email ...</h1>
+    <p class="text-gray-500 mb-6">Please wait while we confirm your email address.</p>
+    }
+    @else if(isConfirmEmailRequestError()){
+    <h1 class="text-3xl font-medium text-red-800 mb-2">Email Confirmation Failed</h1>
+    <p class="text-gray-500 mb-6">Please try again.</p>
+    }
+    @else if(isConfirmEmailRequestSuccess()){
+    <h1 class="text-3xl font-medium text-green-800 mb-2">Email Confirmed Successfully</h1>
+    <p class="text-gray-500 mb-6">You can now login to your account.</p>
+    }
+
+  </div>
+</section>

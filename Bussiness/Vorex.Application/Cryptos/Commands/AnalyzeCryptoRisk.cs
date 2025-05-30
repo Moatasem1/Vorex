@@ -14,19 +14,17 @@ public class AnalyzeCryptoRisk
         public Guid UserId { get; private set; }
         public Guid CryptoId { get; private set; }
         public decimal InvestmentAmount { get; private set; }
-        public int HoldingDays { get; private set; }
 
-        private Command(Guid userId,Guid cryptoId, decimal investmentAmount, int holdingDays)
+        private Command(Guid userId,Guid cryptoId, decimal investmentAmount)
         {
             CryptoId = cryptoId;
             InvestmentAmount = investmentAmount;
-            HoldingDays = holdingDays;
             UserId = userId;
         }
 
-        public static Command Create(Guid userId, Guid cryptoId, decimal investmentAmount, int holdingDays)
+        public static Command Create(Guid userId, Guid cryptoId, decimal investmentAmount)
         {
-            return new Command(userId,cryptoId, investmentAmount, holdingDays);
+            return new Command(userId,cryptoId, investmentAmount);
         }
     }
 
@@ -41,7 +39,7 @@ public class AnalyzeCryptoRisk
 
             decimal riskValue = 0.03M; // Placeholder for actual risk calculation logic
 
-            var analysisHistory = Domain.CryptoAnalyses.CryptoAnalysisHistory.Factory.Create(request.UserId,request.CryptoId, request.InvestmentAmount,  request.HoldingDays,DateTime.Now, riskValue);
+            var analysisHistory = Domain.CryptoAnalyses.CryptoAnalysisHistory.Factory.Create(request.UserId,request.CryptoId, request.InvestmentAmount, 60,DateTime.Now, riskValue);
             if (analysisHistory.IsFailure)
                 return Task.FromResult<Result<AnalyzeCryptoRiskResultDto, Error>>(analysisHistory.Error);
 

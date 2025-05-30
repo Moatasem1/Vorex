@@ -1,12 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @use "tailwindcss";
 
+.container{
+  @apply container mx-auto px-4;
+}
+
+.page-padding{
+  @apply py-8;
+}
+
 .w-fit{
   width: fit-content;
 }
 
 .btn {
-  @apply px-4 py-2 rounded-md cursor-pointer font-medium capitalize;
+  @apply px-4 py-2 rounded-md cursor-pointer font-medium capitalize flex items-center justify-center;
 }
 
 .btn[disabled] {
@@ -28,6 +36,13 @@
 .btn-primary-outline {
   @apply border-1  border-purple-500 text-gray-800 hover:bg-purple-100 active:bg-purple-100 focus:outline-none focus:ring-1 focus:ring-purple-400;
 }
+.btn-white-outline {
+  @apply border-1  border-gray-500 text-gray-800 hover:bg-gray-100 active:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-400;
+}
+
+.btn-danger{
+  @apply bg-red-700 text-white hover:bg-red-800 active:bg-red-900 focus:outline-none focus:ring-1 focus:ring-red-500;
+}
 
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
@@ -35,7 +50,56 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
 }
 
+label{
+  @apply block mb-2 text-sm capitalize font-medium text-gray-900;
+}
+
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+
+input{
+  @apply border-1 border-purple-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-400;
+}
+
+// toasts
+.toast--success{
+  @apply bg-green-500 ;
+}
+.toast--error{
+  @apply bg-red-500;
+}
+.toast--warning{
+  @apply bg-yellow-500;
+}
+
+.toast--info{
+  @apply bg-blue-500;
+}
+.toast-loader--success{
+  @apply bg-green-500;
+}
+.toast-loader--error{
+  @apply bg-red-500;
+}
+.toast-loader--warning{
+  @apply bg-yellow-500;
+}
+.toast-loader--info{
+  @apply bg-blue-500;
+}
+
+@theme{
+   --animate-loader : loader 2s infinite ease-in-out;
+  @keyframes loader {
+    0% {
+      width: 100%;
+    }
+
+    100% {
+      width: 0;
+    }
+  }
 }

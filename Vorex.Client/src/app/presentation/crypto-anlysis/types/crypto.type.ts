@@ -14,3 +14,17 @@ export interface ICryptoHistoricalPriceModalInput {
   cryptoId: string;
   cryptoName: string;
 }
+
+type CryptoAnalysisHistoryColumn =
+  | 'cryptoName'
+  | 'investmentAmount'
+  | 'holdingDays'
+  | 'risk'
+  | 'submitDate';
+
+export interface ICryptoHistoryTableColumn {
+  id: number;
+  key: CryptoAnalysisHistoryColumn;
+  name: string;
+  isAsc: boolean;
+}

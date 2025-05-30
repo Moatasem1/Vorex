@@ -1,0 +1,96 @@
+<section class="container page-padding">
+  <header class="flex-col md:flex-row flex items-center gap-6">
+    <app-search-bar [(searchText)]="searchText"
+      (searchTextChange)="updatePaginationInputSearchValue(); fetchUserCryptoAnlysisHistory()"
+      class="grow-1"></app-search-bar>
+    <div class="flex-col sm:flex-row flex gap-2 items-center">
+      <button (click)="setDeleteCryptoAnalysisHistoryModalInput(); openDeleteCryptoAnalysisHistoryModal()"
+        [disabled]="!numberOfCheckedRecords" class="btn btn--md btn-danger flex items-center gap-2">
+        <lucide-angular [img]="Trash2" [size]="18"></lucide-angular>
+        <span>Delete Selected {{numberOfCheckedRecords}}</span>
+      </button>
+
+      <app-dropdown>
+        <ng-container toggler>
+          <button (click)="toggleFilter()" class="btn btn--md btn-white-outline flex items-center gap-2 ">
+            <lucide-angular [img]="Funnel" [size]="18"></lucide-angular>
+            <span>Filters</span>
+            <lucide-angular [img]="ChevronDown" [size]="18" class="transition duration-300"
+              [ngClass]="{'rotate-180 ': isFilterDropDownOpen()}"></lucide-angular>
+          </button>
+        </ng-container>
+        <ng-container dropdown>
+          <form [formGroup]="filterHistoryForm" class="flex items-center gap-4">
+            <input (change)="updatePaginationInputStartDate(); fetchUserCryptoAnlysisHistory()"
+              formControlName="startDate" class="text-sm" type="date" id="startDate" placeholder="start date">
+            <span>to</span>
+            <input (change)="updatePaginationInputEndDate(); fetchUserCryptoAnlysisHistory()" formControlName="endDate"
+              class="text-sm" type="date" id="endDate" placeholder="end date">
+          </form>
+        </ng-container>
+      </app-dropdown>
+    </div>
+  </header>
+</section>
+<!-- history table -->
+<section #cryptoHistoryTable class="container mt-2 pb-6">
+  <span class="text-sm text-gray-400 block mb-2 text-end">
+    {{this.cryptoHistoryTableData?.pagination?.totalItems}} total records</span>
+  <div class="overflow-x-auto border border-gray-200 rounded-sm shadow-md">
+    <table class="capitalize overflow-y-scroll text-sm w-full divide-y divide-gray-200 ">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="font-medium text-gray-500 text-left px-6 py-3">
+            <input [(ngModel)]="isAllRecordsChecked" type="checkbox" class="cursor-pointer"
+              (click)="toggleAllRecordsCheckTo(!isAllRecordsChecked)">
+          </th>
+          @for (column of cryptoHistoryTableColumns; track column.id) {
+          <th (click)="sortTableData(column);" class="font-medium text-gray-500 text-left px-6 py-3 cursor-pointer">
+            <div class="flex items-center gap-2">
+              <span>{{ column.name }}</span>
+              <lucide-angular [img]="ArrowUpDown" [size]="16" class="cursor-pointer"></lucide-angular>
+            </div>
+          </th>
+          }
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        @for (record of cryptoHistoryTableData?.data; track record.id) {
+        <tr class="hover:bg-gray-50/50 transition duration-300">
+          <td class="text-gray-500 text-left px-6 py-4"
+            (click)="toggleRecordCheck(record.id); changeAllRecordsCheckedStatus();">
+            <input [checked]="record.isChecked" class="cursor-pointer" type="checkbox">
+          </td>
+          <td class="text-gray-500 text-left px-6 py-4">{{record.cryptoName}}</td>
+          <td class="text-gray-500 text-left px-6 py-4">{{record.investmentAmount}}$</td>
+          <td class="text-gray-500 text-left px-6 py-4 lowercase">{{record.holdingDays | humanizeDays}}</td>
+          <td class="text-gray-500 text-left px-6 py-4">{{record.risk}}</td>
+          <td class="text-gray-500 text-left px-6 py-4">{{record.submitDate | date: 'MMM dd,yyyy'}}</td>
+        </tr>
+        }@empty {
+        <tr>
+          <td colspan="6"><app-empty-result [showBorder]="false" [entityName]="'crypto history'"
+              [searchText]="searchText"></app-empty-result></td>
+        </tr>
+        }
+      </tbody>
+      @if(cryptoHistoryTableData?.pagination?.totalPages) {
+      <tfoot>
+        <tr>
+          <td colspan="6">
+            <app-paginator class="mx-auto block w-fit py-4"
+              (pageChange)="updatePaginationInputPage($event); fetchUserCryptoAnlysisHistory(); scrollToTopOfHistoryTable()"
+              [currentPage]="cryptoHistoryTableData?.pagination?.pageIndex ?? 0"
+              [totalPages]="cryptoHistoryTableData?.pagination?.totalPages ?? 0" [visibleBubbles]="3"></app-paginator>
+          </td>
+        </tr>
+      </tfoot>
+      }
+    </table>
+  </div>
+</section>
+
+@if(deleteCryptoAnalysisHistoryModalInput){
+<app-delete-crypto-anlysis-history-modal (recordsDeleted)="fetchUserCryptoAnlysisHistory()"
+  [recordsToDelete]="deleteCryptoAnalysisHistoryModalInput"></app-delete-crypto-anlysis-history-modal>
+}

@@ -22,7 +22,7 @@ namespace Vorex.WebApi.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope<PaginatedResponse<CryptoBasicDetailsDto>>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCryptos([FromQuery] BasicLoadOptions loadOptions)
         {
-            var query = GetAllCryptos.Query.Create(loadOptions.PageIndex, loadOptions.PageSize,loadOptions.SearchValue);
+            var query = GetAllCryptos.Query.Create(loadOptions.PageIndex, loadOptions.PageSize,loadOptions.SearchValue,_currentUserService.UserId);
 
             var result = await _mediator.Send(query);
 
@@ -34,7 +34,7 @@ namespace Vorex.WebApi.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope<AnalyzeCryptoRiskResultDto>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AnalyzeRisk(Guid cryptoId, AnalyzeCryptoRiskRequest request)
         {
-            var command = AnalyzeCryptoRisk.Command.Create(_currentUserService.UserId, cryptoId,request.InvestmentAmount,request.HoldingDays);
+            var command = AnalyzeCryptoRisk.Command.Create(_currentUserService.UserId, cryptoId,request.InvestmentAmount);
 
             var result = await _mediator.Send(command);
 

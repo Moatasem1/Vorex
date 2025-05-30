@@ -1,0 +1,20 @@
+<div class="fixed top-2 right-2 z-50 flex items-end flex-col gap-4">
+  @for (toast of toasts; track toast.id) {
+  <div [@toastAnimation] class="toast relative flex items-center w-[350px] p-4 gap-3 rounded-sm oveflow-hidden"
+    [ngClass]="toast.colorClass">
+    <lucide-icon [img]="toast.icon" [size]="30" class="text-white"></lucide-icon>
+    <div class="toast__content grow-1">
+      @if(toast.title){
+      <h6 class="toast__title font-semibold text-white">{{toast.title}}</h6>
+      }
+      @if(toast.message){
+      <p class="toast__message mt-1 text-sm text-white">{{toast.message}}</p>
+      }
+    </div>
+    <button class="toast__close absolute top-2 right-2 cursor-pointer" (click)="removeToast(toast.id)">
+      <lucide-icon [img]="X" [size]="18" class="text-white"></lucide-icon>
+    </button>
+    <div class="toast__loader absolute bottom-0 left-0 h-4 animate-loader"></div>
+  </div>
+  }
+</div>

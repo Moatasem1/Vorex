@@ -1,0 +1,29 @@
+<li class="shadow-md border border-gray-300 rounded-md overflow-hidden">
+  <header class="flex items-center justify-between gap-2 bg-gray-50 px-4 py-2">
+    <h2 class="font-medium">{{input().cryptoName}}</h2>
+    <button (click)="emitRemovedFromComparison()" title="remove from comparison" class="group">
+      <lucide-angular [img]="Trash2" [size]="16"
+        class="group-hover:scale-115 cursor-pointer transition text-red-600"></lucide-angular>
+    </button>
+  </header>
+  <main class="flex flex-col gap-3 p-4">
+    <div class="flex items-center justify-between gap-2">
+      <span class="text-gray-600">Investment:</span>
+      <span>${{input().investAmount}}</span>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <span class="text-gray-600">Holding Period:</span>
+      <span>{{input().holdingDays | humanizeDays}}</span>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <span class="text-gray-600">ROI Level:</span>
+      <div class="flex items-center gap-2">
+        <div class="loader bg-gray-200 w-32 rounded-2xl h-3 overflow-hidden">
+          <span class="h-3 rounded-2xl block transition" [style.width]="input().risk + '%'"
+            [ngClass]="riskClassColor(input().risk)"></span>
+        </div>
+        <span>{{input().risk}}%</span>
+      </div>
+    </div>
+  </main>
+</li>

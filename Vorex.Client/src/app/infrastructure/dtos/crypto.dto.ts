@@ -2,11 +2,12 @@ export interface ICryptoListItemDto {
   id: string;
   name: string;
   symbol: string;
+  isFavourite: boolean;
 }
 
 export interface IAnalyzeRiskInputDto {
   investmentAmount: number;
-  holdingDays: number;
+  // holdingDays: number;
 }
 
 export interface IAnalyzeRiskResultDto {

@@ -10,26 +10,18 @@ public class HistoricalPrice : BaseEntity, IEntity
 {
     private HistoricalPrice() { }
 
-    public int Year { get; private set; }
-
-    public int Month { get; private set; }
-
+    public DateOnly Date {  get; private set; }
+    
     public decimal ClosingPrice { get; private set; }
 
     public Guid CryptoId { get; private set; }
 
     public static class Factory
     {
-        public static Result<HistoricalPrice, Error> Create(Guid cryptoId, int year, int month, decimal closingPrice)
+        public static Result<HistoricalPrice, Error> Create(Guid cryptoId, DateOnly date, decimal closingPrice)
         {
             var idValidation = ValidateCryptoId(cryptoId);
             if (idValidation.IsFailure) return idValidation.Error;
-
-            var yearValidation = ValidateYear(year);
-            if (yearValidation.IsFailure) return yearValidation.Error;
-
-            var monthValidation = ValidateMonth(month);
-            if (monthValidation.IsFailure) return monthValidation.Error;
 
             var priceValidation = ValidateClosingPrice(closingPrice);
             if (priceValidation.IsFailure) return priceValidation.Error;
@@ -38,8 +30,7 @@ public class HistoricalPrice : BaseEntity, IEntity
             {
                 Id = Guid.NewGuid(),
                 CryptoId = cryptoId,
-                Year = year,
-                Month = month,
+                Date = date,
                 ClosingPrice = closingPrice,
                 CreatedAt = DateTime.UtcNow
             };
@@ -53,20 +44,6 @@ public class HistoricalPrice : BaseEntity, IEntity
     {
         return id == Guid.Empty
             ? Error.ValueRequired(nameof(HistoricalPrice), nameof(CryptoId))
-            : true;
-    }
-
-    private static Result<bool, Error> ValidateYear(int year)
-    {
-        return year is < 1 or > short.MaxValue
-            ? Error.ValueInvalid(nameof(HistoricalPrice), nameof(Year))
-            : true;
-    }
-
-    private static Result<bool, Error> ValidateMonth(int month)
-    {
-        return month is < 1 or > 12
-            ? Error.ValueInvalid(nameof(HistoricalPrice), nameof(Month))
             : true;
     }
 

@@ -1,0 +1,54 @@
+<section class="min-h-dvh flex items-center bg-purple-50/50">
+  <form [formGroup]="createAccountForm" class="w-full p-4 md:p-8">
+    <header class="mb-8">
+      <div class="p-2 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 w-fit mb-2">
+        <lucide-icon [img]="TrendingUp" class="my-icon text-white"></lucide-icon>
+      </div>
+      <h1 class="text-3xl font-medium text-purple-800 mb-2">Join Vorex</h1>
+      <p class="text-sm text-gray-500">Create your account to get started</p>
+    </header>
+    <!-- group 1 first name and last name -->
+    <div class="sm:flex sm:gap-4">
+      <div class="mb-4 w-full">
+        <label for="firstName">first name</label>
+        <input id="firstName" formControlName="firstName" type="text" class="text-sm w-full" placeholder="moatasem">
+      </div>
+      <div class="mb-4 w-full">
+        <label for="lasttName">last name</label>
+        <input id="lastName" formControlName="lastName" type="text" class="text-sm w-full" placeholder="al-naimat">
+      </div>
+    </div>
+    <!-- group 2 email -->
+    <div class="mb-4">
+      <label for="email">email</label>
+      <input id="email" formControlName="email" type="email" class="text-sm w-full" placeholder="moatasem@example.com">
+    </div>
+    <!-- group 3 password and confirm password -->
+    <div class="sm:flex sm:gap-4">
+      <div class="mb-4 w-full">
+        <label for="password">password</label>
+        <input id="password" formControlName="password" type="password" class="text-sm w-full"
+          placeholder="minmum 6 characters">
+      </div>
+      <div class="mb-4 w-full">
+        <label for="confirmPassword">confirm password</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" class="text-sm w-full"
+          placeholder="minmum 6 characters">
+      </div>
+    </div>
+    @if(errorMessage()){
+    <div class="text-sm text-red-600 p-2 bg-red-100 rounded text-center">{{errorMessage()}}</div>
+    }
+    <span class="text-sm text-purple-400 capitalize">By signing up, you agree to <a class="text-purple-500 underline"
+        href="terms">our
+        Terms</a> of Service and <a class="text-purple-500 underline" href="privacy-policy">Privacy Policy</a></span>
+    <!-- {{createAccountForm.value | json}} -->
+    <button (click)="creatAccount()" [disabled]="!createAccountForm.valid"
+      class="btn btn--md btn-primary w-full mt-6 flex items-center gap-2">
+      <app-loader [size]="'sm'" *ngIf="isCreateAccountRequestLoading()"></app-loader>
+      <span>create account</span>
+    </button>
+  </form>
+  <div class="w-full h-dvh bg-cover bg-no-repeat bg-center hidden md:block"
+    [style.backgroundImage]="'url(' + coverImages[currentCoverImageIndex].url+')'"></div>
+</section>

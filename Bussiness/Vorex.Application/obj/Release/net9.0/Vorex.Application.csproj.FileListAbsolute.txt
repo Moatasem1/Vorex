@@ -1,0 +1,16 @@
+D:\GitHub\Vorex\Bussiness\Vorex.Application\bin\Release\net9.0\Vorex.Application.deps.json
+D:\GitHub\Vorex\Bussiness\Vorex.Application\bin\Release\net9.0\Vorex.Application.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Application\bin\Release\net9.0\Vorex.Application.pdb
+D:\GitHub\Vorex\Bussiness\Vorex.Application\bin\Release\net9.0\Vorex.Domain.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Application\bin\Release\net9.0\Vorex.Domain.pdb
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.csproj.AssemblyReference.cache
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.AssemblyInfoInputs.cache
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.AssemblyInfo.cs
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.csproj.CoreCompileInputs.cache
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.sourcelink.json
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Ap.EB239C91.Up2Date
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\refint\Vorex.Application.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\Vorex.Application.pdb
+D:\GitHub\Vorex\Bussiness\Vorex.Application\obj\Release\net9.0\ref\Vorex.Application.dll

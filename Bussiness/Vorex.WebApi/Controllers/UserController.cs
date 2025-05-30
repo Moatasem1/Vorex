@@ -2,16 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vorex.Application;
-using Vorex.Application.Users.Commands;
-using Vorex.Application.Users.Contracts.Requests;
 using Vorex.Application.Users.Queries;
-using Vorex.Domain.lib;
-using Vorex.Domain.User;
-using Vorex.Infrastructure.Persistence;
-using Vorex.Infrastructure.Persistence.Repositories;
-using Vorex.Infrastructure.Persistence.Repositories.interfaces;
 using Vorex.WebApi.Controllers.abstraction;
-/*not tested*/
 namespace Vorex.WebApi.Controllers
 {
     [Authorize]
@@ -31,13 +23,8 @@ namespace Vorex.WebApi.Controllers
 
             return HandleResult(result, fun=>fun.ToUsersListDto());
         }
+
+        
     }
 }
 
-public class UserByIdSpecification : Specification<User>
-{
-    public UserByIdSpecification(Guid id)
-    {
-        Criteria = user => user.Id == id;
-    }
-}

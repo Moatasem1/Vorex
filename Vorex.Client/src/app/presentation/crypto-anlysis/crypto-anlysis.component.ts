@@ -18,7 +18,7 @@ import { PaginatorComponent } from '../../shared/components/paginator/paginator.
 import { CryptoCardComponent } from './crypto-card/crypto-card.component';
 import { PopupComponent } from '../../shared/components/popup/popup.component';
 import { AnalyzeRiskModalComponent } from './analyze-risk-modal/analyze-risk-modal.component';
-import { riskClassColor } from '../../shared/helpers/crypto-anlysis.helper';
+import { riskTextClassColor } from '../../shared/helpers/crypto-anlysis.helper';
 import { IOutput } from '../../application/abstraction/output';
 import { HumanizeDaysPipe } from '../../shared/pipes/humanize-days.pipe';
 import { AnalyzeRiskResultModalComponent } from './analyze-risk-result-modal/analyze-risk-result-modal.component';
@@ -27,6 +27,10 @@ import {
   ICryptoHistoricalPriceModalInput,
 } from './types/crypto.type';
 import { CryptoHistoricalPricesModelComponent } from './crypto-historical-prices-model/crypto-historical-prices-model.component';
+import { AddCryptoToFavouriteUseCase } from '../../application/users/use-cases/addCryptoToFavourite.usecase';
+import { removeCryptoFromFavouriteUseCase } from '../../application/users/use-cases/removeCryptoFromFavourite.usecase';
+import { IAddCryptoToFavoriteInput } from '../../application/users/models/user.model';
+import { ToastrService } from '../../shared/services/toastr.service';
 
 @Component({
   selector: 'app-crypto-anlysis',
@@ -159,5 +163,51 @@ export class CryptoAnlysisComponent {
       cryptoName: crypto.name,
       cryptoId: crypto.id,
     };
+  }
+
+  // favourite feature
+  addCryptoToFavouriteUseCase = inject(AddCryptoToFavouriteUseCase);
+  removeCryptoFromFavouriteUseCase = inject(removeCryptoFromFavouriteUseCase);
+  private _toasterService = inject(ToastrService);
+  addCryptoToFavourite(crypto: ICryptoListItem) {
+    const input = { cryptoId: crypto.id } as IAddCryptoToFavoriteInput;
+    this.addCryptoToFavouriteUseCase.execute(input).subscribe({
+      next: () => {
+        this._toasterService.success(
+          '',
+          `Crypto ${crypto.name} added to favourite`
+        );
+        this.filteredCryptos = this.filteredCryptos.map((c) => {
+          if (c.id === crypto.id) {
+            return { ...c, isFavourite: true };
+          }
+          return c;
+        });
+      },
+      error: () => {},
+    });
+  }
+  removeCryptoFromFavourite(crypto: ICryptoListItem) {
+    this.removeCryptoFromFavouriteUseCase.execute(crypto.id).subscribe({
+      next: () => {
+        this._toasterService.success(
+          '',
+          `Crypto ${crypto.name} removed from favourite`
+        );
+        this.filteredCryptos = this.filteredCryptos.map((c) => {
+          if (c.id === crypto.id) {
+            return { ...c, isFavourite: false };
+          }
+          return c;
+        });
+      },
+      error: () => {},
+    });
+  }
+
+  toggleFavourite(isFavourite: boolean, crypto: ICryptoListItem) {
+    isFavourite
+      ? this.addCryptoToFavourite(crypto)
+      : this.removeCryptoFromFavourite(crypto);
   }
 }

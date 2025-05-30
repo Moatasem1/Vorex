@@ -10,22 +10,8 @@ public class HistoricalPriceConfiguration : IEntityTypeConfiguration<HistoricalP
     {
         builder.HasKey(hp => hp.Id);
 
-        builder.Property(hp => hp.Year)
-          .IsRequired();
-
-        builder.Property(hp => hp.Month)
+        builder.Property(hp => hp.Date)
            .IsRequired();
-
-        builder.Metadata.AddCheckConstraint(
-        "CK_HistoricalPrice_Year_Valid",
-        "[Year] >= 1 AND [Year] <= 9999"
-        );
-
-        builder.Metadata.AddCheckConstraint(
-            "CK_HistoricalPrice_Month_Valid",
-            "[Month] >= 1 AND [Month] <= 12"
-        );
-
 
         builder.Property(hp => hp.ClosingPrice)
             .IsRequired()

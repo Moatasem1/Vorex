@@ -56,14 +56,14 @@ public class GetCryptoHistoricalData
 
             var data = crypto.HistoricalPrices
             .Where(chp =>
-                (!request.StartDate.HasValue || new DateOnly(chp.Year, chp.Month, 1) >= request.StartDate.Value) &&
-                (!request.EndDate.HasValue || new DateOnly(chp.Year, chp.Month, 1) <= request.EndDate.Value)
+                (!request.StartDate.HasValue || chp.Date >= request.StartDate.Value) &&
+                (!request.EndDate.HasValue || chp.Date <= request.EndDate.Value)
             )
             .Select(chp => new Data
             {
                 Id = chp.Id,
                 ClosingPrice = chp.ClosingPrice,
-                Date = new DateOnly(chp.Year, chp.Month, 1)
+                Date = chp.Date
             })
             .ToList();
 

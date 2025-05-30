@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Options;
+using Vorex.Application.options;
 using Vorex.Application.services.interfaces;
 using Vorex.Domain.Interfaces;
 using Vorex.Domain.lib;
@@ -30,7 +32,7 @@ public class CreateUser
         }
     }
 
-    public sealed class Handler(IRepository<Domain.User.User>_userRepo,IEmailService _emailService,IJwtService _jwtService) : IRequestHandler<Command, Result<Guid, Error>>
+    public sealed class Handler(IRepository<Domain.User.User>_userRepo,IEmailService _emailService,IJwtService _jwtService,IOptions<JwtOptions>jwtOptions) : IRequestHandler<Command, Result<Guid, Error>>
     {
         public Task<Result<Guid, Error>> Handle(Command request, CancellationToken cancellationToken)
         {
@@ -46,7 +48,7 @@ public class CreateUser
             _userRepo.Add(user.Value);
 
            var verficationToken= _jwtService.GenerateEmailVerificationToken(user.Value.Id, user.Value.Email);
-            _emailService.SendVerificationEmail(user.Value.Email,$"{user.Value.FirstName} {user.Value.LastName}",$"verify-email?token={verficationToken}");
+            _emailService.SendVerificationEmail(user.Value.Email,$"{user.Value.FirstName} {user.Value.LastName}",$"{jwtOptions.Value.Audience}/auth/email-confirmation?token={verficationToken}");
             return Task.FromResult<Result<Guid, Error>>(user.Value.Id);
         }
 

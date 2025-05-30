@@ -1,0 +1,13 @@
+<span #dropdown class="relative">
+  <span (click)="toggleDropdown()">
+    <ng-content select="[toggler]">
+
+    </ng-content>
+  </span>
+
+  <!-- Dropdown menu -->
+  <div [ngClass]="{'hidden': !MenuVisible}"
+    class="w-fit absolute border border-gray-200 top-full mt-2 p-2 right-0 w-full bg-white shadow-lg rounded-md z-10">
+    <ng-content select="[dropdown]"></ng-content>
+  </div>
+</span>

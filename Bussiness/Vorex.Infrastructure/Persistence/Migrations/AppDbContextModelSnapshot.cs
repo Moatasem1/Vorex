@@ -113,22 +113,14 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("CryptoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Month")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CryptoId");
 
-                    b.ToTable("HistoricalPrice", t =>
-                        {
-                            t.HasCheckConstraint("CK_HistoricalPrice_Month_Valid", "[Month] >= 1 AND [Month] <= 12");
-
-                            t.HasCheckConstraint("CK_HistoricalPrice_Year_Valid", "[Year] >= 1 AND [Year] <= 9999");
-                        });
+                    b.ToTable("HistoricalPrice");
                 });
 
             modelBuilder.Entity("Vorex.Domain.Cryptos.VolatilityLevel", b =>
@@ -193,7 +185,7 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CryptoAnalysisHistoryId")
+                    b.Property<Guid>("CryptoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -201,14 +193,9 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid?>("CryptoAnalysisHistoryId1")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("UserId", "CryptoId");
 
-                    b.HasKey("UserId", "CryptoAnalysisHistoryId");
-
-                    b.HasIndex("CryptoAnalysisHistoryId");
-
-                    b.HasIndex("CryptoAnalysisHistoryId1");
+                    b.HasIndex("CryptoId");
 
                     b.ToTable("CryptoFavorite");
                 });
@@ -342,15 +329,11 @@ namespace Vorex.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Vorex.Domain.User.CryptoFavorite", b =>
                 {
-                    b.HasOne("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", null)
+                    b.HasOne("Vorex.Domain.Cryptos.Crypto", null)
                         .WithMany()
-                        .HasForeignKey("CryptoAnalysisHistoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("CryptoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", null)
-                        .WithMany("Favorites")
-                        .HasForeignKey("CryptoAnalysisHistoryId1");
 
                     b.HasOne("Vorex.Domain.User.User", null)
                         .WithMany("Favorites")
@@ -371,8 +354,6 @@ namespace Vorex.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", b =>
                 {
                     b.Navigation("Comparisons");
-
-                    b.Navigation("Favorites");
                 });
 
             modelBuilder.Entity("Vorex.Domain.Cryptos.Crypto", b =>

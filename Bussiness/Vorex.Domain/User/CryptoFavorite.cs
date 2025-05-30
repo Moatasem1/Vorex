@@ -13,24 +13,24 @@ public class CryptoFavorite : IEntity
 
     public Guid UserId { get; private set; }
 
-    public Guid CryptoAnalysisHistoryId { get; private set; }
+    public Guid CryptoId { get; private set; }
 
     public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
 
     public class Factory
     {
-        public static Result<CryptoFavorite, Error> Create(Guid userId, Guid cryptoAnalysisHistoryId)
+        public static Result<CryptoFavorite, Error> Create(Guid userId, Guid cryptoId)
         {
             var userIdValidation = ValidateId(userId, nameof(UserId));
             if (userIdValidation.IsFailure) return userIdValidation.Error;
 
-            var cryptoIdValidation = ValidateId(cryptoAnalysisHistoryId, nameof(CryptoAnalysisHistoryId));
+            var cryptoIdValidation = ValidateId(cryptoId, nameof(CryptoFavorite.CryptoId));
             if (cryptoIdValidation.IsFailure) return cryptoIdValidation.Error;
 
             var cryptoFavorite = new CryptoFavorite
             {
                 UserId = userId,
-                CryptoAnalysisHistoryId = cryptoAnalysisHistoryId,
+                CryptoId = cryptoId,
                 CreatedAt = DateTime.UtcNow,
             };
 

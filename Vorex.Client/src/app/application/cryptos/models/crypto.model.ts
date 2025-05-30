@@ -8,7 +8,7 @@ export interface ICryptoListItem {
 export interface IAnalyzeRiskInput {
   cryptoId: string;
   investmentAmount: number;
-  holdingDays: number;
+  // holdingDays: number;
 }
 
 export interface IAnalyzeRiskResult {

@@ -14,12 +14,12 @@ namespace Vorex.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<CryptoFavorite> builder)
         {
-            builder.HasKey(cf => new { cf.UserId, cf.CryptoAnalysisHistoryId });
+            builder.HasKey(cf => new { cf.UserId, cf.CryptoId });
 
             builder.Property(cf => cf.UserId)
                 .IsRequired();
 
-            builder.Property(cf => cf.CryptoAnalysisHistoryId)
+            builder.Property(cf => cf.CryptoId)
                 .IsRequired();
 
             builder.Property(cf => cf.CreatedAt)

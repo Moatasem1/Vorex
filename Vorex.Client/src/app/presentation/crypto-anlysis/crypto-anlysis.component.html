@@ -1,4 +1,4 @@
-<section class="container mx-auto px-4 py-8">
+<section class="container page-padding">
   <!-- Search -->
   <form class="relative z-0">
     <lucide-icon [img]="Search"
@@ -20,7 +20,8 @@
     </span>
     <div class="relative grid gap-4" [ngClass]="{'grid-cols-7': filteredCryptos.length>0}">
       @for (crypto of filteredCryptos; track crypto.id) {
-      <app-crypto-card (anayzeRiskClicked)="setSelectedCrypto($event); showAnlysisRiskModal()"
+      <app-crypto-card (fovouriteClicked)="toggleFavourite($event,crypto)"
+        (anayzeRiskClicked)="setSelectedCrypto($event); showAnlysisRiskModal()"
         (historicalDataClicked)="setHistoricalDataModalInput($event); showHistoricalDataModal();"
         [crypto]="crypto"></app-crypto-card>
       }

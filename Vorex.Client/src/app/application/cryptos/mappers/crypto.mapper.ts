@@ -18,7 +18,7 @@ export function mapCryptoListItemDtoToModel(
     id: crypto.id,
     name: crypto.name,
     symbol: crypto.symbol,
-    isFavourite: false,
+    isFavourite: crypto.isFavourite,
   };
 }
 
@@ -26,7 +26,7 @@ export function mapCryptoAnalizeRiskInputToDto(
   input: IAnalyzeRiskInput
 ): IAnalyzeRiskInputDto {
   return {
-    holdingDays: input.holdingDays,
+    // holdingDays: input.holdingDays,
     investmentAmount: input.investmentAmount,
   };
 }

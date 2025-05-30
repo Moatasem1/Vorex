@@ -37,9 +37,9 @@ public class AuthController(IUnitOfWork _unitOfWork, IMediator _mediator) : ApiC
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> VerfiyEmail([FromQuery] string token)
+    public async Task<IActionResult> VerfiyEmail([FromBody] VerifyEmailRequest request)
     {
-        var command = Application.Users.Commands.VerfiyUserEmail.Command.Create(token);
+        var command = Application.Users.Commands.VerfiyUserEmail.Command.Create(request.Token);
 
         var result = await _mediator.Send(command);
 

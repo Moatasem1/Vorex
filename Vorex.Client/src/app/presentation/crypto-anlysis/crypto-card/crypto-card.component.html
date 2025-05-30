@@ -6,17 +6,17 @@
   </p>
   <footer class="opacity-0 overflow-hidden transition-all duration-300 ease-in-out"
     [ngClass]="{'opacity-100 mt-5': isHovered}" [style]="{'max-height': isHovered ? '200px' : '0'}">
-    <button (click)="emitAnalyzeRisk()" type="button" class="btn btn--sm btn-primary mb-2 w-full">analyze
+    <button (click)="emitAnalyzeRisk()" type="button" class="btn  btn--sm btn-primary mb-2 w-full">analyze
       risk</button>
     <button (click)="emitHistoricalData()" type="button" class="btn btn--sm btn-primary-outline w-full">historical
       data</button>
   </footer>
   @if (isHovered && !crypto().isFavourite) {
-  <lucide-angular (click)="toggleFavourite()" [img]="Heart" [strokeWidth]="2" [size]="20"
+  <lucide-angular (click)="toggleFavourite(); emitFavouriteClicked()" [img]="Heart" [strokeWidth]="2" [size]="20"
     class="my-icon text-gray-400 absolute end-0 me-1 top-1"></lucide-angular>
   }
   @else if(isHovered && crypto().isFavourite) {
-  <lucide-angular (click)="toggleFavourite();" [img]="Heart" [strokeWidth]="2" [size]="20"
+  <lucide-angular (click)="toggleFavourite(); emitFavouriteClicked();" [img]="Heart" [strokeWidth]="2" [size]="20"
     class="my-icon text-gray-400 absolute end-0 me-1 top-1 fill-red-500 stroke-red-400"></lucide-angular>
   }
 

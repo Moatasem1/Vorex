@@ -1,0 +1,12 @@
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\bin\Release\net9.0\Vorex.Domain.deps.json
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\bin\Release\net9.0\Vorex.Domain.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\bin\Release\net9.0\Vorex.Domain.pdb
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.AssemblyInfoInputs.cache
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.AssemblyInfo.cs
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.csproj.CoreCompileInputs.cache
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.sourcelink.json
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\refint\Vorex.Domain.dll
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\Vorex.Domain.pdb
+D:\GitHub\Vorex\Bussiness\Vorex.Domain\obj\Release\net9.0\ref\Vorex.Domain.dll

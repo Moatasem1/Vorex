@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vorex.Application.CryptoAnalysis.Contract;
 using Vorex.Application.Cryptos.Contracts;
+using Vorex.Application.others;
 using Vorex.Domain.CryptoAnalyses;
 using Vorex.Domain.Cryptos;
 using Vorex.Domain.Interfaces;
@@ -15,7 +16,7 @@ namespace Vorex.Application.CryptoAnalysis.Queries;
 
 public class GetAllCryptoAnylsisHistoryRecords
 {
-    public sealed class Query : IRequest<Result<List<Data>, Error>>
+    public sealed class Query : IRequest<Result<PaginatedResponse<Data>, Error>>
     {
         public Guid UserId { get; private set; }
         public int PageNumber { get; private set; }
@@ -59,9 +60,9 @@ public class GetAllCryptoAnylsisHistoryRecords
         }
     }
 
-    public sealed class Handler(IReadOnlyRepository<CryptoAnalysisHistory> _cryptoAnalysisHistoryRepository, IReadOnlyRepository<Crypto> _cryptoRepository) : IRequestHandler<Query, Result<List<Data>, Error>>
+    public sealed class Handler(IReadOnlyRepository<CryptoAnalysisHistory> _cryptoAnalysisHistoryRepository, IReadOnlyRepository<Crypto> _cryptoRepository) : IRequestHandler<Query, Result<PaginatedResponse<Data>, Error>>
     {
-        public Task<Result<List<Data>, Error>> Handle(Query request, CancellationToken cancellationToken)
+        public Task<Result<PaginatedResponse<Data>, Error>> Handle(Query request, CancellationToken cancellationToken)
         {
 
             var cryptoAnalysisHistoryQuery = from cryptoAnalysisHistory in _cryptoAnalysisHistoryRepository.GetAll()
@@ -87,7 +88,10 @@ public class GetAllCryptoAnylsisHistoryRecords
                 .Take(request.PageSize)
                 .ToList();
 
-            return Task.FromResult<Result<List<Data>, Error>>(paginatedRecords);
+            var pagination = new PaginatedResponse<Data>(paginatedRecords,cryptoAnalysisHistoryQuery.Count(),request.PageNumber,request.PageSize);
+            
+
+            return Task.FromResult<Result<PaginatedResponse<Data>, Error>>(pagination);
         }
     }
 }

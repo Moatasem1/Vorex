@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../enviroments/enviroment';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { IError } from '../shared/types/shared.types';
 
 interface IResponse<T> {
   responseData: T;
@@ -18,24 +19,44 @@ export class ApiService {
   constructor() {}
 
   get<O>(url: string): Observable<O> {
-    return this._httpClient
-      .get<IResponse<O>>(`${this._baseUrl}/${url}`)
-      .pipe(map((resp) => resp.responseData));
+    return this._httpClient.get<IResponse<O>>(`${this._baseUrl}/${url}`).pipe(
+      map((resp) => resp.responseData),
+      catchError(this.handleError)
+    );
   }
   post<I, O>(url: string, body: I): Observable<O> {
     return this._httpClient
       .post<IResponse<O>>(`${this._baseUrl}/${url}`, body)
-      .pipe(map((resp) => resp.responseData));
+      .pipe(
+        map((resp) => resp.responseData),
+        catchError(this.handleError)
+      );
   }
 
   put<I, O>(url: string, body: I): Observable<O> {
     return this._httpClient
       .put<IResponse<O>>(`${this._baseUrl}/${url}`, body)
-      .pipe(map((resp) => resp.responseData));
+      .pipe(
+        map((resp) => resp.responseData),
+        catchError(this.handleError)
+      );
   }
-  delete<O>(url: string): Observable<O> {
+
+  delete<I, O>(url: string, body: I): Observable<O>;
+  delete<O>(url: string): Observable<O>;
+  delete<I, O>(url: string, body?: I): Observable<O> {
     return this._httpClient
-      .delete<IResponse<O>>(`${this._baseUrl}/${url}`)
-      .pipe(map((resp) => resp.responseData));
+      .delete<IResponse<O>>(`${this._baseUrl}/${url}`, { body: body })
+      .pipe(
+        map((resp) => resp.responseData),
+        catchError(this.handleError)
+      );
+  }
+
+  //
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    const errors = error.error?.responseData.errors;
+
+    return throwError(() => errors);
   }
 }

@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Vorex.Domain\Vorex.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CryptoAnalysis\Contract\Request\" />
-  </ItemGroup>
-
 </Project>

@@ -43,11 +43,6 @@ public class CryptoAnalysisHistoryConfiguration : IEntityTypeConfiguration<Crypt
             .HasForeignKey(x => x.CryptoId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany<CryptoFavorite>()
-           .WithOne()
-           .HasForeignKey(x => x.CryptoAnalysisHistoryId)
-           .OnDelete(DeleteBehavior.NoAction);
-
         builder.HasMany<CryptoComparison>()
            .WithOne()
           .HasForeignKey(x => x.CryptoAnalysisHistoryId)

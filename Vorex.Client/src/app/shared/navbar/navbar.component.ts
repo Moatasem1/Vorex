@@ -20,8 +20,10 @@ export class NavbarComponent {
 
   navbarItems: NavbarItem[] = [
     { name: 'Home', url: '/home' },
-    { name: 'Crypto Anlysis', url: '/crypto-anlysis' },
-    { name: 'Products', url: '/products' },
+    { name: 'analyze', url: '/analyze' },
+    { name: 'history', url: '/history' },
+    { name: 'compare', url: '/compare' },
+    { name: 'favorites', url: '/favorites' },
   ];
 
   //service
