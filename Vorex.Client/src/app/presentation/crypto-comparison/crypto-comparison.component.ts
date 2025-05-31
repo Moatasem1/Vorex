@@ -34,37 +34,7 @@ export class CryptoComparisonComponent {
   private _toastService = inject(ToastrService);
 
   ngOnInit() {
-    // this.fetchCompares();
-    this.cryptoCompares = [
-      {
-        cryptoAnlysisHistoryId: '1',
-        cryptoName: 'Bitcoin',
-        investAmount: 1000,
-        holdingDays: 60,
-        risk: 5,
-      },
-      {
-        cryptoAnlysisHistoryId: '2',
-        cryptoName: 'Ethereum',
-        investAmount: 1500,
-        holdingDays: 60,
-        risk: 60,
-      },
-      {
-        cryptoAnlysisHistoryId: '3',
-        cryptoName: 'Litecoin',
-        investAmount: 800,
-        holdingDays: 60,
-        risk: 10,
-      },
-      {
-        cryptoAnlysisHistoryId: '4',
-        cryptoName: 'Ripple',
-        investAmount: 1200,
-        holdingDays: 60,
-        risk: 90,
-      },
-    ] as ICryptoAnlysisCompareItem[];
+    this.fetchCompares();
   }
 
   fetchCompares() {
@@ -86,6 +56,9 @@ export class CryptoComparisonComponent {
       .subscribe({
         next: () => {
           this._toastService.success('', 'Removed from compare successfully');
+          this.cryptoCompares = this.cryptoCompares.filter(
+            (c) => c.cryptoAnlysisHistoryId !== cryptoAnlysisHistoryId
+          );
         },
         error: () => {},
       });

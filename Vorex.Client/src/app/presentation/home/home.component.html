@@ -1,0 +1,71 @@
+<section>
+  <div class="container flex items-stretch gap-24 justify-between page-padding">
+    <div class="w-1/2">
+      <h1 class="text-5xl font-bold mb-4 text-purple-600 flex flex-col gap-1">
+        <span>Master Your</span>
+        <span class="text-zinc-600">Crypto Journey</span>
+      </h1>
+      <p class="text-gray-600 mb-4">Advanced cryptocurrency analysis platform with powerful tools for search, analysis,
+        ROI calculation, and
+        portfolio management
+      </p>
+      <div class="flex gap-3 items-center">
+        <button routerLink="/analyze" class="btn btn--md btn-primary">View all cryptos</button>
+        <button routerLink="/analyze" class="btn btn--md btn-white-outline">Get Started</button>
+      </div>
+    </div>
+    <div class="flex flex-col justify-end w-1/2 relative">
+      <img [src]="coverImages[currentCoverImageIndex].url" class="img-fluid rounded-top" alt="" />
+      <app-search-bar (searchTextChange)="navigateToCryptoAnalysis($event)" size="lg"
+        class="absolute w-full translate-y-1/3 -translate-x-8 shadow-lg shadow-zinc-400 rounded-lg z-10"></app-search-bar>
+    </div>
+  </div>
+</section>
+<section class="page-padding mt-14 bg-purple-50">
+  <div class="container flex items-stretch justify-between gap-8">
+    <div class="flex flex-col items-center gap-2">
+      <h2 class="text-3xl font-bold text-purple-600">199+</h2>
+      <span class="text-sm text-gray-600">Cryptocurrencies</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <h2 class="text-3xl font-bold text-purple-600">24/7</h2>
+      <span class="text-sm text-gray-600">Support</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <h2 class="text-3xl font-bold text-purple-600">100%</h2>
+      <span class="text-sm text-gray-600">Security</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <h2 class="text-3xl font-bold text-purple-600">200+</h2>
+      <span class="text-sm text-gray-600">Users</span>
+    </div>
+  </div>
+</section>
+<section class="py-24">
+  <div class="container">
+    <h2 class="text-3xl font-bold text-purple-600 mb-4 text-center">Powerful Features for Smart Trading
+    </h2>
+    <p class="text-gray-600 mb-8 text-center"> Everything you need to make informed cryptocurrency investment decisions
+    </p>
+    <ul class="grid grid-cols-3 gap-4">
+      @for (feature of features; track feature.title) {
+      <li class="shadow p-5 rounded hover:shadow-lg hover:shadow-zinc-400 hover:scale-105 transition ">
+        <lucide-angular class="my-icon text-purple-600 mb-3" [name]="feature.icon" [size]="40"></lucide-angular>
+        <h5 class="font-semibold text-xl mb-4">{{feature.title}}</h5>
+        <p class="text-gray-600">{{feature.description}}</p>
+      </li>
+      }
+    </ul>
+  </div>
+</section>
+<footer class="bg-zinc-800 py-8">
+  <div class="container flex flex-col items-center gap-4 text-white">
+    <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <div class="p-2 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500">
+        <lucide-icon [img]="TrendingUp" class="my-icon text-white"></lucide-icon>
+      </div>
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Vorex</span>
+    </a>
+    <p class="mb-0">© 2025 Vorex. All rights reserved.</p>
+  </div>
+</footer>

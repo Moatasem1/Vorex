@@ -46,9 +46,9 @@ public class GetAllCryptoAnlysisInCompare
         {
             var user = _userRepo.Find(new UserWithCryptoCompare(request.UserId)).FirstOrDefault();
 
-            var query = from history in cryptoAnlysisHistoryRepo.GetAll().Where(h => h.UserId == request.UserId)
+            var query = from history in cryptoAnlysisHistoryRepo.GetAll().Where(h => h.UserId == request.UserId).ToList()
                         join compare in user!.Comparisons on history.Id equals compare.CryptoAnalysisHistoryId
-                        join crypto in _cryptoRepo.GetAll() on history.CryptoId equals crypto.Id
+                        join crypto in _cryptoRepo.GetAll().ToList() on history.CryptoId equals crypto.Id
                         select new Data
                         {
                             HoldingDays = history.HoldingDays,

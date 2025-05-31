@@ -29,4 +29,10 @@ public class Error
 
     public static Error EmailVerified(string source, string property, string propertyValue) =>
             new(ErrorType.Conflict, "ALREADRY_VERIFIED", source, $"{property}: '{propertyValue}' is already verified please log in");
+
+    public static Error Unauthorized() =>
+           new(ErrorType.Unauthorized, "UN_AUTHORIZED", "JwtMiddleware", "You are not authorized to access this resource. Please log in");
+    public static Error Forbidden() =>
+       new(ErrorType.Forbidden, "FORBIDDEN", "JwtMiddleware", "You do not have permission to access this resource");
+
 }

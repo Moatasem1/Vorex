@@ -43,3 +43,13 @@ export interface IError {
   source: string;
   errorType: number;
 }
+
+export interface Language {
+  name: string;
+  code: string;
+}
+
+export interface ICoverImage {
+  url: string;
+  alt: string;
+}

@@ -21,7 +21,7 @@ export class ApiService {
   get<O>(url: string): Observable<O> {
     return this._httpClient.get<IResponse<O>>(`${this._baseUrl}/${url}`).pipe(
       map((resp) => resp.responseData),
-      catchError(this.handleError)
+      catchError(this.reShapeError)
     );
   }
   post<I, O>(url: string, body: I): Observable<O> {
@@ -29,7 +29,7 @@ export class ApiService {
       .post<IResponse<O>>(`${this._baseUrl}/${url}`, body)
       .pipe(
         map((resp) => resp.responseData),
-        catchError(this.handleError)
+        catchError(this.reShapeError)
       );
   }
 
@@ -38,7 +38,7 @@ export class ApiService {
       .put<IResponse<O>>(`${this._baseUrl}/${url}`, body)
       .pipe(
         map((resp) => resp.responseData),
-        catchError(this.handleError)
+        catchError(this.reShapeError)
       );
   }
 
@@ -49,12 +49,12 @@ export class ApiService {
       .delete<IResponse<O>>(`${this._baseUrl}/${url}`, { body: body })
       .pipe(
         map((resp) => resp.responseData),
-        catchError(this.handleError)
+        catchError(this.reShapeError)
       );
   }
 
   //
-  private handleError(error: HttpErrorResponse): Observable<never> {
+  private reShapeError(error: HttpErrorResponse): Observable<never> {
     const errors = error.error?.responseData.errors;
 
     return throwError(() => errors);

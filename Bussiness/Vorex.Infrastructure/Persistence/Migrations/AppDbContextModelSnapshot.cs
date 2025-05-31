@@ -102,8 +102,8 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("ClosingPrice")
-                        .HasPrecision(18, 18)
-                        .HasColumnType("decimal(18,18)");
+                        .HasPrecision(38, 31)
+                        .HasColumnType("decimal(38,31)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -168,14 +168,10 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid?>("CryptoAnalysisHistoryId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("UserId", "CryptoAnalysisHistoryId");
 
-                    b.HasIndex("CryptoAnalysisHistoryId");
-
-                    b.HasIndex("CryptoAnalysisHistoryId1");
+                    b.HasIndex("CryptoAnalysisHistoryId")
+                        .IsUnique();
 
                     b.ToTable("CryptoComparison");
                 });
@@ -258,8 +254,8 @@ namespace Vorex.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ProfileImage")
                         .HasMaxLength(80)
@@ -311,14 +307,10 @@ namespace Vorex.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Vorex.Domain.User.CryptoComparison", b =>
                 {
                     b.HasOne("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", null)
-                        .WithMany()
-                        .HasForeignKey("CryptoAnalysisHistoryId")
+                        .WithOne()
+                        .HasForeignKey("Vorex.Domain.User.CryptoComparison", "CryptoAnalysisHistoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", null)
-                        .WithMany("Comparisons")
-                        .HasForeignKey("CryptoAnalysisHistoryId1");
 
                     b.HasOne("Vorex.Domain.User.User", null)
                         .WithMany("Comparisons")
@@ -349,11 +341,6 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Vorex.Domain.CryptoAnalyses.CryptoAnalysisHistory", b =>
-                {
-                    b.Navigation("Comparisons");
                 });
 
             modelBuilder.Entity("Vorex.Domain.Cryptos.Crypto", b =>

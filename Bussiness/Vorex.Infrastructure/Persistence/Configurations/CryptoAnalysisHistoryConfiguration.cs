@@ -43,9 +43,9 @@ public class CryptoAnalysisHistoryConfiguration : IEntityTypeConfiguration<Crypt
             .HasForeignKey(x => x.CryptoId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany<CryptoComparison>()
+        builder.HasOne<CryptoComparison>()
            .WithOne()
-          .HasForeignKey(x => x.CryptoAnalysisHistoryId)
+          .HasForeignKey<CryptoComparison>(c=>c.CryptoAnalysisHistoryId)
            .OnDelete(DeleteBehavior.NoAction);
 
         builder.Metadata.AddCheckConstraint("CK_CryptoAnalysisHistory_Amount_Positive", "[Amount] > 0");

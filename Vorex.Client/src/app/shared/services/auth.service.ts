@@ -6,14 +6,16 @@ import { ILoginResponse } from '../../application/auth/models/auth.model';
 })
 export class AuthService {
   private loginResponse?: ILoginResponse;
+  private preferLanguageCode = 'en';
 
   constructor() {}
 
   getLoginResponse(): ILoginResponse | undefined {
     if (!this.loginResponse) {
-      this.loginResponse = JSON.parse(
-        localStorage.getItem('loginResponse') || ''
-      );
+      const stored = localStorage.getItem('loginResponse');
+      if (stored) {
+        this.loginResponse = JSON.parse(stored);
+      }
     }
     return this.loginResponse;
   }
@@ -30,5 +32,26 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getLoginResponse();
+  }
+
+  getFullName() {
+    const loginResponse = this.getLoginResponse();
+    return loginResponse?.firstName + ' ' + loginResponse?.lastName;
+  }
+
+  setPreferLanguageCode(code: string) {
+    this.preferLanguageCode = code;
+    localStorage.setItem(
+      'preferLanguageCode',
+      JSON.stringify(this.preferLanguageCode)
+    );
+  }
+
+  getPreferLanguageCode() {
+    if (this.preferLanguageCode == 'en') {
+      const stored = localStorage.getItem('preferLanguageCode');
+      this.preferLanguageCode = stored ? JSON.parse(stored) : 'en';
+    }
+    return this.preferLanguageCode;
   }
 }

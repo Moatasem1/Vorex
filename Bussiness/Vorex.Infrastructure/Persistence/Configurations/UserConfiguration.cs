@@ -23,7 +23,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.Password)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(100);
 
         builder.Property(u => u.ProfileImage)
             .HasMaxLength(80);

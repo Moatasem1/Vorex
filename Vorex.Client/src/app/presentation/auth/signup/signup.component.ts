@@ -15,7 +15,7 @@ import { ToastrService } from '../../../shared/services/toastr.service';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { IError } from '../../../shared/types/shared.types';
 import { ErrorType } from '../../../shared/constants/shared.constants';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     JsonPipe,
     LoaderComponent,
+    RouterLink,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',

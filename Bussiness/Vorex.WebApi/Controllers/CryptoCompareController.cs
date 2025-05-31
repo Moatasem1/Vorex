@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vorex.Application.Users.Contracts;
@@ -12,6 +13,7 @@ namespace Vorex.WebApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class CryptoCompareController(IMediator mediator, CurrentUserService currentUserService, IUnitOfWork unitOfWork) : ApiControllerBase
     {
         [HttpPost()]

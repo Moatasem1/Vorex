@@ -9,6 +9,7 @@ namespace Vorex.WebApi.Controllers
     [Authorize]
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController(IMediator _mediator) : ApiControllerBase
     {
         

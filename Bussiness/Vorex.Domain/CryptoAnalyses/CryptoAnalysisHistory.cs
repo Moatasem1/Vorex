@@ -20,9 +20,6 @@ public class CryptoAnalysisHistory : BaseEntity, IAggregateRoot
 
     public decimal Risk { get; private set; }
 
-    private readonly List<CryptoComparison> _comparisons = new();
-    public IReadOnlyCollection<CryptoComparison> Comparisons => _comparisons.AsReadOnly();
-
     public static class Factory
     {
         public static Result<CryptoAnalysisHistory, Error> Create(Guid userId, Guid cryptoId, decimal amount, int holdingDays, DateTime submitDate, decimal risk)

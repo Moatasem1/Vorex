@@ -1,10 +1,5 @@
 import { FormControl } from '@angular/forms';
 
-export interface IAuthCoverImage {
-  url: string;
-  alt: string;
-}
-
 export interface ICreateAccountForm {
   firstName: FormControl<string>;
   lastName: FormControl<string>;

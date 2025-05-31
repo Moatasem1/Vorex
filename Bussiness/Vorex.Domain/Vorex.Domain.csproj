@@ -10,4 +10,8 @@
     <Folder Include="CryptoAnalyses\Specifications\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+  </ItemGroup>
+
 </Project>

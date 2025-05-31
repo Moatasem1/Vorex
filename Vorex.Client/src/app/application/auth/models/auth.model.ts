@@ -21,3 +21,17 @@ export interface ILoginResponse {
   firstName: string;
   lastName: string;
 }
+
+export interface IRefreshTokenInput {
+  refreshToken: string;
+}
+
+export interface IRefreshTokenResponse {
+  token: string;
+  refreshToken: string;
+  expiration: Date;
+}
+
+export interface ILogoutInput {
+  refreshToken: string;
+}

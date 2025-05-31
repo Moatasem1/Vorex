@@ -32,7 +32,7 @@ public class CreateUser
         }
     }
 
-    public sealed class Handler(IRepository<Domain.User.User>_userRepo,IEmailService _emailService,IJwtService _jwtService,IOptions<JwtOptions>jwtOptions) : IRequestHandler<Command, Result<Guid, Error>>
+    public sealed class Handler(IRepository<Domain.User.User>_userRepo,IEmailService _emailService,IJwtService _jwtService,IOptions<JwtOptions>jwtOptions,IPasswordHashService passwordHashService) : IRequestHandler<Command, Result<Guid, Error>>
     {
         public Task<Result<Guid, Error>> Handle(Command request, CancellationToken cancellationToken)
         {
@@ -45,6 +45,8 @@ public class CreateUser
             if (user.IsFailure)
                 return Task.FromResult<Result<Guid, Error>>(user.Error);
 
+            user.Value.ChangePassword(passwordHashService.HashPassword(user.Value, user.Value.Password));
+
             _userRepo.Add(user.Value);
 
            var verficationToken= _jwtService.GenerateEmailVerificationToken(user.Value.Id, user.Value.Email);
@@ -54,11 +56,6 @@ public class CreateUser
 
         private Result<bool, Error> CanHandle(Command command)
         {
-           var isUserNameExists = _userRepo.GetAll().Any(x => x.FirstName == command.FirstName && x.LastName == command.LastName);
-
-            if (isUserNameExists)
-              return Error.ValueAlreadyExists(nameof(CreateUser),$"{nameof(Domain.User.User.FirstName)} and {nameof(Domain.User.User.LastName)}",command.FirstName+" "+command.LastName);
-
             var isUserEmailExists = _userRepo.GetAll().Any(x => x.Email == command.Email);
 
             if(isUserEmailExists)

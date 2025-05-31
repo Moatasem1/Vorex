@@ -19,6 +19,7 @@ export function mapCryptoListItemDtoToModel(
     name: crypto.name,
     symbol: crypto.symbol,
     isFavourite: crypto.isFavourite,
+    voltiltlyLevelId: crypto.voltiltlyLevelId,
   };
 }
 

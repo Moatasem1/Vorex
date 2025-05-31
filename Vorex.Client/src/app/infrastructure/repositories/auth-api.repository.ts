@@ -13,6 +13,9 @@ import {
   ICreateAccountInputDto,
   ILoginInputDto,
   ILoginResponseDto,
+  ILogoutInputDto,
+  IRefreshTokenInputDto,
+  IRefreshTokenResponseDto,
   IVerfiyEmailInputDto,
 } from '../dtos/auth.dto';
 import { AuthRepository } from '../../application/auth/repositories/auth.repository';
@@ -43,6 +46,22 @@ export class AuthApiRepository implements AuthRepository {
   login(input: ILoginInputDto): Observable<ILoginResponseDto> {
     return this._apiService.post<ILoginInputDto, ILoginResponseDto>(
       `Auth/login`,
+      input
+    );
+  }
+
+  refreshToken(
+    input: IRefreshTokenInputDto
+  ): Observable<IRefreshTokenResponseDto> {
+    return this._apiService.post<
+      IRefreshTokenInputDto,
+      IRefreshTokenResponseDto
+    >(`Auth/refresh-token`, input);
+  }
+
+  logout(input: ILogoutInputDto): Observable<boolean> {
+    return this._apiService.post<ILogoutInputDto, boolean>(
+      `Auth/logout`,
       input
     );
   }

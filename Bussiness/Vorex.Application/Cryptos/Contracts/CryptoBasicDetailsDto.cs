@@ -8,4 +8,6 @@ public record CryptoBasicDetailsDto
     public required string Symbol { get; init; }
 
     public required bool IsFavourite { get; init; }
+
+    public required int VoltiltlyLevelId { get; init; }
 }

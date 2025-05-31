@@ -32,6 +32,8 @@ public class GetAllCryptos
         public required string Name { get; set; }
         public required string Symbol { get; set; }
         public required bool IsFavourite { get; set; }
+        public required int VoltiltlyLevelId { get; init; }
+
         public CryptoBasicDetailsDto ToCryptoBasicDetailsDto()
         {
             return new CryptoBasicDetailsDto
@@ -40,6 +42,7 @@ public class GetAllCryptos
                 Name = Name,
                 Symbol = Symbol,
                 IsFavourite = IsFavourite,
+                VoltiltlyLevelId = VoltiltlyLevelId
             };
         }
     }
@@ -67,7 +70,8 @@ public class GetAllCryptos
                     Id = x.Id,
                     Name = x.Name,
                     Symbol = x.Symbol,
-                    IsFavourite = userFavoriteCryptoIds.Any(id=>id==x.Id)
+                    IsFavourite = userFavoriteCryptoIds.Any(id=>id==x.Id),
+                    VoltiltlyLevelId = x.VolatilityLevelID,
                 })
                 .ToList();
 

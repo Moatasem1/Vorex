@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vorex.Application;
 using Vorex.Application.CryptoAnalysis.Commands;
@@ -12,6 +13,7 @@ namespace Vorex.WebApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]
+[Authorize]
 public class CryptoAnalysisHistoryController(IUnitOfWork _unitOfWork, IMediator _mediator, CurrentUserService _currentUserService) : ApiControllerBase
 {
     [HttpGet]

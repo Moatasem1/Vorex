@@ -2,6 +2,11 @@ import { Component, input, output } from '@angular/core';
 import { ICryptoListItem } from '../../../application/cryptos/models/crypto.model';
 import { CommonModule, NgClass } from '@angular/common';
 import { Heart, LucideAngularModule } from 'lucide-angular';
+import {
+  getVoltiltlyLevel,
+  getVoltiltlyLevelBackgroundColor,
+  roikBackgroundClassColor,
+} from '../../../shared/helpers/crypto-anlysis.helper';
 
 @Component({
   selector: 'app-crypto-card',
@@ -29,4 +34,8 @@ export class CryptoCardComponent {
 
   emitFavouriteClicked = () =>
     this.fovouriteClicked.emit(this.crypto().isFavourite);
+
+  riskBackgroundClassColor = roikBackgroundClassColor;
+  getVoltiltlyLevel = getVoltiltlyLevel;
+  getVoltiltlyLevelBackgroundColor = getVoltiltlyLevelBackgroundColor;
 }

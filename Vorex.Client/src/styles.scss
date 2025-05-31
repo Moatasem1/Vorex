@@ -103,3 +103,7 @@ input{
     }
   }
 }
+
+.user-dropdown-menu-item{
+  @apply text-gray-500 cursor-pointer p-2 hover:bg-gray-50 w-full text-start rounded-lg transition flex items-center gap-1;
+}

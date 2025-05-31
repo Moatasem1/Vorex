@@ -3,7 +3,7 @@ import { PopupComponent } from '../../../shared/components/popup/popup.component
 import { HumanizeDaysPipe } from '../../../shared/pipes/humanize-days.pipe';
 import { NgClass } from '@angular/common';
 import { IAnaylizeRiskResultModalInput } from '../types/crypto.type';
-import { riskTextClassColor } from '../../../shared/helpers/crypto-anlysis.helper';
+import { roiTextClassColor } from '../../../shared/helpers/crypto-anlysis.helper';
 import { AddCryptoAnlysisToCompareUseCase } from '../../../application/users/use-cases/addCryptoAnlysisToCompare.usecase';
 import { IAddCryptoAnlysisToCompareInput } from '../../../application/users/models/user.model';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
@@ -21,7 +21,7 @@ export class AnalyzeRiskResultModalComponent {
   riskAnaylized = input.required<IAnaylizeRiskResultModalInput>();
   isAddToCompareRequestLoading = signal(false);
 
-  riskClassColor = riskTextClassColor;
+  riskClassColor = roiTextClassColor;
 
   // sevices
   private _addToCompareUseCase = inject(AddCryptoAnlysisToCompareUseCase);

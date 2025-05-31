@@ -15,12 +15,12 @@
   </form>
   <!-- Search Result -->
   <main class="py-8">
-    <span class="text-right block mb-3 text-gray-400 text-sm"> Showing {{filteredCryptos.length}} /
+    <span class="text-right block mb-3 text-gray-400 text-sm"> Showing {{filteredCryptos.length }} /
       <span class="font-semibold">{{paginatedCryptos?.pagination?.totalItems}} results</span>
     </span>
-    <div class="relative grid gap-4" [ngClass]="{'grid-cols-7': filteredCryptos.length>0}">
+    <div class="relative grid  gap-4 content-stretch" [ngClass]="{'grid-cols-5 ': filteredCryptos.length>0}">
       @for (crypto of filteredCryptos; track crypto.id) {
-      <app-crypto-card (fovouriteClicked)="toggleFavourite($event,crypto)"
+      <app-crypto-card class="flex flex-col" (fovouriteClicked)="toggleFavourite($event,crypto)"
         (anayzeRiskClicked)="setSelectedCrypto($event); showAnlysisRiskModal()"
         (historicalDataClicked)="setHistoricalDataModalInput($event); showHistoricalDataModal();"
         [crypto]="crypto"></app-crypto-card>
@@ -35,7 +35,7 @@
 
   <!-- Pagination -->
   @if(paginatedCryptos?.pagination && filteredCryptos.length > 0) {
-  <app-paginator (pageChange)="updatePaginationInputPage($event); this.fetchCryptos()"
+  <app-paginator (pageChange)="updatePaginationInputPage($event); scrollToTop(); this.fetchCryptos()"
     [currentPage]="paginatedCryptos?.pagination?.pageIndex ?? 0"
     [totalPages]="paginatedCryptos?.pagination?.totalPages ?? 0" [visibleBubbles]="3"
     class="mx-auto block w-fit mt-8"></app-paginator>

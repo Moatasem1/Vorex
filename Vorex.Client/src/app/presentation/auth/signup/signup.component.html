@@ -39,12 +39,15 @@
     @if(errorMessage()){
     <div class="text-sm text-red-600 p-2 bg-red-100 rounded text-center">{{errorMessage()}}</div>
     }
-    <span class="text-sm text-purple-400 capitalize">By signing up, you agree to <a class="text-purple-500 underline"
+    <p class="text-sm text-gray-500 cursor-pointer mb-4">Already have an account? <a routerLink="/auth/login"
+        class="text-purple-600 hover:underline">login</a></p>
+
+    <!--  -->
+    <span class="text-xs text-gray-500 capitalize">By signing up, you agree to <a class="text-purple-500 underline"
         href="terms">our
         Terms</a> of Service and <a class="text-purple-500 underline" href="privacy-policy">Privacy Policy</a></span>
-    <!-- {{createAccountForm.value | json}} -->
     <button (click)="creatAccount()" [disabled]="!createAccountForm.valid"
-      class="btn btn--md btn-primary w-full mt-6 flex items-center gap-2">
+      class="btn btn--md btn-primary w-full mt-4 flex items-center gap-2">
       <app-loader [size]="'sm'" *ngIf="isCreateAccountRequestLoading()"></app-loader>
       <span>create account</span>
     </button>

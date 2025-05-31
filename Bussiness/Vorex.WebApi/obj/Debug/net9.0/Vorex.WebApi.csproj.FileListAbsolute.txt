@@ -183,4 +183,5 @@ D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\refint\Vorex.WebApi.dll
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.pdb
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.genruntimeconfig.cache
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\ref\Vorex.WebApi.dll
+D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\Vorex.WebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\GitHub\Vorex\Bussiness\Vorex.WebApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

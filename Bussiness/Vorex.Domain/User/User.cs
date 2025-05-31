@@ -83,12 +83,9 @@ public class User : BaseEntity, IAggregateRoot
         return true;
     }
 
-    public Result<bool,Error> ChangePassword(string newPassword)
+    public Result<bool,Error> ChangePassword(string newHashedPassword)
     {
-        var passwordValidation = ValidatePassword(newPassword);
-        if (passwordValidation.IsFailure) return passwordValidation.Error;
-
-        Password = newPassword;
+        Password = newHashedPassword;
 
         return true;
     }

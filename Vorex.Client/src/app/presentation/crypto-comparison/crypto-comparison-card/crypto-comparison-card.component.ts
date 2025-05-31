@@ -2,8 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { LucideAngularModule, Trash2 } from 'lucide-angular';
 import {
-  riskBackgroundClassColor,
-  riskTextClassColor,
+  roikBackgroundClassColor,
+  roiTextClassColor,
 } from '../../../shared/helpers/crypto-anlysis.helper';
 import { HumanizeDaysPipe } from '../../../shared/pipes/humanize-days.pipe';
 import { ICryptoAnlysisCompareItem } from '../../../application/users/models/user.model';
@@ -20,7 +20,7 @@ export class CryptoComparisonCardComponent {
   removedFromComparison = output<string>();
 
   // services
-  riskClassColor = riskBackgroundClassColor;
+  riskClassColor = roikBackgroundClassColor;
 
   emitRemovedFromComparison() {
     this.removedFromComparison.emit(this.input().cryptoAnlysisHistoryId);

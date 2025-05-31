@@ -52,7 +52,7 @@ export function mapCryptoAnylysisHistoryCompareItemDtoToModel(
     cryptoName: input.cryptoName,
     investAmount: input.investAmount,
     holdingDays: input.holdingDays,
-    risk: input.risk,
+    risk: input.risk * 100,
   };
 }
 

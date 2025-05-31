@@ -7,16 +7,22 @@ import { AuthComponent } from './presentation/auth/auth.component';
 import { authRoutes } from './presentation/auth/auth.routes';
 import { LoginComponent } from './presentation/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
+import { HomeComponent } from './presentation/home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/auth',
+    redirectTo: '/home',
     pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
   },
   {
     path: 'auth',
     component: AuthComponent,
+    data: { hideNavbar: true },
     children: authRoutes,
   },
   {
@@ -40,6 +46,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: LoginComponent,
+    component: HomeComponent,
   },
 ];

@@ -1,13 +1,19 @@
 <div (mouseenter)="toggleHovered()" (mouseleave)="toggleHovered()"
-  class="group relative p-4 bg-white rounded-lg shadow-sm border border-purple-400 text-center hover:text-purple-600 hover:scale-105 hover:shadow-lg transition cursor-pointer"
-  [ngClass]="{'shadow-xl border-2': isHovered}">
+  class="grow group relative p-4 hover:shadow-xl hover:border-2 rounded-lg shadow-sm border border-purple-400 text-center hover:text-purple-600 hover:scale-105 hover:shadow-lg transition cursor-pointer">
   <h3 class="mb-2 font-semibold">{{ crypto().name }}</h3>
-  <p class="text-gray-500 bg-gray-100 rounded-lg p-2 inline text-xs">{{ crypto().symbol }}
-  </p>
+  <div class="flex gap-2 items-center justify-center">
+    <p class="text-gray-500 bg-gray-100 rounded-lg p-2 text-xs">{{ crypto().symbol }}
+    </p>
+    <p [ngClass]="getVoltiltlyLevelBackgroundColor(crypto().voltiltlyLevelId)"
+      class="text-white rounded-lg p-2 text-xs">{{
+      getVoltiltlyLevel(crypto().voltiltlyLevelId) }}
+    </p>
+  </div>
   <footer class="opacity-0 overflow-hidden transition-all duration-300 ease-in-out"
     [ngClass]="{'opacity-100 mt-5': isHovered}" [style]="{'max-height': isHovered ? '200px' : '0'}">
-    <button (click)="emitAnalyzeRisk()" type="button" class="btn  btn--sm btn-primary mb-2 w-full">analyze
-      risk</button>
+    <button name="analyze ROI" (click)="emitAnalyzeRisk()" type="button"
+      class="btn  btn--sm btn-primary mb-2 w-full">analyze
+      ROI</button>
     <button (click)="emitHistoricalData()" type="button" class="btn btn--sm btn-primary-outline w-full">historical
       data</button>
   </footer>
@@ -19,5 +25,4 @@
   <lucide-angular (click)="toggleFavourite(); emitFavouriteClicked();" [img]="Heart" [strokeWidth]="2" [size]="20"
     class="my-icon text-gray-400 absolute end-0 me-1 top-1 fill-red-500 stroke-red-400"></lucide-angular>
   }
-
 </div>

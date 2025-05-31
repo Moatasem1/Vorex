@@ -26,7 +26,7 @@ public class Login
         }
     }
 
-    public sealed class Handler(IRepository<Domain.User.User> _userRepo, IJwtService _jwtService) : IRequestHandler<Command, Result<LoginResponse, Error>>
+    public sealed class Handler(IRepository<Domain.User.User> _userRepo, IJwtService _jwtService,IPasswordHashService passwordHashService) : IRequestHandler<Command, Result<LoginResponse, Error>>
     {
         public Task<Result<LoginResponse, Error>> Handle(Command request, CancellationToken cancellationToken)
         {
@@ -34,7 +34,7 @@ public class Login
             if (canHandle.IsFailure)
                 return Task.FromResult<Result<LoginResponse, Error>>(canHandle.Error);
 
-            var user = _userRepo.Find(new VerifiedUserWithRefreshTokens(request.Email,request.Password)).FirstOrDefault();
+            var user = _userRepo.Find(new VerifiedUserByEmailWithRefreshTokens(request.Email)).FirstOrDefault();
 
             var accessToken = _jwtService.GenerateAccessToken(user!);
             var refreshToken = _jwtService.GenerateRefreshToken();
@@ -61,9 +61,9 @@ public class Login
 
         private Result<bool, Error> CanHandle(Command command)
         {
-            var isUserFound = _userRepo.GetAll().Any(x => x.Email == command.Email && x.Password == command.Password && x.IsEmailConfirmed==true);
+            var user = _userRepo.Find(new VerifiedUserByEmailWithRefreshTokens(command.Email)).FirstOrDefault();
 
-            if (!isUserFound)
+            if (user ==null || !passwordHashService.VerifyPassword(user,command.Password,user.Password))
                 return Error.NotFound(nameof(Login), $"{nameof(Domain.User.User.Email)} or {nameof(Domain.User.User.Password)}", command.Email + " or " + command.Password);
 
             return true;

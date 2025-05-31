@@ -1,6 +1,6 @@
-import { IAuthCoverImage } from './auth.types';
+import { ICoverImage } from '../../shared/types/shared.types';
 
-export const authcoverImages: IAuthCoverImage[] = [
+export const authcoverImages: ICoverImage[] = [
   {
     url: './images/auth/auth-1.jpg',
     alt: 'auth-1',

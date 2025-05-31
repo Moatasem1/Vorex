@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vorex.Application.Users.Contracts.Requests;
 using Vorex.Infrastructure.Persistence.Repositories.interfaces;
@@ -8,6 +9,7 @@ namespace Vorex.WebApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]
+[Authorize]
 public class CryptoFavouriteController(IMediator mediator,IUnitOfWork unitOfWork, CurrentUserService currentUserService) : ApiControllerBase
 {
     [HttpPost()]

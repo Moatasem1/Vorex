@@ -7,7 +7,7 @@ public class UserWithCryptoFavoriteAndCompareList : Specification<User>
     public UserWithCryptoFavoriteAndCompareList(Guid userId)
     {
         Criteria = u => u.Id == userId;
-        //AddInclude(u => u.Comparisons);
+        AddInclude(u => u.Comparisons);
     }
 }
 public class UserWithCryptoCompare : Specification<User>

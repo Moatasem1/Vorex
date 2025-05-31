@@ -3,9 +3,13 @@ import {
   ICreateAccountInputDto,
   ILoginInputDto,
   ILoginResponseDto,
+  ILogoutInputDto,
+  IRefreshTokenInputDto,
+  IRefreshTokenResponseDto,
   IVerfiyEmailInputDto as IVerfiyAccountEmailInputDto,
 } from '../../../infrastructure/dtos/auth.dto';
 import { Observable } from 'rxjs';
+import { IRefreshTokenInput } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,4 +20,9 @@ export abstract class AuthRepository {
     input: IVerfiyAccountEmailInputDto
   ): Observable<boolean>;
   abstract login(input: ILoginInputDto): Observable<ILoginResponseDto>;
+  abstract refreshToken(
+    input: IRefreshTokenInputDto
+  ): Observable<IRefreshTokenResponseDto>;
+
+  abstract logout(input: ILogoutInputDto): Observable<boolean>;
 }

@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { IAuthCoverImage, ICreateAccountForm, ILoginForm } from '../auth.types';
 import { authcoverImages } from '../auth.constant';
 import { CommonModule, NgStyle } from '@angular/common';
 import { LucideAngularModule, TrendingUp } from 'lucide-angular';
@@ -22,6 +21,7 @@ import { LoaderComponent } from '../../../shared/components/loader/loader.compon
 import { LoginUseCase } from '../../../application/auth/usecases/login.usecase';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
+import { ILoginForm } from '../auth.types';
 
 @Component({
   selector: 'app-login',

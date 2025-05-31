@@ -3,6 +3,7 @@ export interface ICryptoListItem {
   name: string;
   symbol: string;
   isFavourite: boolean;
+  voltiltlyLevelId: VolatilityLevel;
 }
 
 export interface IAnalyzeRiskInput {
@@ -26,4 +27,10 @@ export interface ICryptoHistoricalPrice {
   id: string;
   date: Date;
   price: number;
+}
+
+export enum VolatilityLevel {
+  Low = 0,
+  Medium,
+  High,
 }

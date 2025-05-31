@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,9 @@ using Vorex.Application.options;
 using Vorex.Application.services;
 using Vorex.Application.services.interfaces;
 using Vorex.Domain.Interfaces;
+using Vorex.Domain.lib;
 using Vorex.Domain.lib.Interfaces;
+using Vorex.Domain.User;
 using Vorex.Infrastructure.Email;
 using Vorex.Infrastructure.Persistence;
 using Vorex.Infrastructure.Persistence.Repositories;
@@ -87,6 +90,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<EmailTemplateBuilder>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IPasswordHashService,HashPasswordService>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<LoadOptionsValidator>();
@@ -122,7 +127,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     };
 });
 
-
+var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
 builder.Services.AddAuthentication(options =>
 {
@@ -155,20 +160,16 @@ builder.Services.AddAuthentication(options =>
 
             var result = JsonSerializer.Serialize(new
             {
-                
+
                 ResponseData = new
                 {
-                    Errors = new[]
+                    Errors = new Error[]
                     {
-                        new {
-                            Type = "Unauthorized",
-                            Source = "JwtMiddleware",
-                            Message = "You are not authorized to access this resource. Please log in."
-                        }
+                      Error.Unauthorized()
                     }
                 },
                 ApiVersion = "1.0",
-            });
+            }, jsonSerializerOptions);
 
             return context.Response.WriteAsync(result);
         },
@@ -182,18 +183,14 @@ builder.Services.AddAuthentication(options =>
             {
                 ResponseData = new
                 {
-                    Errors = new[]
+                    Errors = new Error[]
                     {
-                        new {
-                            Code = "Forbidden",
-                            Source = "JwtMiddleware",
-                            Message = "You do not have permission to access this resource."
-                        }
+                      Error.Forbidden()
                     }
                 },
                 ApiVersion = "1.0",
 
-            });
+            },jsonSerializerOptions);
 
             return context.Response.WriteAsync(result);
         }

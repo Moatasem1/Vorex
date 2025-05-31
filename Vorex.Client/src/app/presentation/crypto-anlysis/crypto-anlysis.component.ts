@@ -18,7 +18,7 @@ import { PaginatorComponent } from '../../shared/components/paginator/paginator.
 import { CryptoCardComponent } from './crypto-card/crypto-card.component';
 import { PopupComponent } from '../../shared/components/popup/popup.component';
 import { AnalyzeRiskModalComponent } from './analyze-risk-modal/analyze-risk-modal.component';
-import { riskTextClassColor } from '../../shared/helpers/crypto-anlysis.helper';
+import { roiTextClassColor } from '../../shared/helpers/crypto-anlysis.helper';
 import { IOutput } from '../../application/abstraction/output';
 import { HumanizeDaysPipe } from '../../shared/pipes/humanize-days.pipe';
 import { AnalyzeRiskResultModalComponent } from './analyze-risk-result-modal/analyze-risk-result-modal.component';
@@ -31,6 +31,7 @@ import { AddCryptoToFavouriteUseCase } from '../../application/users/use-cases/a
 import { removeCryptoFromFavouriteUseCase } from '../../application/users/use-cases/removeCryptoFromFavourite.usecase';
 import { IAddCryptoToFavoriteInput } from '../../application/users/models/user.model';
 import { ToastrService } from '../../shared/services/toastr.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crypto-anlysis',
@@ -62,17 +63,24 @@ export class CryptoAnlysisComponent {
 
   //services
   GetPaginatedCryptosUseCase = inject(GetPaginatedCryptosUseCase);
+  private _activatedRouter = inject(ActivatedRoute);
 
   constructor() {
     this.paginationInput = {
-      PageSize: 20,
+      PageSize: 40,
       PageIndex: 1,
       SearchValue: '',
     };
   }
 
   ngOnInit() {
-    this.fetchCryptos();
+    this._activatedRouter.queryParams.subscribe((params) => {
+      if (params['search']) {
+        this.searchText = params['search'];
+        this.updatePaginationInputSearchValue();
+      }
+      this.fetchCryptos();
+    });
   }
 
   fetchCryptos() {
@@ -132,6 +140,13 @@ export class CryptoAnlysisComponent {
   hideAnlysisRiskModal() {
     this.anayzeRiskModal.model.hide();
     this.anayzeRiskModal.resetForm();
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   // show risk analysis result feature
