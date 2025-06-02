@@ -35,4 +35,7 @@ public class Error
     public static Error Forbidden() =>
        new(ErrorType.Forbidden, "FORBIDDEN", "JwtMiddleware", "You do not have permission to access this resource");
 
+    public static Error BadRequest(string source,string message) =>
+      new(ErrorType.BadRequest, "BAD_REQUEST",source,message);
+
 }

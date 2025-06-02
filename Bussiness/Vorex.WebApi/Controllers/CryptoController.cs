@@ -22,7 +22,7 @@ namespace Vorex.WebApi.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope<PaginatedResponse<CryptoBasicDetailsDto>>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCryptos([FromQuery] BasicLoadOptions loadOptions)
         {
-            var query = GetAllCryptos.Query.Create(loadOptions.PageIndex, loadOptions.PageSize,loadOptions.SearchValue,_currentUserService.UserId);
+            var query = GetAllCryptos.Query.Create(loadOptions.PageIndex, loadOptions.PageSize,loadOptions.SearchValue, _currentUserService.UserId);
 
             var result = await _mediator.Send(query);
 

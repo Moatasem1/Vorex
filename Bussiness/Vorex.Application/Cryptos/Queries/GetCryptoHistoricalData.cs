@@ -9,7 +9,7 @@ namespace Vorex.Application.Cryptos.Queries;
 
 public class GetCryptoHistoricalData
 {
-    public sealed class Query : IRequest<Result<List<Data>, Error>>
+    public sealed class Query : IRequest<Result<Data, Error>>
     {
         public Guid CryptoId { get; private set; }
 
@@ -29,46 +29,73 @@ public class GetCryptoHistoricalData
 
     public sealed class Data
     {
-        public Guid Id { get; set; }
-        public DateOnly Date { get; set; }
-        public decimal ClosingPrice { get; set; }
+        public DateOnly MinDate { get; set; }
+        public DateOnly MaxDate { get; set; }
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
+        public required List<CryptoHistoricalPriceItemDto> Info { get; set; }
+
         public CryptoHistoricalPriceDto ToCryptoHistoricalPriceDto()
         {
             return new CryptoHistoricalPriceDto
             {
-                Id = Id,
-                Date = Date,
-                ClosingPrice = ClosingPrice
+               MinDate = MinDate,
+               MaxDate = MaxDate,
+               StartDate = StartDate,
+               EndDate = EndDate,
+               Data = Info
             }; 
         }
     }
 
-    public sealed class Handler(IReadOnlyRepository<Domain.Cryptos.Crypto> _cryptoRepo) : IRequestHandler<Query, Result<List<Data>, Error>>
+    public sealed class Handler(IReadOnlyRepository<Domain.Cryptos.Crypto> _cryptoRepo) : IRequestHandler<Query, Result<Data, Error>>
     {
-        public Task<Result<List<Data>, Error>> Handle(Query request, CancellationToken cancellationToken)
+        public Task<Result<Data, Error>> Handle(Query request, CancellationToken cancellationToken)
         {
 
             var crypto = _cryptoRepo.Find(new CryptoWithHistoricalDataSpecification(request.CryptoId)).FirstOrDefault();
 
             if (crypto == null)
-                return Task.FromResult<Result<List<Data>, Error>>
+                return Task.FromResult<Result<Data, Error>>
                     (Error.NotFound(nameof(GetCryptoHistoricalData), nameof(Crypto.Id), request.CryptoId.ToString()));
 
-            var data = crypto.HistoricalPrices
-            .Where(chp =>
-                (!request.StartDate.HasValue || chp.Date >= request.StartDate.Value) &&
-                (!request.EndDate.HasValue || chp.Date <= request.EndDate.Value)
-            )
-            .Select(chp => new Data
+            var dataQuery = crypto.HistoricalPrices;
+
+            Func<HistoricalPrice, bool> condition;
+            if (request.StartDate is null && request.EndDate is null)
             {
-                Id = chp.Id,
-                ClosingPrice = chp.ClosingPrice,
-                Date = chp.Date
-            })
-            .ToList();
+                var endDate = dataQuery.Max(c => c.Date);
+                var startDate = endDate.AddDays(-30);
 
+                condition = chp =>
+                    ( chp.Date >= startDate) &&
+                    (chp.Date <= endDate);
+            }
+            else
+            {
+                condition = chp =>
+                    (!request.StartDate.HasValue || chp.Date >= request.StartDate.Value) &&
+                    (!request.EndDate.HasValue || chp.Date <= request.EndDate.Value);
+            }
 
-            return Task.FromResult<Result<List<Data>, Error>>(data);
+                var data = dataQuery.Where(condition)
+                .Select(chp => new CryptoHistoricalPriceItemDto
+                {
+                    Id = chp.Id,
+                    ClosingPrice = chp.ClosingPrice,
+                    Date = chp.Date
+                }).OrderBy(chp => chp.Date)
+                .ToList();
+
+            var finalResult = new Data {
+                MinDate = dataQuery.Min(d=>d.Date),
+                MaxDate = dataQuery.Max(d=>d.Date),
+                StartDate = data.Min(d=>d.Date),
+                EndDate = data.Max(d=>d.Date),
+                Info = data
+            };
+
+            return Task.FromResult<Result<Data, Error>>(finalResult);
         }
     }
 }

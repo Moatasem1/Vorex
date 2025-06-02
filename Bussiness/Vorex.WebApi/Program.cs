@@ -92,6 +92,8 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<EmailTemplateBuilder>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IPasswordHashService,HashPasswordService>();
+builder.Services.AddScoped<IRoiCalculator,RoiCalculatorService>();
+builder.Services.AddHttpClient<RoiCalculatorService>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<LoadOptionsValidator>();
@@ -198,15 +200,15 @@ builder.Services.AddAuthentication(options =>
 
 });
 
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins(jwtOptions.Audience!) 
+            policy.WithOrigins(jwtOptions.Audience!)
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
 });
 

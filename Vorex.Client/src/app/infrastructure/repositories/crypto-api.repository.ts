@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import {
   IAnalyzeRiskInputDto,
   IAnalyzeRiskResultDto,
+  ICryptoHistoricalPriceDto,
   ICryptoListItemDto,
-  IHistoricalPriceDto,
+  IHistoricalPriceItemDto,
 } from '../dtos/crypto.dto';
 import { ApiService } from '../api.service';
 import { IPaginatedResponse } from '../../shared/types/shared.types';
@@ -37,15 +38,21 @@ export class CryptoApiRepository implements CryptoRepository {
 
   getHistoricalPrices(
     cryptoId: string,
-    startDate?: Date,
-    endDate?: Date
-  ): Observable<IHistoricalPriceDto[]> {
-    let params = startDate
-      ? `?StartDate=${startDate.toISOString()}`
-      : endDate
-      ? `?endDate=${endDate.toISOString()}`
-      : '';
-    return this._apiService.get<IHistoricalPriceDto[]>(
+    startDate?: string,
+    endDate?: string
+  ): Observable<ICryptoHistoricalPriceDto> {
+    let paramsArray = [];
+
+    if (startDate) {
+      paramsArray.push(`StartDate=${startDate}`);
+    }
+    if (endDate) {
+      paramsArray.push(`endDate=${endDate}`);
+    }
+
+    const params = paramsArray.length ? `?${paramsArray.join('&')}` : '';
+
+    return this._apiService.get<ICryptoHistoricalPriceDto>(
       `Crypto/${cryptoId}${params}`
     );
   }

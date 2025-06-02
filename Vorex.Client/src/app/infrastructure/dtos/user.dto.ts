@@ -21,6 +21,7 @@ export interface ICryptoAnlysisCompareItemDto {
   investAmount: number;
   holdingDays: number;
   risk: number;
+  returnOfInvestment: number;
 }
 
 export interface IAddCryptoToFavoriteInputDto {

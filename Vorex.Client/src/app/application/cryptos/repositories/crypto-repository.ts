@@ -2,8 +2,9 @@ import { Observable } from 'rxjs';
 import {
   IAnalyzeRiskInputDto,
   IAnalyzeRiskResultDto,
+  ICryptoHistoricalPriceDto,
   ICryptoListItemDto,
-  IHistoricalPriceDto,
+  IHistoricalPriceItemDto,
 } from '../../../infrastructure/dtos/crypto.dto';
 import { IPaginatedResponse } from '../../../shared/types/shared.types';
 
@@ -21,7 +22,7 @@ export abstract class CryptoRepository {
 
   abstract getHistoricalPrices(
     cryptoId: string,
-    startDate?: Date,
-    endDate?: Date
-  ): Observable<IHistoricalPriceDto[]>;
+    startDate?: string,
+    endDate?: string
+  ): Observable<ICryptoHistoricalPriceDto>;
 }

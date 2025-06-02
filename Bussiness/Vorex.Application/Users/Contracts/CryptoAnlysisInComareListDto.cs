@@ -13,6 +13,7 @@ namespace Vorex.Application.Users.Contracts
         public required decimal InvestAmount { get; init; }
         public required int HoldingDays { get; init; }
 
+        public required decimal ReturnOfInvestment {  get; init; }
         public required decimal Risk { get; init; }
     }
 }

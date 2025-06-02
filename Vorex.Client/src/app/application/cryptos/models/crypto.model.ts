@@ -15,18 +15,27 @@ export interface IAnalyzeRiskInput {
 export interface IAnalyzeRiskResult {
   cryptoAnalysisHistoryId: string;
   risk: number;
+  returnOfInvestment: number;
 }
 
 export interface IGetCryptoHistoricalPricesInput {
   cryptoId: string;
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string;
+  endDate?: string;
 }
 
-export interface ICryptoHistoricalPrice {
+export interface ICryptoHistoricalPriceItem {
   id: string;
   date: Date;
   price: number;
+}
+
+export interface ICryptoHistoricalPrice {
+  minDate: string;
+  maxDate: string;
+  startDate: string;
+  endDate: string;
+  data: ICryptoHistoricalPriceItem[];
 }
 
 export enum VolatilityLevel {

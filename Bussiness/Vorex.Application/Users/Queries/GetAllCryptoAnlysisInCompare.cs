@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Vorex.Application.services.interfaces;
 using Vorex.Application.Users.Contracts;
 using Vorex.Domain.Interfaces;
 using Vorex.Domain.lib;
@@ -26,6 +27,8 @@ public class GetAllCryptoAnlysisInCompare
         public required decimal InvestAmount { get; set; }
         public required int HoldingDays { get; set; }
         public decimal Risk { get; set; }
+        public required decimal ReturnOfInvestment { get; init; }
+
 
         public CryptoAnlysisInComareListDto ToCryptoAnlysisHistoryListDto()
         {
@@ -35,7 +38,8 @@ public class GetAllCryptoAnlysisInCompare
                CryptoName = CryptoName,
                InvestAmount = InvestAmount,
                HoldingDays = HoldingDays,
-               Risk = Risk
+               Risk = Risk,
+               ReturnOfInvestment = ReturnOfInvestment
             };
         }
     }
@@ -56,6 +60,7 @@ public class GetAllCryptoAnlysisInCompare
                             CryptoName = crypto.Name,
                             InvestAmount = history.Amount,
                             Risk = history.Risk,
+                            ReturnOfInvestment = history.Amount * history.Risk + history.Amount 
                         };
 
             return Task.FromResult<Result<List<Data>, Error>>(query.ToList());

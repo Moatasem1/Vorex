@@ -1,7 +1,7 @@
 import {
   IAnalyzeRiskInput,
   IAnalyzeRiskResult,
-  ICryptoHistoricalPrice,
+  ICryptoHistoricalPriceItem,
 } from '../../../application/cryptos/models/crypto.model';
 
 export interface IAnaylizeRiskResultModalInput

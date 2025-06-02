@@ -17,11 +17,11 @@
     <button (click)="emitHistoricalData()" type="button" class="btn btn--sm btn-primary-outline w-full">historical
       data</button>
   </footer>
-  @if (isHovered && !crypto().isFavourite) {
+  @if (!crypto().isFavourite) {
   <lucide-angular (click)="toggleFavourite(); emitFavouriteClicked()" [img]="Heart" [strokeWidth]="2" [size]="20"
     class="my-icon text-gray-400 absolute end-0 me-1 top-1"></lucide-angular>
   }
-  @else if(isHovered && crypto().isFavourite) {
+  @else if( isHovered && crypto().isFavourite) {
   <lucide-angular (click)="toggleFavourite(); emitFavouriteClicked();" [img]="Heart" [strokeWidth]="2" [size]="20"
     class="my-icon text-gray-400 absolute end-0 me-1 top-1 fill-red-500 stroke-red-400"></lucide-angular>
   }

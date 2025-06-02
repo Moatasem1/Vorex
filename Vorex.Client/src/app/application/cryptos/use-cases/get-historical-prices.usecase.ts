@@ -4,6 +4,7 @@ import {
   IAnalyzeRiskInput,
   IAnalyzeRiskResult,
   ICryptoHistoricalPrice,
+  ICryptoHistoricalPriceItem,
   IGetCryptoHistoricalPricesInput,
 } from '../models/crypto.model';
 import { CryptoRepository } from '../repositories/crypto-repository';
@@ -16,15 +17,15 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class GetCryptoHistoricalPricesUseCase
-  implements UseCase<IGetCryptoHistoricalPricesInput, ICryptoHistoricalPrice[]>
+  implements UseCase<IGetCryptoHistoricalPricesInput, ICryptoHistoricalPrice>
 {
   private _cryptoRepository = inject(CryptoRepository);
 
   execute(
     input: IGetCryptoHistoricalPricesInput
-  ): Observable<ICryptoHistoricalPrice[]> {
+  ): Observable<ICryptoHistoricalPrice> {
     return this._cryptoRepository
       .getHistoricalPrices(input.cryptoId, input.startDate, input.endDate)
-      .pipe(map((dtos) => dtos.map(mapCryptoHistoricalPriceDtoToModel)));
+      .pipe(map((dto) => mapCryptoHistoricalPriceDtoToModel(dto)));
   }
 }

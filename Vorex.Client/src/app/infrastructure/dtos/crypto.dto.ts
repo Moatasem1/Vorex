@@ -16,10 +16,19 @@ export interface IAnalyzeRiskInputDto {
 export interface IAnalyzeRiskResultDto {
   cryptoAnalysisHistoryId: string;
   riskValue: number;
+  returnOfInvestment: number;
 }
 
-export interface IHistoricalPriceDto {
+export interface IHistoricalPriceItemDto {
   id: string;
   date: string;
   closingPrice: number;
+}
+
+export interface ICryptoHistoricalPriceDto {
+  minDate: string;
+  maxDate: string;
+  startDate: string;
+  endDate: string;
+  data: IHistoricalPriceItemDto[];
 }

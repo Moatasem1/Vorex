@@ -15,7 +15,7 @@ public class HistoricalPriceConfiguration : IEntityTypeConfiguration<HistoricalP
 
         builder.Property(hp => hp.ClosingPrice)
             .IsRequired()
-            .HasPrecision(38, 31);
+            .HasPrecision(18, 8);
 
         builder.Property(hp => hp.CreatedAt)
             .IsRequired()

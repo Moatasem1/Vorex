@@ -17,7 +17,7 @@ public class CryptoFavouriteController(IMediator mediator,IUnitOfWork unitOfWork
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddCryptoToFavorite(AddCryptoToFavouriteRequest request)
     {
-        var command = Application.Users.Commands.AddCryptoToFavourite.Command.Create(request.CryptoId, currentUserService.UserId);
+        var command = Application.Users.Commands.AddCryptoToFavourite.Command.Create(request.CryptoId, currentUserService.UserId!.Value);
 
         var result = await mediator.Send(command);
 
@@ -32,7 +32,7 @@ public class CryptoFavouriteController(IMediator mediator,IUnitOfWork unitOfWork
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RemoveCryptoToFavorite(Guid cryptoId)
     {
-        var command = Application.Users.Commands.RemoveCryptoFromFavourite.Command.Create(cryptoId, currentUserService.UserId);
+        var command = Application.Users.Commands.RemoveCryptoFromFavourite.Command.Create(cryptoId, currentUserService.UserId!.Value);
 
         var result = await mediator.Send(command);
 
@@ -47,7 +47,7 @@ public class CryptoFavouriteController(IMediator mediator,IUnitOfWork unitOfWork
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetFavouriteCrypto()
     {
-        var command = Application.Users.Queries.GetAllFavouriteCrypto.Query.Create(currentUserService.UserId);
+        var command = Application.Users.Queries.GetAllFavouriteCrypto.Query.Create(currentUserService.UserId!.Value);
 
         var result = await mediator.Send(command);
 

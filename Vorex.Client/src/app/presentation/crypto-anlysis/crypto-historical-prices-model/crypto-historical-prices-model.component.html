@@ -1,6 +1,23 @@
 <app-popup [isPopupLoading]="isCryptoHistoricalPricesLoading()" (popupClosed)="emitModelClosed()" [width]="1200"
   [title]="'Historical Data'">
+  @if(!isCryptoHistoricalPricesLoading()){
+  <form class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+      <input [min]="minDate" [(ngModel)]="startDate" name="startDate" class="text-sm" type="date" id="startDate">
+      <span>to</span>
+      <input [max]="maxDate" [(ngModel)]="endDate" name="endDate" class="text-sm" type="date" id="endDate">
+    </div>
+    <button (click)="updateGraph()" class="btn btn--md btn-primary flex items-center gap-2">
+      @if(isCryptoHistoricalPricesUpdateLoading()) {
+      <app-loader [size]="'sm'"></app-loader>
+      }
+      <span>update</span>
+    </button>
+  </form>
+  }
   @if(!isCryptoHistoricalPricesLoading() ){
-  <canvas #chart></canvas>
+  <div class="w-full overflow-x-scroll">
+    <canvas #chart></canvas>
+  </div>
   }
 </app-popup>

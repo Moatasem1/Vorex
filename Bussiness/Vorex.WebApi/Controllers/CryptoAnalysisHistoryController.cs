@@ -21,7 +21,7 @@ public class CryptoAnalysisHistoryController(IUnitOfWork _unitOfWork, IMediator 
     [ProducesResponseType(typeof(ResponseEnvelope<List<CryptoAnalysisHistoryDto>>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetCryptosAnlysisHistory([FromQuery] AdvanceLoadOptions loadOptions)
     {
-        var query = GetAllCryptoAnylsisHistoryRecords.Query.Create(_currentUserService.UserId, loadOptions.PageIndex, loadOptions.PageSize, loadOptions.SearchValue, loadOptions.StartDate, loadOptions.EndDate);
+        var query = GetAllCryptoAnylsisHistoryRecords.Query.Create(_currentUserService.UserId!.Value, loadOptions.PageIndex, loadOptions.PageSize, loadOptions.SearchValue, loadOptions.StartDate, loadOptions.EndDate);
 
         var result = await _mediator.Send(query);
 
@@ -34,7 +34,7 @@ public class CryptoAnalysisHistoryController(IUnitOfWork _unitOfWork, IMediator 
     [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteHistoryRecords(DeleteCryptoAnlysisHistoryRecordsRequest request)
     {
-        var command = DeleteCryptoAnalysisHistoryRecords.Command.Create(_currentUserService.UserId,request.Ids);
+        var command = DeleteCryptoAnalysisHistoryRecords.Command.Create(_currentUserService.UserId!.Value,request.Ids);
 
         var result = await _mediator.Send(command);
 
@@ -50,7 +50,7 @@ public class CryptoAnalysisHistoryController(IUnitOfWork _unitOfWork, IMediator 
     /*still we need to remove favourites and comparsion list*/
     public async Task<IActionResult> ClearHistory()
     {
-        var command = ClearCryptoAnalysisHistory.Command.Create(_currentUserService.UserId);
+        var command = ClearCryptoAnalysisHistory.Command.Create(_currentUserService.UserId!.Value);
 
         var result = await _mediator.Send(command);
 

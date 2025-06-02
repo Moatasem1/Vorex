@@ -8,6 +8,7 @@ import { AddCryptoAnlysisToCompareUseCase } from '../../../application/users/use
 import { IAddCryptoAnlysisToCompareInput } from '../../../application/users/models/user.model';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { ToastrService } from '../../../shared/services/toastr.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-analyze-risk-result-modal',
@@ -26,8 +27,17 @@ export class AnalyzeRiskResultModalComponent {
   // sevices
   private _addToCompareUseCase = inject(AddCryptoAnlysisToCompareUseCase);
   private _toastService = inject(ToastrService);
+  private _authService = inject(AuthService);
 
   addToCompare() {
+    if (!this._authService.isAuthenticated()) {
+      this._toastService.error(
+        'please login first',
+        'to add analysis result to compare'
+      );
+      return;
+    }
+
     let input = {
       cryptoAnlysisHistoryIds: [this.riskAnaylized().cryptoAnalysisHistoryId],
     } as IAddCryptoAnlysisToCompareInput;

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vorex.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ace858add6ae14c09a1a500356fc7cdf87342206")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbb7a7f94b373fbc8daf2451df61280c5000e130")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vorex.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vorex.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

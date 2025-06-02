@@ -1,9 +1,14 @@
-<app-popup [preventClose]="isAddToCompareRequestLoading()" [title]="'Risk Value'">
+<app-popup [preventClose]="isAddToCompareRequestLoading()" [title]="'ROI Value'">
   <h3 class="text-2xl text-center font-semibold">{{riskAnaylized().cryptoName}}</h3>
-  <div class="flex items-center justify-center gap-2 my-4">
-    <span class="text-xs text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{riskAnaylized().investmentAmount}}$</span>
-    <span class="text-xs text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{60 |
+  <div class="flex flex-col items-center justify-center gap-4 my-4">
+    <span class="block text-xs text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{30 |
       humanizeDays}}</span>
+    <div class="flex items-center gap-2">
+      <span class="text-sm text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{riskAnaylized().investmentAmount}}$</span>
+      <span class="text-sm text-gray-600 bg-gray-100 px-2 py-2 rounded-md">to</span>
+      <span
+        class="text-sm text-gray-600 bg-gray-100 px-2 py-2 rounded-md">{{riskAnaylized().returnOfInvestment}}$</span>
+    </div>
   </div>
   <h5 class="font-semibold text-3xl text-center" [ngClass]="riskClassColor(riskAnaylized().risk)">
     {{riskAnaylized().risk}}%</h5>

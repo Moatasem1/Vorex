@@ -22,6 +22,7 @@ export interface ICryptoAnlysisCompareItem {
   investAmount: number;
   holdingDays: number;
   risk: number;
+  returnOfInvestment: number;
 }
 export interface IAddCryptoToFavoriteInput {
   cryptoId: string;

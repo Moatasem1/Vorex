@@ -6,7 +6,7 @@ import { GetPaginatedCryptosUseCase } from '../../application/cryptos/use-cases/
 import {
   IAnalyzeRiskInput,
   IAnalyzeRiskResult,
-  ICryptoHistoricalPrice,
+  ICryptoHistoricalPriceItem,
   ICryptoListItem,
 } from '../../application/cryptos/models/crypto.model';
 import { JsonPipe, NgClass } from '@angular/common';
@@ -32,6 +32,8 @@ import { removeCryptoFromFavouriteUseCase } from '../../application/users/use-ca
 import { IAddCryptoToFavoriteInput } from '../../application/users/models/user.model';
 import { ToastrService } from '../../shared/services/toastr.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { PlzLoginModalComponent } from '../../shared/components/plz-login-modal/plz-login-modal.component';
 
 @Component({
   selector: 'app-crypto-anlysis',
@@ -45,6 +47,7 @@ import { ActivatedRoute } from '@angular/router';
     AnalyzeRiskModalComponent,
     AnalyzeRiskResultModalComponent,
     CryptoHistoricalPricesModelComponent,
+    PlzLoginModalComponent,
   ],
   templateUrl: './crypto-anlysis.component.html',
   styleUrl: './crypto-anlysis.component.scss',
@@ -220,7 +223,15 @@ export class CryptoAnlysisComponent {
     });
   }
 
+  private _authService = inject(AuthService);
+  @ViewChild(PlzLoginModalComponent)
+  PlzLoginModalComponent!: PlzLoginModalComponent;
+
   toggleFavourite(isFavourite: boolean, crypto: ICryptoListItem) {
+    if (!this._authService.isAuthenticated()) {
+      this.PlzLoginModalComponent.modal.show();
+      return;
+    }
     isFavourite
       ? this.addCryptoToFavourite(crypto)
       : this.removeCryptoFromFavourite(crypto);

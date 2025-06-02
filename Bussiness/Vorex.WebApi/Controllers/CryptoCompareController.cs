@@ -21,7 +21,7 @@ namespace Vorex.WebApi.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddCryptoAnylsisToCompareList(AddCryptoAnlysisToCompareRequest request)
         {
-            var command = Application.Users.Commands.AddCryptoAnylsisToCompare.Command.Create(request.CryptoAnlysisHistoryIds, currentUserService.UserId);
+            var command = Application.Users.Commands.AddCryptoAnylsisToCompare.Command.Create(request.CryptoAnlysisHistoryIds, currentUserService.UserId!.Value);
 
             var result = await mediator.Send(command);
 
@@ -38,7 +38,7 @@ namespace Vorex.WebApi.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope<CryptoAnlysisInComareListDto>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCompareList()
         {
-            var query = GetAllCryptoAnlysisInCompare.Query.Create(currentUserService.UserId);
+            var query = GetAllCryptoAnlysisInCompare.Query.Create(currentUserService.UserId!.Value);
 
             var result = await mediator.Send(query);
 
@@ -50,7 +50,7 @@ namespace Vorex.WebApi.Controllers
         [ProducesResponseType(typeof(ResponseEnvelope<bool>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RemoveFromCompareList(Guid cryptoAnlysisHistoryId)
         {
-            var command = Application.Users.Commands.DeleteCryptoAnlysisComparItem.Command.Create(currentUserService.UserId,cryptoAnlysisHistoryId);
+            var command = Application.Users.Commands.DeleteCryptoAnlysisComparItem.Command.Create(currentUserService.UserId!.Value,cryptoAnlysisHistoryId);
 
             var result = await mediator.Send(command);
 

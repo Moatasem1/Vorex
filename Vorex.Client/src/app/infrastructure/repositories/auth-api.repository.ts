@@ -5,7 +5,7 @@ import {
   IAnalyzeRiskInputDto,
   IAnalyzeRiskResultDto,
   ICryptoListItemDto,
-  IHistoricalPriceDto,
+  IHistoricalPriceItemDto,
 } from '../dtos/crypto.dto';
 import { ApiService } from '../api.service';
 import { IPaginatedResponse } from '../../shared/types/shared.types';

@@ -102,8 +102,8 @@ namespace Vorex.Infrastructure.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("ClosingPrice")
-                        .HasPrecision(38, 31)
-                        .HasColumnType("decimal(38,31)");
+                        .HasPrecision(18, 8)
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()

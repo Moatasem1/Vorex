@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { ICryptoListItem } from '../../../application/cryptos/models/crypto.model';
 import { CommonModule, NgClass } from '@angular/common';
 import { Heart, LucideAngularModule } from 'lucide-angular';
@@ -7,6 +7,7 @@ import {
   getVoltiltlyLevelBackgroundColor,
   roikBackgroundClassColor,
 } from '../../../shared/helpers/crypto-anlysis.helper';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-crypto-card',
@@ -22,6 +23,9 @@ export class CryptoCardComponent {
   historicalDataClicked = output<ICryptoListItem>();
   fovouriteClicked = output<boolean>();
   isHovered = false;
+
+  //services
+  authService = inject(AuthService);
 
   toggleHovered = () => (this.isHovered = !this.isHovered);
 

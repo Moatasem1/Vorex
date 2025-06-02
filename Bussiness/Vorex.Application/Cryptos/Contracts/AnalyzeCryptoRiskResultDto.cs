@@ -2,6 +2,8 @@
 
 public record AnalyzeCryptoRiskResultDto
 {
-    public Guid CryptoAnalysisHistoryId { get; init; }
-    public decimal RiskValue { get; init; }
+    public required Guid CryptoAnalysisHistoryId { get; init; }
+    public required decimal RiskValue { get; init; }
+
+    public required decimal ReturnOfInvestment { get; init; }
 }
